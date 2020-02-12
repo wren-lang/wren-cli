@@ -1,3 +1,9 @@
+# Wren CLI
+
+## The CLI project is a small and simple REPL and CLI tool for running Wren scripts.
+
+It is backed by [libuv][http://libuv.org/] to implement IO functionality, and is a work in progress.
+
 ## Wren is a small, fast, class-based concurrent scripting language
 
 Think Smalltalk in a Lua-sized package with a dash of Erlang and wrapped up in
