@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="deps">
+      <UniqueIdentifier>{F1A1957C-DDD8-960D-86C5-7C1072DB120F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\libuv">
+      <UniqueIdentifier>{E2A29D25-CE5A-DF72-3762-B8CE23397A63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\libuv\include">
+      <UniqueIdentifier>{558C8802-4170-4958-AAD0-43AB96D333DA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\libuv\include\uv">
+      <UniqueIdentifier>{AF7F7CA2-1BEC-379D-E4DF-CFFA500B5A05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\libuv\src">
+      <UniqueIdentifier>{F901B42F-E5CF-A735-CE63-185CBAD0839A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\libuv\src\win">
+      <UniqueIdentifier>{7624820D-6208-4363-CB68-3DB6B76B2DE5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\wren">
+      <UniqueIdentifier>{BC330366-289E-B7DC-71DC-6882DD859531}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\wren\include">
+      <UniqueIdentifier>{2F577609-9B6D-749F-E4E4-FFC0503A4527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\wren\src">
+      <UniqueIdentifier>{D36FCA57-3F30-468E-086B-8F0B74EA8A6A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\wren\src\optional">
+      <UniqueIdentifier>{28C3CC3B-14BD-F58D-FD29-8C9EE9C25BFA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\wren\src\vm">
+      <UniqueIdentifier>{859ADCF8-7193-FB4A-9AC5-E0CF861DDB56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\cli">
+      <UniqueIdentifier>{F4F22FA9-60D2-AE44-69EA-391BD54815A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\module">
+      <UniqueIdentifier>{62A0916B-4E58-D3B8-B75F-AC14A3366EA9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\deps\libuv\include\uv.h">
+      <Filter>deps\libuv\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\aix.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\android-ifaddrs.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\bsd.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\darwin.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\errno.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\linux.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\os390.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\posix.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\stdint-msvc2008.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\sunos.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\threadpool.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\tree.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\unix.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\version.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\include\uv\win.h">
+      <Filter>deps\libuv\include\uv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\heap-inl.h">
+      <Filter>deps\libuv\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\idna.h">
+      <Filter>deps\libuv\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\queue.h">
+      <Filter>deps\libuv\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\strscpy.h">
+      <Filter>deps\libuv\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\uv-common.h">
+      <Filter>deps\libuv\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\win\atomicops-inl.h">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\win\fs-fd-hash-inl.h">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\win\handle-inl.h">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\win\internal.h">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\win\req-inl.h">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\win\stream-inl.h">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\win\winapi.h">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\libuv\src\win\winsock.h">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\include\wren.h">
+      <Filter>deps\wren\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\optional\wren_opt_meta.h">
+      <Filter>deps\wren\src\optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\optional\wren_opt_random.h">
+      <Filter>deps\wren\src\optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_common.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_compiler.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_core.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_debug.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_opcodes.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_primitive.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_utils.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_value.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_vm.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cli\modules.h">
+      <Filter>src\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cli\path.h">
+      <Filter>src\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cli\stat.h">
+      <Filter>src\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cli\vm.h">
+      <Filter>src\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\module\io.h">
+      <Filter>src\module</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\module\os.h">
+      <Filter>src\module</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\module\repl.h">
+      <Filter>src\module</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\module\scheduler.h">
+      <Filter>src\module</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\deps\libuv\src\fs-poll.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\idna.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\inet.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\random.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\strscpy.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\threadpool.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\timer.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\uv-common.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\uv-data-getter-setters.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\version.c">
+      <Filter>deps\libuv\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\async.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\core.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\detect-wakeup.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\dl.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\error.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\fs-event.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\fs.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\getaddrinfo.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\getnameinfo.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\handle.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\loop-watcher.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\pipe.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\poll.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\process-stdio.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\process.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\signal.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\snprintf.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\stream.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\tcp.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\thread.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\tty.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\udp.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\util.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\winapi.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\libuv\src\win\winsock.c">
+      <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren\src\optional\wren_opt_meta.c">
+      <Filter>deps\wren\src\optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren\src\optional\wren_opt_random.c">
+      <Filter>deps\wren\src\optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_compiler.c">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_core.c">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_debug.c">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_primitive.c">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_utils.c">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_value.c">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_vm.c">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cli\main.c">
+      <Filter>src\cli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cli\modules.c">
+      <Filter>src\cli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cli\path.c">
+      <Filter>src\cli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cli\vm.c">
+      <Filter>src\cli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\module\io.c">
+      <Filter>src\module</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\module\os.c">
+      <Filter>src\module</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\module\repl.c">
+      <Filter>src\module</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\module\scheduler.c">
+      <Filter>src\module</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\module\timer.c">
+      <Filter>src\module</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\module\io.wren.inc">
+      <Filter>src\module</Filter>
+    </None>
+    <None Include="..\..\src\module\os.wren.inc">
+      <Filter>src\module</Filter>
+    </None>
+    <None Include="..\..\src\module\repl.wren.inc">
+      <Filter>src\module</Filter>
+    </None>
+    <None Include="..\..\src\module\scheduler.wren.inc">
+      <Filter>src\module</Filter>
+    </None>
+    <None Include="..\..\src\module\timer.wren.inc">
+      <Filter>src\module</Filter>
+    </None>
+  </ItemGroup>
+</Project>
