@@ -13,13 +13,13 @@ int main(int argc, const char* argv[])
     printf("  --help  Show command line usage\n");
     return 0;
   }
-  
+
   if (argc == 2 && strcmp(argv[1], "--version") == 0)
   {
     printf("wren %s\n", WREN_VERSION_STRING);
     return 0;
   }
-  
+
   osSetArguments(argc, argv);
 
   WrenInterpretResult result;
@@ -35,6 +35,6 @@ int main(int argc, const char* argv[])
   // Exit with an error code if the script failed.
   if (result == WREN_RESULT_COMPILE_ERROR) return 65; // EX_DATAERR.
   if (result == WREN_RESULT_RUNTIME_ERROR) return 70; // EX_SOFTWARE.
-  
+
   return getExitCode();
 }
