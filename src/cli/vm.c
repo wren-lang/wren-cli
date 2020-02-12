@@ -69,7 +69,8 @@ static bool isDirectory(Path* path)
   uv_fs_stat(loop, &request, path->chars, NULL);
   // TODO: Check request.result value?
   
-  bool result = request.result == 0 && S_ISDIR(request.statbuf.st_mode);
+  bool result = request.result == 0 && 
+      (request.statbuf.st_mode & S_IFDIR);
   
   uv_fs_req_cleanup(&request);
   return result;
