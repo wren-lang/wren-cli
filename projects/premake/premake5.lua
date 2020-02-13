@@ -70,18 +70,60 @@ project "wren_cli"
     "../../deps/libuv/src/*.h"
   }
 
+  -- unix common files
+  filter "system:not windows"
+    files {
+      "../../deps/libuv/src/unix/async.c",
+      "../../deps/libuv/src/unix/atomic-ops.h",
+      "../../deps/libuv/src/unix/core.c",
+      "../../deps/libuv/src/unix/dl.c",
+      "../../deps/libuv/src/unix/fs.c",
+      "../../deps/libuv/src/unix/getaddrinfo.c",
+      "../../deps/libuv/src/unix/getnameinfo.c",
+      "../../deps/libuv/src/unix/internal.h",
+      "../../deps/libuv/src/unix/loop-watcher.c",
+      "../../deps/libuv/src/unix/loop.c",
+      "../../deps/libuv/src/unix/pipe.c",
+      "../../deps/libuv/src/unix/poll.c",
+      "../../deps/libuv/src/unix/process.c",
+      "../../deps/libuv/src/unix/random-devurandom.c",
+      "../../deps/libuv/src/unix/signal.c",
+      "../../deps/libuv/src/unix/spinlock.h",
+      "../../deps/libuv/src/unix/stream.c",
+      "../../deps/libuv/src/unix/tcp.c",
+      "../../deps/libuv/src/unix/thread.c",
+      "../../deps/libuv/src/unix/tty.c",
+      "../../deps/libuv/src/unix/udp.c",
+    }
+
+  -- todo: this has to be tested
   filter "system:macosx"
     systemversion "10.12"
-    defines { "_DARWIN_USE_64_BIT_INODE", "_DARWIN_UNLIMITED_SELECT" }
-    links {
-      "iconv", "z", "bz2",
-      "Foundation.framework", "AppKit.framework",
-      "Cocoa.framework", "Carbon.framework", "IOKit.framework",
-      "ForceFeedback.framework", "CoreVideo.framework"
+    defines { "_DARWIN_USE_64_BIT_INODE=1", "_DARWIN_UNLIMITED_SELECT=1" }
+    files {
+      "../../deps/libuv/src/unix/bsd-ifaddrs.c",
+      "../../deps/libuv/src/unix/darwin.c",
+      "../../deps/libuv/src/unix/darwin-proctitle.c",
+      "../../deps/libuv/src/unix/fsevents.c",
+      "../../deps/libuv/src/unix/kqueue.c",
+      "../../deps/libuv/src/unix/proctitle.c",
+      "../../deps/libuv/src/unix/random-getentropy.c",
     }
 
   filter "system:linux"
-    links { "pthread", "dl" }
+    links { "pthread", "dl", "m" }
+    defines { "_GNU_SOURCE" }
+    files {
+      "../../deps/libuv/src/unix/linux-core.c",
+      "../../deps/libuv/src/unix/linux-inotify.c",
+      "../../deps/libuv/src/unix/linux-syscalls.c",
+      "../../deps/libuv/src/unix/linux-syscalls.h",
+      "../../deps/libuv/src/unix/procfs-exepath.c",
+      "../../deps/libuv/src/unix/proctitle.c",
+      "../../deps/libuv/src/unix/random-getrandom.c",
+      "../../deps/libuv/src/unix/random-sysctl-linux.c",
+      "../../deps/libuv/src/unix/sysinfo-loadavg.c"
+    }
 
   filter "system:windows"
     -- for some reason, OPT:REF makes a GetModuleHandleA fail
@@ -91,4 +133,15 @@ project "wren_cli"
     files {
       "../../deps/libuv/src/win/*.h",
       "../../deps/libuv/src/win/*.c"
+    }
+
+  -- todo: this hasn't been tested
+  filter "system:freebsd"
+    files {
+      "../../deps/libuv/src/unix/bsd-ifaddrs.c",
+      "../../deps/libuv/src/unix/bsd-proctitle.c",
+      "../../deps/libuv/src/unix/freebsd.c",
+      "../../deps/libuv/src/unix/kqueue.c",
+      "../../deps/libuv/src/unix/posix-hrtime.c",
+      "../../deps/libuv/src/unix/random-getrandom.c",
     }
