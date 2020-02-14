@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release 64bit|x64">
+      <Configuration>Release 64bit</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release 64bit|Win32">
+      <Configuration>Release 64bit</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release 32bit|x64">
+      <Configuration>Release 32bit</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release 32bit|Win32">
+      <Configuration>Release 32bit</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug 64bit|x64">
+      <Configuration>Debug 64bit</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug 64bit|Win32">
+      <Configuration>Debug 64bit</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug 32bit|x64">
+      <Configuration>Debug 32bit</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug 32bit|Win32">
+      <Configuration>Debug 32bit</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>wren_cli</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release 64bit|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release 32bit|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 64bit|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 32bit|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug 32bit|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug 64bit|Win32'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release 64bit|Win32'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release 32bit|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release 64bit|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release 32bit|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug 64bit|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug 32bit|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release 64bit|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\bin\</OutDir>
+    <IntDir>obj\64bit\Release\</IntDir>
+    <TargetName>wren_cli</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release 32bit|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\bin\</OutDir>
+    <IntDir>obj\32bit\Release\</IntDir>
+    <TargetName>wren_cli</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 64bit|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\bin\</OutDir>
+    <IntDir>obj\64bit\Debug\</IntDir>
+    <TargetName>wren_cli_d</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug 32bit|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\bin\</OutDir>
+    <IntDir>obj\32bit\Debug\</IntDir>
+    <TargetName>wren_cli_d</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release 64bit|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>imm32.lib;winmm.lib;version.lib;wldap32.lib;ws2_32.lib;psapi.lib;iphlpapi.lib;userenv.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/OPT:NOREF %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release 32bit|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>imm32.lib;winmm.lib;version.lib;wldap32.lib;ws2_32.lib;psapi.lib;iphlpapi.lib;userenv.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/OPT:NOREF %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug 64bit|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>imm32.lib;winmm.lib;version.lib;wldap32.lib;ws2_32.lib;psapi.lib;iphlpapi.lib;userenv.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/OPT:NOREF %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug 32bit|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>imm32.lib;winmm.lib;version.lib;wldap32.lib;ws2_32.lib;psapi.lib;iphlpapi.lib;userenv.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/OPT:NOREF %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\deps\libuv\include\uv.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\aix.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\android-ifaddrs.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\bsd.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\darwin.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\errno.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\linux.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\os390.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\posix.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\stdint-msvc2008.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\sunos.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\threadpool.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\tree.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\unix.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\version.h" />
+    <ClInclude Include="..\..\deps\libuv\include\uv\win.h" />
+    <ClInclude Include="..\..\deps\libuv\src\heap-inl.h" />
+    <ClInclude Include="..\..\deps\libuv\src\idna.h" />
+    <ClInclude Include="..\..\deps\libuv\src\queue.h" />
+    <ClInclude Include="..\..\deps\libuv\src\strscpy.h" />
+    <ClInclude Include="..\..\deps\libuv\src\uv-common.h" />
+    <ClInclude Include="..\..\deps\libuv\src\win\atomicops-inl.h" />
+    <ClInclude Include="..\..\deps\libuv\src\win\fs-fd-hash-inl.h" />
+    <ClInclude Include="..\..\deps\libuv\src\win\handle-inl.h" />
+    <ClInclude Include="..\..\deps\libuv\src\win\internal.h" />
+    <ClInclude Include="..\..\deps\libuv\src\win\req-inl.h" />
+    <ClInclude Include="..\..\deps\libuv\src\win\stream-inl.h" />
+    <ClInclude Include="..\..\deps\libuv\src\win\winapi.h" />
+    <ClInclude Include="..\..\deps\libuv\src\win\winsock.h" />
+    <ClInclude Include="..\..\deps\wren\include\wren.h" />
+    <ClInclude Include="..\..\deps\wren\src\optional\wren_opt_meta.h" />
+    <ClInclude Include="..\..\deps\wren\src\optional\wren_opt_random.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_common.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_compiler.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_core.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_debug.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_opcodes.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_primitive.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_utils.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_value.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_vm.h" />
+    <ClInclude Include="..\..\src\cli\modules.h" />
+    <ClInclude Include="..\..\src\cli\path.h" />
+    <ClInclude Include="..\..\src\cli\stat.h" />
+    <ClInclude Include="..\..\src\cli\vm.h" />
+    <ClInclude Include="..\..\src\module\io.h" />
+    <ClInclude Include="..\..\src\module\os.h" />
+    <ClInclude Include="..\..\src\module\repl.h" />
+    <ClInclude Include="..\..\src\module\scheduler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\deps\libuv\src\fs-poll.c" />
+    <ClCompile Include="..\..\deps\libuv\src\idna.c" />
+    <ClCompile Include="..\..\deps\libuv\src\inet.c" />
+    <ClCompile Include="..\..\deps\libuv\src\random.c" />
+    <ClCompile Include="..\..\deps\libuv\src\strscpy.c" />
+    <ClCompile Include="..\..\deps\libuv\src\threadpool.c" />
+    <ClCompile Include="..\..\deps\libuv\src\timer.c" />
+    <ClCompile Include="..\..\deps\libuv\src\uv-common.c" />
+    <ClCompile Include="..\..\deps\libuv\src\uv-data-getter-setters.c" />
+    <ClCompile Include="..\..\deps\libuv\src\version.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\async.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\core.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\detect-wakeup.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\dl.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\error.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\fs-event.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\fs.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\getaddrinfo.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\getnameinfo.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\handle.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\loop-watcher.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\pipe.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\poll.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\process-stdio.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\process.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\signal.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\snprintf.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\stream.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\tcp.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\thread.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\tty.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\udp.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\util.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\winapi.c" />
+    <ClCompile Include="..\..\deps\libuv\src\win\winsock.c" />
+    <ClCompile Include="..\..\deps\wren\src\optional\wren_opt_meta.c" />
+    <ClCompile Include="..\..\deps\wren\src\optional\wren_opt_random.c" />
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_compiler.c" />
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_core.c" />
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_debug.c" />
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_primitive.c" />
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_utils.c" />
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_value.c" />
+    <ClCompile Include="..\..\deps\wren\src\vm\wren_vm.c" />
+    <ClCompile Include="..\..\src\cli\main.c" />
+    <ClCompile Include="..\..\src\cli\modules.c" />
+    <ClCompile Include="..\..\src\cli\path.c" />
+    <ClCompile Include="..\..\src\cli\vm.c" />
+    <ClCompile Include="..\..\src\module\io.c" />
+    <ClCompile Include="..\..\src\module\os.c" />
+    <ClCompile Include="..\..\src\module\repl.c" />
+    <ClCompile Include="..\..\src\module\scheduler.c" />
+    <ClCompile Include="..\..\src\module\timer.c">
+      <ObjectFileName>$(IntDir)\timer1.obj</ObjectFileName>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\module\io.wren.inc" />
+    <None Include="..\..\src\module\os.wren.inc" />
+    <None Include="..\..\src\module\repl.wren.inc" />
+    <None Include="..\..\src\module\scheduler.wren.inc" />
+    <None Include="..\..\src\module\timer.wren.inc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
