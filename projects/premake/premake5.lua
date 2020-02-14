@@ -134,9 +134,9 @@ project "wren_cli"
       "../../deps/libuv/src/win/*.h",
       "../../deps/libuv/src/win/*.c"
     }
-
-  -- todo: this hasn't been tested
-  filter "system:freebsd"
+  
+  filter "system:bsd"
+    links { "pthread", "dl", "m" }
     files {
       "../../deps/libuv/src/unix/bsd-ifaddrs.c",
       "../../deps/libuv/src/unix/bsd-proctitle.c",
