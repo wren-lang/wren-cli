@@ -25,6 +25,14 @@ workspace "wren-cli"
     defines { "_CRT_SECURE_NO_WARNINGS" }
     flags { "MultiProcessorCompile" }
 
+  --the 'xcode4' and 'gmake2' folder names
+  --are simply confusing, so, simplify then
+  filter "action:xcode4"
+    location ("../xcode")
+
+  filter "action:gmake2"
+    location ("../gmake")
+
 project "wren_cli"
   kind "ConsoleApp"
   language "C"
