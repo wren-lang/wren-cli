@@ -16,7 +16,7 @@ The `projects/xcode` folder contains an Xcode project.
 
 ### Linux
 
-The `projects/gmake` folder contains a `make` project.
+The `projects/gmake` folder contains a `make` project.   
 From that folder, run `make`.
 
 `cd projects/gmake`
@@ -24,7 +24,7 @@ From that folder, run `make`.
 
 ### FreeBSD
 
-The `projects/gmake` folder contains a `gmake` project.
+The `projects/gmake` folder contains a `gmake` project.   
 From that folder, run `gmake`.
 
 `cd projects/gmake`
