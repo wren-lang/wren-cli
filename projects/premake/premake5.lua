@@ -32,6 +32,8 @@ workspace "wren-cli"
 
   filter "action:gmake2"
     location ("../gmake")
+    filter "system:bsd"
+      location ("../gmake.bsd")
 
 project "wren_cli"
   kind "ConsoleApp"
