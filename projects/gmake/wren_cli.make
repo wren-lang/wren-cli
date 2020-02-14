@@ -23,7 +23,7 @@ INCLUDES += -I../../src/cli -I../../src/module -I../../deps/wren/include -I../..
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-LIBS += -limm32 -lwinmm -lversion -lwldap32 -lws2_32 -lpsapi -liphlpapi -luserenv
+LIBS += -lpthread -ldl -lm
 LDDEPS +=
 LINKCMD = $(CC) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
 define PREBUILDCMDS
@@ -35,39 +35,39 @@ endef
 
 ifeq ($(config),release_64bit)
 TARGETDIR = ../../bin
-TARGET = $(TARGETDIR)/wren_cli.exe
+TARGET = $(TARGETDIR)/wren_cli
 OBJDIR = obj/64bit/Release
-DEFINES += -DNDEBUG -D_CRT_SECURE_NO_WARNINGS
+DEFINES += -DNDEBUG -D_GNU_SOURCE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O3 -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O3
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s /OPT:NOREF
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
 
 else ifeq ($(config),release_32bit)
 TARGETDIR = ../../bin
-TARGET = $(TARGETDIR)/wren_cli.exe
+TARGET = $(TARGETDIR)/wren_cli
 OBJDIR = obj/32bit/Release
-DEFINES += -DNDEBUG -D_CRT_SECURE_NO_WARNINGS
+DEFINES += -DNDEBUG -D_GNU_SOURCE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O3 -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O3
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -s /OPT:NOREF
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -s
 
 else ifeq ($(config),debug_64bit)
 TARGETDIR = ../../bin
-TARGET = $(TARGETDIR)/wren_cli_d.exe
+TARGET = $(TARGETDIR)/wren_cli_d
 OBJDIR = obj/64bit/Debug
-DEFINES += -DDEBUG -D_CRT_SECURE_NO_WARNINGS
+DEFINES += -DDEBUG -D_GNU_SOURCE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 /OPT:NOREF
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
 else ifeq ($(config),debug_32bit)
 TARGETDIR = ../../bin
-TARGET = $(TARGETDIR)/wren_cli_d.exe
+TARGET = $(TARGETDIR)/wren_cli_d
 OBJDIR = obj/32bit/Debug
-DEFINES += -DDEBUG -D_CRT_SECURE_NO_WARNINGS
+DEFINES += -DDEBUG -D_GNU_SOURCE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 /OPT:NOREF
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32
 
 else
   $(error "invalid configuration $(config)")
@@ -84,34 +84,38 @@ OBJECTS :=
 
 OBJECTS += $(OBJDIR)/async.o
 OBJECTS += $(OBJDIR)/core.o
-OBJECTS += $(OBJDIR)/detect-wakeup.o
 OBJECTS += $(OBJDIR)/dl.o
-OBJECTS += $(OBJDIR)/error.o
-OBJECTS += $(OBJDIR)/fs-event.o
 OBJECTS += $(OBJDIR)/fs-poll.o
 OBJECTS += $(OBJDIR)/fs.o
 OBJECTS += $(OBJDIR)/getaddrinfo.o
 OBJECTS += $(OBJDIR)/getnameinfo.o
-OBJECTS += $(OBJDIR)/handle.o
 OBJECTS += $(OBJDIR)/idna.o
 OBJECTS += $(OBJDIR)/inet.o
 OBJECTS += $(OBJDIR)/io.o
+OBJECTS += $(OBJDIR)/linux-core.o
+OBJECTS += $(OBJDIR)/linux-inotify.o
+OBJECTS += $(OBJDIR)/linux-syscalls.o
 OBJECTS += $(OBJDIR)/loop-watcher.o
+OBJECTS += $(OBJDIR)/loop.o
 OBJECTS += $(OBJDIR)/main.o
 OBJECTS += $(OBJDIR)/modules.o
 OBJECTS += $(OBJDIR)/os.o
 OBJECTS += $(OBJDIR)/path.o
 OBJECTS += $(OBJDIR)/pipe.o
 OBJECTS += $(OBJDIR)/poll.o
-OBJECTS += $(OBJDIR)/process-stdio.o
 OBJECTS += $(OBJDIR)/process.o
+OBJECTS += $(OBJDIR)/procfs-exepath.o
+OBJECTS += $(OBJDIR)/proctitle.o
+OBJECTS += $(OBJDIR)/random-devurandom.o
+OBJECTS += $(OBJDIR)/random-getrandom.o
+OBJECTS += $(OBJDIR)/random-sysctl-linux.o
 OBJECTS += $(OBJDIR)/random.o
 OBJECTS += $(OBJDIR)/repl.o
 OBJECTS += $(OBJDIR)/scheduler.o
 OBJECTS += $(OBJDIR)/signal.o
-OBJECTS += $(OBJDIR)/snprintf.o
 OBJECTS += $(OBJDIR)/stream.o
 OBJECTS += $(OBJDIR)/strscpy.o
+OBJECTS += $(OBJDIR)/sysinfo-loadavg.o
 OBJECTS += $(OBJDIR)/tcp.o
 OBJECTS += $(OBJDIR)/thread.o
 OBJECTS += $(OBJDIR)/threadpool.o
@@ -119,13 +123,10 @@ OBJECTS += $(OBJDIR)/timer.o
 OBJECTS += $(OBJDIR)/timer1.o
 OBJECTS += $(OBJDIR)/tty.o
 OBJECTS += $(OBJDIR)/udp.o
-OBJECTS += $(OBJDIR)/util.o
 OBJECTS += $(OBJDIR)/uv-common.o
 OBJECTS += $(OBJDIR)/uv-data-getter-setters.o
 OBJECTS += $(OBJDIR)/version.o
 OBJECTS += $(OBJDIR)/vm.o
-OBJECTS += $(OBJDIR)/winapi.o
-OBJECTS += $(OBJDIR)/winsock.o
 OBJECTS += $(OBJDIR)/wren_compiler.o
 OBJECTS += $(OBJDIR)/wren_core.o
 OBJECTS += $(OBJDIR)/wren_debug.o
@@ -217,6 +218,84 @@ $(OBJDIR)/threadpool.o: ../../deps/libuv/src/threadpool.c
 $(OBJDIR)/timer.o: ../../deps/libuv/src/timer.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/async.o: ../../deps/libuv/src/unix/async.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/core.o: ../../deps/libuv/src/unix/core.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/dl.o: ../../deps/libuv/src/unix/dl.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/fs.o: ../../deps/libuv/src/unix/fs.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/getaddrinfo.o: ../../deps/libuv/src/unix/getaddrinfo.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/getnameinfo.o: ../../deps/libuv/src/unix/getnameinfo.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/linux-core.o: ../../deps/libuv/src/unix/linux-core.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/linux-inotify.o: ../../deps/libuv/src/unix/linux-inotify.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/linux-syscalls.o: ../../deps/libuv/src/unix/linux-syscalls.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/loop-watcher.o: ../../deps/libuv/src/unix/loop-watcher.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/loop.o: ../../deps/libuv/src/unix/loop.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/pipe.o: ../../deps/libuv/src/unix/pipe.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/poll.o: ../../deps/libuv/src/unix/poll.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/process.o: ../../deps/libuv/src/unix/process.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/procfs-exepath.o: ../../deps/libuv/src/unix/procfs-exepath.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/proctitle.o: ../../deps/libuv/src/unix/proctitle.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/random-devurandom.o: ../../deps/libuv/src/unix/random-devurandom.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/random-getrandom.o: ../../deps/libuv/src/unix/random-getrandom.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/random-sysctl-linux.o: ../../deps/libuv/src/unix/random-sysctl-linux.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/signal.o: ../../deps/libuv/src/unix/signal.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/stream.o: ../../deps/libuv/src/unix/stream.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/sysinfo-loadavg.o: ../../deps/libuv/src/unix/sysinfo-loadavg.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/tcp.o: ../../deps/libuv/src/unix/tcp.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/thread.o: ../../deps/libuv/src/unix/thread.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/tty.o: ../../deps/libuv/src/unix/tty.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/udp.o: ../../deps/libuv/src/unix/udp.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/uv-common.o: ../../deps/libuv/src/uv-common.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -224,81 +303,6 @@ $(OBJDIR)/uv-data-getter-setters.o: ../../deps/libuv/src/uv-data-getter-setters.
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/version.o: ../../deps/libuv/src/version.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/async.o: ../../deps/libuv/src/win/async.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/core.o: ../../deps/libuv/src/win/core.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/detect-wakeup.o: ../../deps/libuv/src/win/detect-wakeup.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/dl.o: ../../deps/libuv/src/win/dl.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/error.o: ../../deps/libuv/src/win/error.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/fs-event.o: ../../deps/libuv/src/win/fs-event.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/fs.o: ../../deps/libuv/src/win/fs.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/getaddrinfo.o: ../../deps/libuv/src/win/getaddrinfo.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/getnameinfo.o: ../../deps/libuv/src/win/getnameinfo.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/handle.o: ../../deps/libuv/src/win/handle.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/loop-watcher.o: ../../deps/libuv/src/win/loop-watcher.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/pipe.o: ../../deps/libuv/src/win/pipe.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/poll.o: ../../deps/libuv/src/win/poll.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/process-stdio.o: ../../deps/libuv/src/win/process-stdio.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/process.o: ../../deps/libuv/src/win/process.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/signal.o: ../../deps/libuv/src/win/signal.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/snprintf.o: ../../deps/libuv/src/win/snprintf.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/stream.o: ../../deps/libuv/src/win/stream.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/tcp.o: ../../deps/libuv/src/win/tcp.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/thread.o: ../../deps/libuv/src/win/thread.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/tty.o: ../../deps/libuv/src/win/tty.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/udp.o: ../../deps/libuv/src/win/udp.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/util.o: ../../deps/libuv/src/win/util.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/winapi.o: ../../deps/libuv/src/win/winapi.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/winsock.o: ../../deps/libuv/src/win/winsock.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/wren_opt_meta.o: ../../deps/wren/src/optional/wren_opt_meta.c
