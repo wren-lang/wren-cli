@@ -27,15 +27,17 @@ workspace "wren-cli"
 
   --the 'xcode4' and 'gmake2' folder names
   --are simply confusing, so, simplify then
-  filter "action:xcode4"
+  filter { "action:xcode4" }
     location ("../xcode")
 
   filter "action:gmake2"
     location ("../gmake")
-    filter "system:bsd"
-      location ("../gmake.bsd")
-    filter "system:macosx"
-      location ("../gmake.mac")
+
+  filter { "action:gmake2", "system:bsd" }
+    location ("../gmake.bsd")
+
+  filter { "action:gmake2", "system:macosx" }
+    location ("../gmake.mac")
 
 project "wren_cli"
   kind "ConsoleApp"
