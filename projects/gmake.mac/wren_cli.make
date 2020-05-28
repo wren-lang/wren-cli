@@ -77,6 +77,24 @@ ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g
 ALL_LDFLAGS += $(LDFLAGS) -m32
 
+else ifeq ($(config),64bit-no-nan-tagging_64bit)
+TARGETDIR = ../../bin
+TARGET = $(TARGETDIR)/wren_cli
+OBJDIR = obj/64bit/64bit-no-nan-tagging
+DEFINES += -D_DARWIN_USE_64_BIT_INODE=1 -D_DARWIN_UNLIMITED_SELECT=1
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -std=c99
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64
+ALL_LDFLAGS += $(LDFLAGS) -m64
+
+else ifeq ($(config),64bit-no-nan-tagging_32bit)
+TARGETDIR = ../../bin
+TARGET = $(TARGETDIR)/wren_cli
+OBJDIR = obj/32bit/64bit-no-nan-tagging
+DEFINES += -D_DARWIN_USE_64_BIT_INODE=1 -D_DARWIN_UNLIMITED_SELECT=1
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -std=c99
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32
+ALL_LDFLAGS += $(LDFLAGS) -m32
+
 else
   $(error "invalid configuration $(config)")
 endif

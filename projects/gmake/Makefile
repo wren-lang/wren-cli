@@ -20,6 +20,12 @@ else ifeq ($(config),debug_64bit)
 else ifeq ($(config),debug_32bit)
   wren_cli_config = debug_32bit
 
+else ifeq ($(config),64bit-no-nan-tagging_64bit)
+  wren_cli_config = 64bit-no-nan-tagging_64bit
+
+else ifeq ($(config),64bit-no-nan-tagging_32bit)
+  wren_cli_config = 64bit-no-nan-tagging_32bit
+
 else
   $(error "invalid configuration $(config)")
 endif
@@ -47,6 +53,8 @@ help:
 	@echo "  release_32bit"
 	@echo "  debug_64bit"
 	@echo "  debug_32bit"
+	@echo "  64bit-no-nan-tagging_64bit"
+	@echo "  64bit-no-nan-tagging_32bit"
 	@echo ""
 	@echo "TARGETS:"
 	@echo "   all (default)"
