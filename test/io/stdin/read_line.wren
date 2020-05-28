@@ -1,3 +1,4 @@
+// skip: 
 import "io" for Stdin
 
 System.write("> ")
