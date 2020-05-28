@@ -5,28 +5,28 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wren_cli", "wren_cli.vcxpro
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		64bit-no-nan-tagging|64bit = 64bit-no-nan-tagging|64bit
 		Debug|64bit = Debug|64bit
 		Release|64bit = Release|64bit
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		64bit-no-nan-tagging|32bit = 64bit-no-nan-tagging|32bit
 		Debug|32bit = Debug|32bit
+		Debug|64bit-no-nan-tagging = Debug|64bit-no-nan-tagging
 		Release|32bit = Release|32bit
+		Release|64bit-no-nan-tagging = Release|64bit-no-nan-tagging
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.64bit-no-nan-tagging|32bit.ActiveCfg = 64bit-no-nan-tagging 32bit|Win32
-		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.64bit-no-nan-tagging|32bit.Build.0 = 64bit-no-nan-tagging 32bit|Win32
-		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.64bit-no-nan-tagging|64bit.ActiveCfg = 64bit-no-nan-tagging 64bit|x64
-		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.64bit-no-nan-tagging|64bit.Build.0 = 64bit-no-nan-tagging 64bit|x64
 		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Debug|32bit.ActiveCfg = Debug 32bit|Win32
 		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Debug|32bit.Build.0 = Debug 32bit|Win32
 		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Debug|64bit.ActiveCfg = Debug 64bit|x64
 		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Debug|64bit.Build.0 = Debug 64bit|x64
+		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Debug|64bit-no-nan-tagging.ActiveCfg = Debug 64bit-no-nan-tagging|Win32
+		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Debug|64bit-no-nan-tagging.Build.0 = Debug 64bit-no-nan-tagging|Win32
 		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Release|32bit.ActiveCfg = Release 32bit|Win32
 		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Release|32bit.Build.0 = Release 32bit|Win32
 		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Release|64bit.ActiveCfg = Release 64bit|x64
 		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Release|64bit.Build.0 = Release 64bit|x64
+		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Release|64bit-no-nan-tagging.ActiveCfg = Release 64bit-no-nan-tagging|Win32
+		{F8A65189-E473-AC94-0D8D-9A3CF9B8E122}.Release|64bit-no-nan-tagging.Build.0 = Release 64bit-no-nan-tagging|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -548,47 +548,6 @@
 			};
 			name = Release;
 		};
-		58D2BC467A9E6978B7539286 /* 64bit-no-nan-tagging */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
-				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"_DARWIN_USE_64_BIT_INODE=1",
-					"_DARWIN_UNLIMITED_SELECT=1",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				OBJROOT = "obj/32bit/64bit-no-nan-tagging";
-				ONLY_ACTIVE_ARCH = NO;
-				SYMROOT = ../../bin;
-				USER_HEADER_SEARCH_PATHS = (
-					../../src/cli,
-					../../src/module,
-					../../deps/wren/include,
-					../../deps/wren/src/vm,
-					../../deps/wren/src/optional,
-					../../deps/libuv/include,
-					../../deps/libuv/src,
-				);
-			};
-			name = "64bit-no-nan-tagging";
-		};
-		AD9B00157BBE53C702CCA655 /* 64bit-no-nan-tagging */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = ../../bin;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_DYNAMIC_NO_PIC = NO;
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = wren_cli;
-			};
-			name = "64bit-no-nan-tagging";
-		};
 		D5E9D7C2E2A687345790F602 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -600,13 +559,14 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					DEBUG,
+					"WREN_NAN_TAGGING=0",
 					"_DARWIN_USE_64_BIT_INODE=1",
 					"_DARWIN_UNLIMITED_SELECT=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				OBJROOT = obj/32bit/Debug;
+				OBJROOT = "obj/64bit-no-nan-tagging/Debug";
 				ONLY_ACTIVE_ARCH = YES;
 				SYMROOT = ../../bin;
 				USER_HEADER_SEARCH_PATHS = (
@@ -630,13 +590,14 @@
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,
+					"WREN_NAN_TAGGING=0",
 					"_DARWIN_USE_64_BIT_INODE=1",
 					"_DARWIN_UNLIMITED_SELECT=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				OBJROOT = obj/32bit/Release;
+				OBJROOT = "obj/64bit-no-nan-tagging/Release";
 				ONLY_ACTIVE_ARCH = NO;
 				SYMROOT = ../../bin;
 				USER_HEADER_SEARCH_PATHS = (
@@ -659,10 +620,10 @@
 			buildConfigurations = (
 				16BEA9CB6D4C143D45C5280B /* Release */,
 				16BEA9CB6D4C143D45C5280B /* Release */,
+				16BEA9CB6D4C143D45C5280B /* Release */,
 				1377A691FE63CC83464994D1 /* Debug */,
 				1377A691FE63CC83464994D1 /* Debug */,
-				AD9B00157BBE53C702CCA655 /* 64bit-no-nan-tagging */,
-				AD9B00157BBE53C702CCA655 /* 64bit-no-nan-tagging */,
+				1377A691FE63CC83464994D1 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -672,10 +633,10 @@
 			buildConfigurations = (
 				EC26AA7C1ACCFE6E740E58BC /* Release */,
 				EC26AA7C1ACCFE6E740E58BC /* Release */,
+				EC26AA7C1ACCFE6E740E58BC /* Release */,
 				D5E9D7C2E2A687345790F602 /* Debug */,
 				D5E9D7C2E2A687345790F602 /* Debug */,
-				58D2BC467A9E6978B7539286 /* 64bit-no-nan-tagging */,
-				58D2BC467A9E6978B7539286 /* 64bit-no-nan-tagging */,
+				D5E9D7C2E2A687345790F602 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,6 +1,6 @@
 workspace "wren-cli"
-  configurations { "Release", "Debug", "64bit-no-nan-tagging" }
-  platforms { "64bit", "32bit" }
+  configurations { "Release", "Debug" }
+  platforms { "64bit", "32bit", "64bit-no-nan-tagging" }
   defaultplatform "64bit"
   location ("../" .. _ACTION)
 
