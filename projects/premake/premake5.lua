@@ -34,13 +34,13 @@ workspace "wren-cli"
     location ("../xcode")
 
   filter "action:gmake2"
-    location ("../gmake")
+    location ("../make")
 
   filter { "action:gmake2", "system:bsd" }
-    location ("../gmake.bsd")
+    location ("../make.bsd")
 
   filter { "action:gmake2", "system:macosx" }
-    location ("../gmake.mac")
+    location ("../make.mac")
 
 project "wren_cli"
   kind "ConsoleApp"
