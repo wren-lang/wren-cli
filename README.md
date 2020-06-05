@@ -11,6 +11,8 @@ Like with Wren itself, we welcome [contributions][contribute].
 
 [contribute]: http://wren.io/contributing.html
 
+[![Build Status](https://travis-ci.org/wren-lang/wren-cli.svg?branch=master)](https://travis-ci.org/wren-lang/wren-cli)
+
 ---
 
 ## To build the Wren CLI
@@ -48,5 +50,4 @@ i.e if on linux, `premake vs2019 --os=windows` is valid.
 
 ---
 
-[![Build Status](https://travis-ci.org/wren-lang/wren-cli.svg)](https://travis-ci.org/wren-lang/wren-cli)
 
