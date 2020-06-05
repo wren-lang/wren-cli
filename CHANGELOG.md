@@ -11,6 +11,7 @@ The docs for the CLI have their own home now, http://wren.io/cli
 
 ### CLI
 
+- Added prebuilt binaries
 - Use premake for project generation, see projects/
 - Vendor libuv and wren directly into repo, no complex pre-build steps
 - Use S_IFDIR in `isDirectory`, portability fix.
