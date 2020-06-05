@@ -1,3 +1,19 @@
+## 0.3.0
+
+The CLI has been split to it's own repo in this release, and therefore the changelog from here on will be CLI only.
+For Wren language/VM changes, see https://github.com/wren-lang/wren.
+
+This release was focused on streamlining the build process and making platform support consistent.
+All platforms build out of the box, and the prebuild steps have been removed. The CLI should build as is.
+
+### CLI
+
+- Use premake for project generation, see projects/
+- Vendor libuv and wren directly into repo, no complex pre-build steps
+- Use S_IFDIR in `isDirectory`, portability fix.
+- Fix memory leak in findModulesDirectory()
+- Update libuv to latest at the time (1.34.2)
+
 ## 0.2.0
 
 0.2.0 spans a pretty wide time period with [around 290 commits](https://github.com/wren-lang/wren/compare/0.1.0...master).
