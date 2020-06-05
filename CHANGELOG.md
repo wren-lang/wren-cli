@@ -4,7 +4,10 @@ The CLI has been split to it's own repo in this release, and therefore the chang
 For Wren language/VM changes, see https://github.com/wren-lang/wren.
 
 This release was focused on streamlining the build process and making platform support consistent.
-All platforms build out of the box, and the prebuild steps have been removed. The CLI should build as is.
+All platforms build out of the box, and the pre-build steps have been removed. The CLI should build as is.
+
+This release also includes [prebuilt binaries on the GitHub page](https://github.com/wren-lang/wren-cli/releases).
+The docs for the CLI have their own home now, http://wren.io/cli
 
 ### CLI
 
