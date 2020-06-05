@@ -2,12 +2,12 @@
 
 ## The CLI project is a small and simple REPL and CLI tool for running Wren scripts.
 
-It is backed by [libuv][http://libuv.org/] to implement IO functionality, and is a work in progress.
+It is backed by [libuv](http://libuv.org/) to implement IO functionality, and is a work in progress.
 
-For documentation and usage, see http://wren.io/cli
+For documentation and usage, see http://wren.io/cli   
 For more information about Wren, the language used by the CLI, see http://wren.io
 
-Like with Wren, we welcome [contributions][contribute].
+Like with Wren itself, we welcome [contributions][contribute].
 
 [contribute]: http://wren.io/contributing.html
 
