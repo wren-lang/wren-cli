@@ -532,6 +532,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				INSTALL_PATH = /usr/local/bin;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = wren_cli_d;
 			};
 			name = Debug;
@@ -544,6 +545,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				INSTALL_PATH = /usr/local/bin;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = wren_cli;
 			};
 			name = Release;
@@ -577,6 +579,7 @@
 					../../deps/wren/src/optional,
 					../../deps/libuv/include,
 					../../deps/libuv/src,
+					../../deps/klib,
 				);
 			};
 			name = Debug;
@@ -608,6 +611,7 @@
 					../../deps/wren/src/optional,
 					../../deps/libuv/include,
 					../../deps/libuv/src,
+					../../deps/klib,
 				);
 			};
 			name = Release;

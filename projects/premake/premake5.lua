@@ -87,6 +87,17 @@ project "wren_cli"
     "../../deps/libuv/src/*.h"
   }
 
+-- klib dependency
+
+  includedirs {
+    "../../deps/klib"
+  }
+
+  files {
+    "../../deps/libuv/klib/*.c",
+    "../../deps/libuv/klib/*.h"
+  }
+
   -- unix common files
   filter "system:not windows"
     files {

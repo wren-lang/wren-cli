@@ -163,7 +163,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;..\..\deps\klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -185,7 +185,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;..\..\deps\klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -207,7 +207,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;WREN_NAN_TAGGING=0;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;..\..\deps\klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -229,7 +229,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;..\..\deps\klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -248,7 +248,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;..\..\deps\klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -267,7 +267,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;WREN_NAN_TAGGING=0;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;..\..\deps\klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
