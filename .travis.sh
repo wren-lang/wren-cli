@@ -3,14 +3,12 @@ set -e
 
 # This build script only builds mac or linux right now, for CI.
 WREN_WD="projects/make"
-if [ -n "$WREN_TARGET_MAC" ]
-then
+if [ -n "$WREN_TARGET_MAC" ]; then
   WREN_WD="projects/make.mac"
 fi
 
 WREN_PY="python3"
-if [ -n "$WREN_PY_BINARY" ]
-then
+if [ -n "$WREN_PY_BINARY" ]; then
   WREN_PY="$WREN_PY_BINARY"
 fi
 
