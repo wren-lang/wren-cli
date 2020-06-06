@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+PREMAKE=${PREMAKE:-premake5}
+
+has() {
+  command -v "${1-}" >/dev/null 2>&1
+}
+
+if ! has "$PREMAKE"; then
+  echo >&2 "error: $PREMAKE is not found"
+  exit 1
+fi
+
+cd projects/premake
+$PREMAKE gmake2 --os=bsd
+$PREMAKE gmake2 --os=linux
+$PREMAKE gmake2 --os=macosx
+$PREMAKE vs2017
+$PREMAKE vs2019
+$PREMAKE xcode4
