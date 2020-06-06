@@ -38,13 +38,13 @@ int main(int argc, const char* argv[])
     if (c == '?' && opt.opt)
     {
       fprintf(stderr, "unknown option: -%c\n", opt.opt);
-      return 0;
+      return 64; // EX_USAGE.
     }
 
     if (c == '?')
     {
       fprintf(stderr, "unknown option: %s\n", argv[opt.ind - 1]);
-      return 0;
+      return 64; // EX_USAGE.
     }
   }
 
