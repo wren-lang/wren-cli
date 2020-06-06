@@ -10,7 +10,10 @@ int main(int argc, const char* argv[])
   if (argc == 2 && strcmp(argv[1], "--help") == 0)
   {
     printf("Usage: wren [file] [arguments...]\n");
-    printf("  --help  Show command line usage\n");
+    printf("\n");
+    printf("Optional arguments:\n");
+    printf("  --help     Show command line usage\n");
+    printf("  --version  Show version\n");
     return 0;
   }
 
