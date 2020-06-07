@@ -1,5 +1,5 @@
 import "meta" for Meta
-import "io" for Stdin, Stdout
+import "io" for File, Stdin, Stdout
 import "os" for Platform
 
 /// Abstract base class for the REPL. Manages the input line and history, but
@@ -66,7 +66,9 @@ class Repl {
         // TODO: Handle ESC 0 sequences.
       }
     } else if (byte == Chars.carriageReturn) {
-      executeInput()
+      var next = executeInput()
+      if (next == Chars.ctrlD) return true
+      if (next != null) handleChar(next)
     } else if (byte == Chars.delete) {
       deleteLeft()
     } else if (byte >= Chars.space && byte <= Chars.tilde) {
@@ -166,6 +168,11 @@ class Repl {
 
     System.print()
 
+    if (Command.isCommand(input)) {
+      var parts = Command.split(input)
+      return executeCommand(parts[0], parts[1...parts.count])
+    }
+
     // Guess if it looks like a statement or expression. If it looks like an
     // expression, we try to print the result.
     var token = lexFirst(input)
@@ -206,6 +213,41 @@ class Repl {
     if (!isStatement) {
       showResult(result)
     }
+  }
+
+  executeCommand(command, arguments) {
+    if (command == Command.clear) {
+      return Chars.ctrlL
+    }
+
+    if (command == Command.exit) {
+      return Chars.ctrlD
+    }
+
+    if (command == Command.help) {
+      System.print(Command.help())
+      return
+    }
+
+    if (command == Command.save) {
+      var path = !arguments.isEmpty ? arguments[0] : ""
+      var fiber = Fiber.new {
+        if (path.isEmpty) Fiber.abort("missing filename")
+        File.create(path) {|file|
+          var code = _history.where {|line| !Command.isCommand(line) }
+          for (line in code) {
+            file.writeBytes(line + "\n")
+          }
+          file.writeBytes(line + "\n")
+          System.print("Session saved to: %(path)")
+        }
+      }
+      fiber.try()
+      if (fiber.error != null) System.print("Failed to save: %(fiber.error)")
+      return
+    }
+
+    System.print("Invalid REPL command: %(command)")
   }
 
   lex(line, includeWhitespace) {
@@ -386,6 +428,43 @@ class AnsiRepl is Repl {
     // TODO: Print entire stack.
   }
 }
+
+/// REPL commands.
+class Command {
+  static clear { ".clear" }
+  static exit { ".exit" }
+  static help { ".help" }
+  static save { ".save" }
+
+  static isCommand(str) {
+    return str.trim().startsWith(".")
+  }
+
+  static split(str) {
+    return str.trim().split(" ").where {|part| !part.isEmpty }.toList
+  }
+
+  static help() {
+    var max = Fn.new {|a, b| a > b ? a : b }
+    var width = COMMANDS.map {|entry|
+      var command = entry[0]
+      return command.count
+    }.reduce(max)
+    return COMMANDS.map {|entry|
+      var command = entry[0]
+      var description = entry[1]
+      while (command.count < width) command = command + " "
+      return command + "   " + description
+    }.join("\n")
+  }
+}
+
+var COMMANDS = [
+  [Command.clear, "Clear screen"],
+  [Command.exit, "Exit the repl"],
+  [Command.help, "Print this help message"],
+  [Command.save, "Save all evaluated commands in this REPL session to a file"]
+]
 
 /// ANSI color escape sequences.
 class Color {
