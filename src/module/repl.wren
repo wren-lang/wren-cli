@@ -395,13 +395,17 @@ class AnsiRepl is Repl {
     System.write("\r> ")
     System.write(Color.none)
 
-    // Syntax highlight the line.
-    for (token in lex(line, true)) {
-      if (token.type == Token.eof) break
+    if (!Command.isCommand(line)) {
+      // Syntax highlight the line.
+      for (token in lex(line, true)) {
+        if (token.type == Token.eof) break
 
-      System.write(TOKEN_COLORS[token.type])
-      System.write(token.text)
-      System.write(Color.none)
+        System.write(TOKEN_COLORS[token.type])
+        System.write(token.text)
+        System.write(Color.none)
+      }
+    } else {
+      System.write(line)
     }
 
     if (showCompletion) {
