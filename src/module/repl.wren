@@ -287,6 +287,16 @@ class Repl {
     // Only complete if the cursor is at the end.
     if (_cursor != _line.count) return null
 
+    if (Command.isCommand(_line)) {
+      for (entry in COMMANDS) {
+        var command = entry[0]
+        var line = _line.trimStart()
+        if (command.startsWith(line)) {
+          return command[line.count..-1]
+        }
+      }
+    }
+
     for (name in Meta.getModuleVariables("repl")) {
       // TODO: Also allow completion if the line ends with an identifier but
       // has other stuff before it.
