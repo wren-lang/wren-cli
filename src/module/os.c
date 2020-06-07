@@ -69,3 +69,8 @@ void processAllArguments(WrenVM* vm)
     wrenInsertInList(vm, 0, -1, 1);
   }
 }
+
+void processVersion(WrenVM* vm) {
+  wrenEnsureSlots(vm, 1);
+  wrenSetSlotString(vm, 0, WREN_VERSION_STRING);
+}
