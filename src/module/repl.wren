@@ -6,6 +6,8 @@ import "os" for Platform
 /// does not render.
 class Repl {
   construct new() {
+    _closed = false
+
     _cursor = 0
     _line = ""
 
@@ -24,9 +26,13 @@ class Repl {
 
     while (true) {
       var byte = Stdin.readByte()
-      if (handleChar(byte)) break
+      if (handleChar(byte) || _closed) break
       refreshLine(true)
     }
+  }
+
+  close() {
+    _closed = true
   }
 
   handleChar(byte) {
@@ -66,9 +72,7 @@ class Repl {
         // TODO: Handle ESC 0 sequences.
       }
     } else if (byte == Chars.carriageReturn) {
-      var next = executeInput()
-      if (next == Chars.ctrlD) return true
-      if (next != null) handleChar(next)
+      executeInput()
     } else if (byte == Chars.delete) {
       deleteLeft()
     } else if (byte >= Chars.space && byte <= Chars.tilde) {
@@ -215,18 +219,17 @@ class Repl {
     }
   }
 
-  executeCommand(command, arguments) {
-    if (command == Command.clear) {
-      return Chars.ctrlL
+  executeCommand(command, argument) {
+    if (this is AnsiRepl && command == Command.clear) {
+      return clear()
     }
 
     if (command == Command.exit) {
-      return Chars.ctrlD
+      return close()
     }
 
     if (command == Command.help) {
-      System.print(Command.help())
-      return
+      return System.print(Command.help())
     }
 
     if (command == Command.save) {
@@ -360,10 +363,7 @@ class AnsiRepl is Repl {
       // Delete everything after the cursor.
       line = line[0...cursor]
     } else if (byte == Chars.ctrlL) {
-      // Clear the screen.
-      System.write("\x1b[2J")
-      // Move cursor to top left.
-      System.write("\x1b[H")
+      clear()
     } else {
       // TODO: Ctrl-T to swap chars.
       // TODO: ESC H and F to move to beginning and end of line. (Both ESC
@@ -373,6 +373,13 @@ class AnsiRepl is Repl {
     }
 
     return false
+  }
+
+  clear() {
+    // Clear the screen.
+    System.write("\x1b[2J")
+    // Move cursor to top left.
+    System.write("\x1b[H")
   }
 
   handleEscapeBracket(byte) {
@@ -1043,5 +1050,9 @@ if (Platform.isPosix && Stdin.isTerminal) {
   AnsiRepl.new().run()
 } else {
   // ANSI escape sequences probably aren't supported, so degrade.
+  COMMANDS = COMMANDS.where {|entry|
+    var command = entry[0]
+    return command != Command.clear
+  }
   SimpleRepl.new().run()
 }
