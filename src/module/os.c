@@ -1,4 +1,5 @@
 #include "os.h"
+#include "uv.h"
 #include "wren.h"
 
 #if __APPLE__
@@ -68,4 +69,15 @@ void processAllArguments(WrenVM* vm)
     wrenSetSlotString(vm, 1, args[i]);
     wrenInsertInList(vm, 0, -1, 1);
   }
+}
+
+void processVersions(WrenVM* vm) {
+  wrenEnsureSlots(vm, 3);
+  wrenSetSlotNewMap(vm, 0);
+  wrenSetSlotString(vm, 1, "wren");
+  wrenSetSlotString(vm, 2, WREN_VERSION_STRING);
+  wrenSetMapValue(vm, 0, 1, 2);
+  wrenSetSlotString(vm, 1, "uv");
+  wrenSetSlotString(vm, 2, uv_version_string());
+  wrenSetMapValue(vm, 0, 1, 2);
 }
