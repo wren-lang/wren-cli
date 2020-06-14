@@ -11,4 +11,5 @@ class Process {
 
   foreign static allArguments
   foreign static version
+  foreign static cwd
 }

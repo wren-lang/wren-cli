@@ -11,7 +11,7 @@ Like with Wren itself, we welcome [contributions][contribute].
 
 [contribute]: http://wren.io/contributing.html
 
-[![Build Status](https://travis-ci.org/wren-lang/wren-cli.svg?branch=master)](https://travis-ci.org/wren-lang/wren-cli)
+[![Build Status](https://travis-ci.org/wren-lang/wren-cli.svg?branch=main)](https://travis-ci.org/wren-lang/wren-cli)
 
 ---
 

@@ -1,4 +1,5 @@
 #include "os.h"
+#include "uv.h"
 #include "wren.h"
 
 #if __APPLE__
@@ -70,7 +71,23 @@ void processAllArguments(WrenVM* vm)
   }
 }
 
+
 void processVersion(WrenVM* vm) {
   wrenEnsureSlots(vm, 1);
   wrenSetSlotString(vm, 0, WREN_VERSION_STRING);
+}
+
+void processCwd(WrenVM* vm)
+{
+  wrenEnsureSlots(vm, 1);
+
+  char buffer[PATH_MAX * 4];
+  size_t length = sizeof(buffer);
+  if (uv_cwd(buffer, &length) != 0)
+  {
+    wrenSetSlotString(vm, 0, "Cannot get current working directory.");
+    return wrenAbortFiber(vm, 0);
+  }
+
+  wrenSetSlotString(vm, 0, buffer);
 }
