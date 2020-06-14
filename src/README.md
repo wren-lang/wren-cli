@@ -6,4 +6,4 @@ This contains the Wren source code. It is organized like so:
 
 *   `module`: the source code for the built-in modules that come with the CLI.
     These modules are written in a mixture of C and Wren and generally use
-    [libuv][http://libuv.org/] to implement their underlying functionality.
+    [libuv](http://libuv.org/) to implement their underlying functionality.
