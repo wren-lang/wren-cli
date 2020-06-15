@@ -81,12 +81,13 @@ void processCwd(WrenVM* vm)
 {
   wrenEnsureSlots(vm, 1);
 
-  char buffer[PATH_MAX * 4];
+  char buffer[WREN_PATH_MAX * 4];
   size_t length = sizeof(buffer);
   if (uv_cwd(buffer, &length) != 0)
   {
     wrenSetSlotString(vm, 0, "Cannot get current working directory.");
-    return wrenAbortFiber(vm, 0);
+    wrenAbortFiber(vm, 0);
+    return;
   }
 
   wrenSetSlotString(vm, 0, buffer);
