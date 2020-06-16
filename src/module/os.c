@@ -100,4 +100,6 @@ void processCwd(WrenVM* vm)
   }
 
   wrenSetSlotString(vm, 0, buffer);
+
+  if (buffer != _buffer) free(buffer);
 }
