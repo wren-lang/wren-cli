@@ -71,12 +71,6 @@ void processAllArguments(WrenVM* vm)
   }
 }
 
-
-void processVersion(WrenVM* vm) {
-  wrenEnsureSlots(vm, 1);
-  wrenSetSlotString(vm, 0, WREN_VERSION_STRING);
-}
-
 void processCwd(WrenVM* vm)
 {
   wrenEnsureSlots(vm, 1);
@@ -91,4 +85,26 @@ void processCwd(WrenVM* vm)
   }
 
   wrenSetSlotString(vm, 0, buffer);
+}
+
+void processExePath(WrenVM* vm)
+{
+  wrenEnsureSlots(vm, 1);
+
+  char buffer[WREN_PATH_MAX * 2 + 1];
+  size_t length = sizeof(buffer);
+  if (uv_exepath(buffer, &length) != 0)
+  {
+    wrenSetSlotString(vm, 0, "Cannot get the executable path.");
+    wrenAbortFiber(vm, 0);
+    return;
+  }
+
+  wrenSetSlotString(vm, 0, buffer);
+}
+
+void processVersion(WrenVM* vm) 
+{
+  wrenEnsureSlots(vm, 1);
+  wrenSetSlotString(vm, 0, WREN_VERSION_STRING);
 }

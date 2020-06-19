@@ -10,6 +10,7 @@ class Process {
   static arguments { allArguments[2..-1] }
 
   foreign static allArguments
-  foreign static version
   foreign static cwd
+  foreign static exePath
+  foreign static version
 }

@@ -12,6 +12,7 @@ static const char* osModuleSource =
 "  static arguments { allArguments[2..-1] }\n"
 "\n"
 "  foreign static allArguments\n"
-"  foreign static version\n"
 "  foreign static cwd\n"
+"  foreign static exePath\n"
+"  foreign static version\n"
 "}\n";
