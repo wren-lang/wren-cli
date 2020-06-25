@@ -22,6 +22,7 @@ extern void fileRealPath(WrenVM* vm);
 extern void fileSize(WrenVM* vm);
 extern void fileStat(WrenVM* vm);
 extern void fileWriteBytes(WrenVM* vm);
+extern void platformHomedir(WrenVM* vm);
 extern void platformIsPosix(WrenVM* vm);
 extern void platformName(WrenVM* vm);
 extern void processAllArguments(WrenVM* vm);
@@ -162,6 +163,7 @@ static ModuleRegistry modules[] =
   END_MODULE
   MODULE(os)
     CLASS(Platform)
+      STATIC_METHOD("homedir", platformHomedir)
       STATIC_METHOD("isPosix", platformIsPosix)
       STATIC_METHOD("name", platformName)
     END_CLASS

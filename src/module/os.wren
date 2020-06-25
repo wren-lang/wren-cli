@@ -1,4 +1,5 @@
 class Platform {
+  foreign static homedir
   foreign static isPosix
   foreign static name
 

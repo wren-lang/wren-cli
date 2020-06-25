@@ -15,6 +15,33 @@ void osSetArguments(int argc, const char* argv[])
   args = argv;
 }
 
+void platformHomedir(WrenVM* vm)
+{
+  wrenEnsureSlots(vm, 1);
+
+  char _buffer[WREN_PATH_MAX * 2 + 1];
+  char* buffer = _buffer;
+  size_t length = sizeof(_buffer);
+  int result = uv_os_homedir(buffer, &length);
+
+  if (result == UV_ENOBUFS)
+  {
+    buffer = (char*)malloc(length);
+    result = uv_os_homedir(buffer, &length);
+  }
+
+  if (result != 0)
+  {
+    wrenSetSlotString(vm, 0, "Cannot get the current user's home directory.");
+    wrenAbortFiber(vm, 0);
+    return;
+  }
+
+  wrenSetSlotString(vm, 0, buffer);
+
+  if (buffer != _buffer) free(buffer);
+}
+
 void platformName(WrenVM* vm)
 {
   wrenEnsureSlots(vm, 1);
