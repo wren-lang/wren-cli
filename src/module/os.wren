@@ -12,4 +12,9 @@ class Process {
   foreign static allArguments
   foreign static version
   foreign static cwd
+  static exec(command){
+    if(!(command is String)) Fiber.abort("Command must be a string")
+      runCommand_(command)
+    }
+  foreign static runCommand_(command)
 }

@@ -14,4 +14,9 @@ static const char* osModuleSource =
 "  foreign static allArguments\n"
 "  foreign static version\n"
 "  foreign static cwd\n"
+"  static exec(command){\n"
+"    if(!(command is String)) Fiber.abort(\"Command must be a string\")\n"
+"    runCommand_(command)\n"
+"  }\n"
+"  foreign static runCommand_(command)\n"
 "}\n";

@@ -18,7 +18,7 @@ void osSetArguments(int argc, const char* argv[])
 void platformName(WrenVM* vm)
 {
   wrenEnsureSlots(vm, 1);
-  
+
   #ifdef _WIN32
     wrenSetSlotString(vm, 0, "Windows");
   #elif __APPLE__
@@ -43,7 +43,7 @@ void platformName(WrenVM* vm)
 void platformIsPosix(WrenVM* vm)
 {
   wrenEnsureSlots(vm, 1);
-  
+
   #ifdef _WIN32
     wrenSetSlotBool(vm, 0, false);
   #elif __APPLE__
@@ -91,4 +91,10 @@ void processCwd(WrenVM* vm)
   }
 
   wrenSetSlotString(vm, 0, buffer);
+}
+
+void processRunCommand(WrenVM* vm)
+{
+  char* command = (char*)wrenGetSlotString(vm, 1);
+  system(command);
 }
