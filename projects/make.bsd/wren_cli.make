@@ -19,7 +19,7 @@ endif
 # #############################################
 
 RESCOMP = windres
-INCLUDES += -I../../src/cli -I../../src/module -I../../deps/wren/include -I../../deps/wren/src/vm -I../../deps/wren/src/optional -I../../deps/libuv/include -I../../deps/libuv/src
+INCLUDES += -I../../src/cli -I../../src/module -I../../deps/wren/src/include -I../../deps/wren/src/vm -I../../deps/wren/src/optional -I../../deps/libuv/include -I../../deps/libuv/src
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -87,8 +87,6 @@ ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
 ALL_LDFLAGS += $(LDFLAGS)
 
-else
-  $(error "invalid configuration $(config)")
 endif
 
 # Per File Configurations
@@ -98,8 +96,61 @@ endif
 # File sets
 # #############################################
 
+GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/async.o
+GENERATED += $(OBJDIR)/bsd-ifaddrs.o
+GENERATED += $(OBJDIR)/bsd-proctitle.o
+GENERATED += $(OBJDIR)/core.o
+GENERATED += $(OBJDIR)/dl.o
+GENERATED += $(OBJDIR)/freebsd.o
+GENERATED += $(OBJDIR)/fs-poll.o
+GENERATED += $(OBJDIR)/fs.o
+GENERATED += $(OBJDIR)/getaddrinfo.o
+GENERATED += $(OBJDIR)/getnameinfo.o
+GENERATED += $(OBJDIR)/idna.o
+GENERATED += $(OBJDIR)/inet.o
+GENERATED += $(OBJDIR)/io.o
+GENERATED += $(OBJDIR)/kqueue.o
+GENERATED += $(OBJDIR)/loop-watcher.o
+GENERATED += $(OBJDIR)/loop.o
+GENERATED += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/modules.o
+GENERATED += $(OBJDIR)/os.o
+GENERATED += $(OBJDIR)/path.o
+GENERATED += $(OBJDIR)/pipe.o
+GENERATED += $(OBJDIR)/poll.o
+GENERATED += $(OBJDIR)/posix-hrtime.o
+GENERATED += $(OBJDIR)/process.o
+GENERATED += $(OBJDIR)/random-devurandom.o
+GENERATED += $(OBJDIR)/random-getrandom.o
+GENERATED += $(OBJDIR)/random.o
+GENERATED += $(OBJDIR)/repl.o
+GENERATED += $(OBJDIR)/scheduler.o
+GENERATED += $(OBJDIR)/signal.o
+GENERATED += $(OBJDIR)/stream.o
+GENERATED += $(OBJDIR)/strscpy.o
+GENERATED += $(OBJDIR)/tcp.o
+GENERATED += $(OBJDIR)/thread.o
+GENERATED += $(OBJDIR)/threadpool.o
+GENERATED += $(OBJDIR)/timer.o
+GENERATED += $(OBJDIR)/timer1.o
+GENERATED += $(OBJDIR)/tty.o
+GENERATED += $(OBJDIR)/udp.o
+GENERATED += $(OBJDIR)/uv-common.o
+GENERATED += $(OBJDIR)/uv-data-getter-setters.o
+GENERATED += $(OBJDIR)/version.o
+GENERATED += $(OBJDIR)/vm.o
+GENERATED += $(OBJDIR)/wren_compiler.o
+GENERATED += $(OBJDIR)/wren_core.o
+GENERATED += $(OBJDIR)/wren_debug.o
+GENERATED += $(OBJDIR)/wren_opt_meta.o
+GENERATED += $(OBJDIR)/wren_opt_random.o
+GENERATED += $(OBJDIR)/wren_primitive.o
+GENERATED += $(OBJDIR)/wren_utils.o
+GENERATED += $(OBJDIR)/wren_value.o
+GENERATED += $(OBJDIR)/wren_vm.o
 OBJECTS += $(OBJDIR)/async.o
 OBJECTS += $(OBJDIR)/bsd-ifaddrs.o
 OBJECTS += $(OBJDIR)/bsd-proctitle.o
@@ -159,7 +210,7 @@ OBJECTS += $(OBJDIR)/wren_vm.o
 all: $(TARGET)
 	@:
 
-$(TARGET): $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
+$(TARGET): $(GENERATED) $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
 	$(PRELINKCMDS)
 	@echo Linking wren_cli
 	$(SILENT) $(LINKCMD)
@@ -185,9 +236,11 @@ clean:
 	@echo Cleaning wren_cli
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
+	$(SILENT) rm -rf $(GENERATED)
 	$(SILENT) rm -rf $(OBJDIR)
 else
 	$(SILENT) if exist $(subst /,\\,$(TARGET)) del $(subst /,\\,$(TARGET))
+	$(SILENT) if exist $(subst /,\\,$(GENERATED)) rmdir /s /q $(subst /,\\,$(GENERATED))
 	$(SILENT) if exist $(subst /,\\,$(OBJDIR)) rmdir /s /q $(subst /,\\,$(OBJDIR))
 endif
 

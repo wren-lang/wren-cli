@@ -63,13 +63,13 @@ project "wren_cli"
 -- wren dependency
 
   files {
-    "../../deps/wren/include/**.h",
+    "../../deps/wren/src/include/**.h",
     "../../deps/wren/src/**.c",
     "../../deps/wren/src/**.h"
   }
 
   includedirs {
-    "../../deps/wren/include",
+    "../../deps/wren/src/include",
     "../../deps/wren/src/vm",
     "../../deps/wren/src/optional"
   }

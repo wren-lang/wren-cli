@@ -1,0 +1,6 @@
+[submodule "deps/wren"]
+	path = deps/wren
+	url = https://github.com/wren-lang/wren.git
+[submodule "deps/libuv"]
+	path = deps/libuv
+	url = https://github.com/libuv/libuv.git
