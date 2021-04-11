@@ -153,6 +153,9 @@
     <ClInclude Include="..\..\deps\wren\src\vm\wren_debug.h">
       <Filter>deps\wren\src\vm</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_math.h">
+      <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\deps\wren\src\vm\wren_opcodes.h">
       <Filter>deps\wren\src\vm</Filter>
     </ClInclude>

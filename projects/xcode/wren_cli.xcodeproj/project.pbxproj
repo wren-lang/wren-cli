@@ -120,6 +120,7 @@
 		94C80D112D14F2C35B5BF351 /* threadpool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = threadpool.h; path = ../../deps/libuv/include/uv/threadpool.h; sourceTree = "<group>"; };
 		950389A4BD3E4256A4D9CFE4 /* modules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = modules.h; path = ../../src/cli/modules.h; sourceTree = "<group>"; };
 		99115178A59C03EA2080CFB8 /* wren_opt_random.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = wren_opt_random.c; path = ../../deps/wren/src/optional/wren_opt_random.c; sourceTree = "<group>"; };
+		9E3102CD30BECCBF9997710D /* wren_math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = wren_math.h; path = ../../deps/wren/src/vm/wren_math.h; sourceTree = "<group>"; };
 		A0902DE163508E53C0856C21 /* wren_primitive.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = wren_primitive.c; path = ../../deps/wren/src/vm/wren_primitive.c; sourceTree = "<group>"; };
 		A12DD85936A4978BA540EE99 /* errno.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = errno.h; path = ../../deps/libuv/include/uv/errno.h; sourceTree = "<group>"; };
 		A414DF8FD4F8D781E8110DCF /* random.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = random.c; path = ../../deps/libuv/src/random.c; sourceTree = "<group>"; };
@@ -316,6 +317,7 @@
 				14B8844BA7464E3D101EF28B /* wren_core.h */,
 				B719EEBD2441FD2F25D4ECFD /* wren_debug.c */,
 				DC99886749C196D94B5486A7 /* wren_debug.h */,
+				9E3102CD30BECCBF9997710D /* wren_math.h */,
 				750F78B33B9D7025A99F96F3 /* wren_opcodes.h */,
 				A0902DE163508E53C0856C21 /* wren_primitive.c */,
 				0424D20BC6E5327D241A104B /* wren_primitive.h */,

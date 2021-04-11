@@ -239,15 +239,16 @@ static WrenForeignMethodFn findMethod(ClassRegistry* clas,
   return NULL;
 }
 
-char* readBuiltInModule(const char* name)
-{
+WrenLoadModuleResult loadBuiltInModule(const char* name) {
   ModuleRegistry* module = findModule(name);
-  if (module == NULL) return NULL;
+  WrenLoadModuleResult res = {.source=NULL};
+  if (module == NULL) return res; // error
 
   size_t length = strlen(*module->source);
   char* copy = (char*)malloc(length + 1);
   memcpy(copy, *module->source, length + 1);
-  return copy;
+  res.source = copy;
+  return res;
 }
 
 WrenForeignMethodFn bindBuiltInForeignMethod(
