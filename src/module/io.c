@@ -532,7 +532,13 @@ void stdinIsTerminal(WrenVM* vm)
 
 void stdoutFlush(WrenVM* vm)
 {
-  fflush(stdout);
+  int result = fflush(stdout);
+  if (result != 0) {
+    wrenSetSlotString(vm, 0, "Cannot flush Stdout.");
+    wrenAbortFiber(vm, 0);
+    return;
+  }
+
   wrenSetSlotNull(vm, 0);
 }
 
