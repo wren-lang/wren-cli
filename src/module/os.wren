@@ -7,7 +7,7 @@ class Platform {
 
 class Process {
   // TODO: This will need to be smarter when wren supports CLI options.
-  static arguments { allArguments[2..-1] }
+  static arguments { allArguments.count >= 2 ? allArguments[2..-1] : [] }
 
   foreign static allArguments
   foreign static version
