@@ -164,15 +164,16 @@ static const char* resolveModule(WrenVM* vm, const char* importer,
 //
 // Returns it if found, or NULL if the module could not be found. Exits if the
 // module was found but could not be read.
-static char* readModule(WrenVM* vm, const char* module)
+static WrenLoadModuleResult loadModule(WrenVM* vm, const char* module)
 {
+  WrenLoadModuleResult result = {0};
   Path* filePath;
   if (pathType(module) == PATH_TYPE_SIMPLE)
   {
     // If there is no "wren_modules" directory, then the only logical imports
     // we can handle are built-in ones. Let the VM try to handle it.
     findModulesDirectory();
-    if (wrenModulesDirectory == NULL) return readBuiltInModule(module);
+    if (wrenModulesDirectory == NULL) return loadBuiltInModule(module);
     
     // TODO: Should we explicitly check for the existence of the module's base
     // directory inside "wren_modules" here?
@@ -194,15 +195,16 @@ static char* readModule(WrenVM* vm, const char* module)
   // Add a ".wren" file extension.
   pathAppendString(filePath, ".wren");
 
-  char* source = readFile(filePath->chars);
+  result.onComplete = loadModuleComplete;
+  result.source = readFile(filePath->chars);
   pathFree(filePath);
   
   // If we didn't find it, it may be a module built into the CLI or VM, so keep
   // going.
-  if (source != NULL) return source;
+  if (result.source != NULL) return result;
 
   // Otherwise, see if it's a built-in module.
-  return readBuiltInModule(module);
+  return loadBuiltInModule(module);
 }
 
 // Binds foreign methods declared in either built in modules, or the injected
@@ -271,7 +273,7 @@ static void initVM()
   config.bindForeignMethodFn = bindForeignMethod;
   config.bindForeignClassFn = bindForeignClass;
   config.resolveModuleFn = resolveModule;
-  config.loadModuleFn = readModule;
+  config.loadModuleFn = loadModule;
   config.writeFn = write;
   config.errorFn = reportError;
 

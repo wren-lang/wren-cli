@@ -7,7 +7,8 @@
 #include "wren.h"
 
 // Returns the source for built-in module [name].
-char* readBuiltInModule(const char* module);
+WrenLoadModuleResult loadBuiltInModule(const char* module);
+void loadModuleComplete(WrenVM* vm, const char* name, struct WrenLoadModuleResult result);
 
 // Looks up a foreign method in a built-in module.
 //
