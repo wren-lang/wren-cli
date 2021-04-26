@@ -23,7 +23,7 @@ static char* rootDirectory = NULL;
 static Path* wrenModulesDirectory = NULL;
 
 // The exit code to use unless some other error overrides it.
-int defaultExitCode = 0;
+int defaultExitCode = EXIT_SUCCESS;
 
 // Reads the contents of the file at [path] and returns it as a heap allocated
 // string.
