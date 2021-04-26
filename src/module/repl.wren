@@ -17,13 +17,14 @@ class History {
     _list.add(line)
     _index = _list.count 
   }
+  isBottom { _index == _list.count }
   lastEntry {
     if (_list.isEmpty) return ""
 
     return _list[-1]
   }
   entry {
-    if (_index == _list.count) return ""
+    if (_index == _list.count) return false
     return _list[_index]
   }
   next() {
@@ -162,12 +163,17 @@ class Repl {
   }
 
   previousHistory() {
-    _line = _history.previous().entry
+    _line = _history.previous().entry || _line
     _cursor = _line.count
   }
 
   nextHistory() {
-    _line = _history.next().entry
+    _line = _history.next().entry || _line
+    // if we are at the bottom and have not edited the buffer then
+    // allow us to move down into an empty line
+    if (_history.isBottom && _history.lastEntry == _line) {
+      _line = ""
+    }
     _cursor = _line.count
   }
 
