@@ -1,11 +1,13 @@
 import "meta" for Meta
-import "io" for Stdin, Stdout
+import "io" for File, Stdin, Stdout
 import "os" for Platform
 
 /// Abstract base class for the REPL. Manages the input line and history, but
 /// does not render.
 class Repl {
   construct new() {
+    _closed = false
+
     _cursor = 0
     _line = ""
 
@@ -24,9 +26,13 @@ class Repl {
 
     while (true) {
       var byte = Stdin.readByte()
-      if (handleChar(byte)) break
+      if (handleChar(byte) || _closed) break
       refreshLine(true)
     }
+  }
+
+  close() {
+    _closed = true
   }
 
   handleChar(byte) {
@@ -166,6 +172,11 @@ class Repl {
 
     System.print()
 
+    if (Command.isCommand(input)) {
+      var parts = Command.split(input)
+      return executeCommand(parts[0], parts[1...parts.count])
+    }
+
     // Guess if it looks like a statement or expression. If it looks like an
     // expression, we try to print the result.
     var token = lexFirst(input)
@@ -208,6 +219,40 @@ class Repl {
     }
   }
 
+  executeCommand(command, argument) {
+    if (this is AnsiRepl && command == Command.clear) {
+      return clear()
+    }
+
+    if (command == Command.exit) {
+      return close()
+    }
+
+    if (command == Command.help) {
+      return System.print(Command.help())
+    }
+
+    if (command == Command.save) {
+      var path = !arguments.isEmpty ? arguments[0] : ""
+      var fiber = Fiber.new {
+        if (path.isEmpty) Fiber.abort("missing filename")
+        File.create(path) {|file|
+          var code = _history.where {|line| !Command.isCommand(line) }
+          for (line in code) {
+            file.writeBytes(line + "\n")
+          }
+          file.writeBytes(line + "\n")
+          System.print("Session saved to: %(path)")
+        }
+      }
+      fiber.try()
+      if (fiber.error != null) System.print("Failed to save: %(fiber.error)")
+      return
+    }
+
+    System.print("Invalid REPL command: %(command)")
+  }
+
   lex(line, includeWhitespace) {
     var lexer = Lexer.new(line)
     var tokens = []
@@ -244,6 +289,16 @@ class Repl {
 
     // Only complete if the cursor is at the end.
     if (_cursor != _line.count) return null
+
+    if (Command.isCommand(_line)) {
+      for (entry in COMMANDS) {
+        var command = entry[0]
+        var line = _line.trimStart()
+        if (command.startsWith(line)) {
+          return command[line.count..-1]
+        }
+      }
+    }
 
     for (name in Meta.getModuleVariables("repl")) {
       // TODO: Also allow completion if the line ends with an identifier but
@@ -308,10 +363,7 @@ class AnsiRepl is Repl {
       // Delete everything after the cursor.
       line = line[0...cursor]
     } else if (byte == Chars.ctrlL) {
-      // Clear the screen.
-      System.write("\x1b[2J")
-      // Move cursor to top left.
-      System.write("\x1b[H")
+      clear()
     } else {
       // TODO: Ctrl-T to swap chars.
       // TODO: ESC H and F to move to beginning and end of line. (Both ESC
@@ -321,6 +373,13 @@ class AnsiRepl is Repl {
     }
 
     return false
+  }
+
+  clear() {
+    // Clear the screen.
+    System.write("\x1b[2J")
+    // Move cursor to top left.
+    System.write("\x1b[H")
   }
 
   handleEscapeBracket(byte) {
@@ -353,13 +412,17 @@ class AnsiRepl is Repl {
     System.write("\r> ")
     System.write(Color.none)
 
-    // Syntax highlight the line.
-    for (token in lex(line, true)) {
-      if (token.type == Token.eof) break
+    if (!Command.isCommand(line)) {
+      // Syntax highlight the line.
+      for (token in lex(line, true)) {
+        if (token.type == Token.eof) break
 
-      System.write(TOKEN_COLORS[token.type])
-      System.write(token.text)
-      System.write(Color.none)
+        System.write(TOKEN_COLORS[token.type])
+        System.write(token.text)
+        System.write(Color.none)
+      }
+    } else {
+      System.write(line)
     }
 
     if (showCompletion) {
@@ -386,6 +449,43 @@ class AnsiRepl is Repl {
     // TODO: Print entire stack.
   }
 }
+
+/// REPL commands.
+class Command {
+  static clear { ".clear" }
+  static exit { ".exit" }
+  static help { ".help" }
+  static save { ".save" }
+
+  static isCommand(str) {
+    return str.trim().startsWith(".")
+  }
+
+  static split(str) {
+    return str.trim().split(" ").where {|part| !part.isEmpty }.toList
+  }
+
+  static help() {
+    var max = Fn.new {|a, b| a > b ? a : b }
+    var width = COMMANDS.map {|entry|
+      var command = entry[0]
+      return command.count
+    }.reduce(max)
+    return COMMANDS.map {|entry|
+      var command = entry[0]
+      var description = entry[1]
+      while (command.count < width) command = command + " "
+      return command + "   " + description
+    }.join("\n")
+  }
+}
+
+var COMMANDS = [
+  [Command.clear, "Clear screen"],
+  [Command.exit, "Exit the repl"],
+  [Command.help, "Print this help message"],
+  [Command.save, "Save all evaluated commands in this REPL session to a file"]
+]
 
 /// ANSI color escape sequences.
 class Color {
@@ -950,5 +1050,9 @@ if (Platform.isPosix && Stdin.isTerminal) {
   AnsiRepl.new().run()
 } else {
   // ANSI escape sequences probably aren't supported, so degrade.
+  COMMANDS = COMMANDS.where {|entry|
+    var command = entry[0]
+    return command != Command.clear
+  }
   SimpleRepl.new().run()
 }
