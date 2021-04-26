@@ -2,6 +2,30 @@ import "meta" for Meta
 import "io" for Stdin, Stdout
 import "os" for Platform
 
+class CodePointList {
+  construct new(s) {
+    _string = s
+  }
+  [x] {
+    if (x is Num) {
+      return _string.codePoints.skip(x).take(1).map { |x| String.fromCodePoint(x) }.join()
+    } else {
+      if (x.to == -1) {
+        return _string.codePoints.skip(x.from).map { |x| String.fromCodePoint(x) }.join()
+      } else {
+        var n = x.to - x.from
+        return _string.codePoints.skip(x.from).take(n).map { |x| String.fromCodePoint(x) }.join()
+      }
+    }
+  }
+  // +(other) {
+  //   _string = _string + other
+  // }
+  // toString {
+  //   return _string
+  // }
+}
+
 /// Abstract base class for the REPL. Manages the input line and history, but
 /// does not render.
 class Repl {
@@ -23,13 +47,15 @@ class Repl {
     refreshLine(false)
 
     while (true) {
-      var byte = Stdin.readByte()
-      if (handleChar(byte)) break
+      var codepoint = Stdin.readCodePoint()
+      if (handleChar(codepoint)) break
       refreshLine(true)
     }
   }
 
-  handleChar(byte) {
+  handleChar(codepoint) {
+    var byte = codepoint.bytes[0]
+    var codepoints
     if (byte == Chars.ctrlC) {
       System.print()
       return true
@@ -70,14 +96,18 @@ class Repl {
     } else if (byte == Chars.delete) {
       deleteLeft()
     } else if (byte >= Chars.space && byte <= Chars.tilde) {
-      insertChar(byte)
+      insertCodePoint(codepoint)
+    } else if (byte > 127) {
+      insertCodePoint(codepoint)
     } else if (byte == Chars.ctrlW) { // Handle Ctrl+w
       // Delete trailing spaces
-      while (_cursor != 0 && _line[_cursor - 1] == " ") {
+      codepoints = CodePointList.new(_line)
+      while (_cursor != 0 && codepoints[_cursor - 1] == " ") {
         deleteLeft()
       }
+      codepoints = CodePointList.new(_line)
       // Delete until the next space
-      while (_cursor != 0 && _line[_cursor - 1] != " ") {
+      while (_cursor != 0 && codepoints[_cursor - 1] != " ") {
         deleteLeft()
       }
     } else {
@@ -86,6 +116,12 @@ class Repl {
     }
 
     return false
+  }
+
+  insertCodePoint(cp) {
+    var codePoints = CodePointList.new(_line)
+    _line = codePoints[0..._cursor] + cp  + codePoints[_cursor..-1]
+    _cursor = _cursor + 1
   }
 
   /// Inserts the character with [byte] value at the current cursor position.
@@ -100,7 +136,8 @@ class Repl {
     if (_cursor == 0) return
 
     // Delete the character before the cursor.
-    _line = _line[0...(_cursor - 1)] + _line[_cursor..-1]
+    var codePoints = CodePointList.new(_line)
+    _line = codePoints[0...(_cursor - 1)] + codePoints[_cursor..-1]
     _cursor = _cursor - 1
   }
 
@@ -109,7 +146,8 @@ class Repl {
     if (_cursor == _line.count) return
 
     // Delete the character after the cursor.
-    _line = _line[0..._cursor] + _line[(_cursor + 1)..-1]
+    var codePoints = CodePointList.new(_line)
+    _line = codePoints[0..._cursor] + codePoints[(_cursor + 1)..-1]
   }
 
   handleEscapeBracket(byte) {
@@ -295,7 +333,8 @@ class AnsiRepl is Repl {
     super()
   }
 
-  handleChar(byte) {
+  handleChar(codepoint) {
+    var byte = codepoint.bytes[0]
     if (byte == Chars.ctrlA) {
       cursor = 0
     } else if (byte == Chars.ctrlB) {
@@ -317,7 +356,7 @@ class AnsiRepl is Repl {
       // TODO: ESC H and F to move to beginning and end of line. (Both ESC
       // [ and ESC 0 sequences?)
       // TODO: Ctrl-W delete previous word.
-      return super.handleChar(byte)
+      return super.handleChar(codepoint)
     }
 
     return false

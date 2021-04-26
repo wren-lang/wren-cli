@@ -228,6 +228,14 @@ class Stdin {
     }
   }
 
+  static readCodePoint() {
+    return read_ {
+      var codepoint = __buffered[0]
+      __buffered = __buffered[1..-1]
+      return codepoint
+    }
+  }
+
   static readLine() {
     return read_ {
       // TODO: Handle Windows line separators.
