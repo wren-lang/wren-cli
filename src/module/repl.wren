@@ -9,7 +9,7 @@ class History {
   }
   add(line) {
     if (line=="") return
-    if (line==this.lastEntry) {
+    if (line==lastEntry) {
       _index = _list.count   
       return
     }

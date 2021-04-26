@@ -11,7 +11,7 @@ static const char* replModuleSource =
 "  }\n"
 "  add(line) {\n"
 "    if (line==\"\") return\n"
-"    if (line==this.lastEntry) {\n"
+"    if (line==lastEntry) {\n"
 "      _index = _list.count   \n"
 "      return\n"
 "    }\n"
