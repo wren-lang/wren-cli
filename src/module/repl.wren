@@ -2,6 +2,40 @@ import "meta" for Meta
 import "io" for Stdin, Stdout
 import "os" for Platform
 
+class History {
+  construct new() {
+    _list = []
+    _index = 0
+  }
+  add(line) {
+    if (line=="") return
+    if (line==this.lastEntry) {
+      _index = _list.count   
+      return
+    }
+
+    _list.add(line)
+    _index = _list.count 
+  }
+  lastEntry {
+    if (_list.isEmpty) return ""
+
+    return _list[-1]
+  }
+  entry {
+    if (_index == _list.count) return ""
+    return _list[_index]
+  }
+  next() {
+    if (_index < _list.count) { _index = _index + 1 }
+    return this
+  }
+  previous() {
+    if (_index > 0) { _index = _index - 1 }
+    return this
+  }
+}
+
 /// Abstract base class for the REPL. Manages the input line and history, but
 /// does not render.
 class Repl {
@@ -9,8 +43,7 @@ class Repl {
     _cursor = 0
     _line = ""
 
-    _history = []
-    _historyIndex = 0
+    _history = History.new()
   }
 
   cursor { _cursor }
@@ -129,35 +162,20 @@ class Repl {
   }
 
   previousHistory() {
-    if (_historyIndex == 0) return
-
-    _historyIndex = _historyIndex - 1
-    _line = _history[_historyIndex]
+    _line = _history.previous().entry
     _cursor = _line.count
   }
 
   nextHistory() {
-    if (_historyIndex >= _history.count) return
-
-    _historyIndex = _historyIndex + 1
-    if (_historyIndex < _history.count) {
-      _line = _history[_historyIndex]
-      _cursor = _line.count
-    } else {
-      _line = ""
-      _cursor = 0
-    }
+    _line = _history.next().entry
+    _cursor = _line.count
   }
 
   executeInput() {
     // Remove the completion hint.
     refreshLine(false)
 
-    // Add it to the history (if the line is interesting).
-    if (_line != "" && (_history.isEmpty || _history[-1] != _line)) {
-      _history.add(_line)
-      _historyIndex = _history.count
-    }
+    _history.add(_line)
 
     // Reset the current line.
     var input = _line
