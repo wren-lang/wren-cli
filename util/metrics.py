@@ -12,8 +12,8 @@ TODO_PATTERN = re.compile(r'\s*// TODO:')
 DOC_PATTERN = re.compile(r'\s*//')
 EXPECT_PATTERN = re.compile(r'// expect')
 
-C_FORMAT_LINE = "{0:<10}  {1:>7}  {2:>7}  {3:>7}  {4:>7}  {5:>7}  {6:>7}  {7:>7}"
-WREN_FORMAT_LINE = "{0:<10}  {1:>7}  {2:>7}  {3:>7}  {4:>7}  {5:>7}  {6:>7}"
+C_FORMAT_LINE = " {0:<10}  {1:>7}  {2:>7}  {3:>7}  {4:>7}  {5:>7}  {6:>7}  {7:>7}"
+WREN_FORMAT_LINE = " {0:<10}  {1:>7}  {2:>7}  {3:>7}  {4:>7}  {5:>7}  {6:>7}"
 
 num_files = 0
 num_docs = 0
@@ -115,17 +115,21 @@ def wren_metrics(label, directories):
       label, num_files, num_todos, num_code, num_expects, num_empty,
       num_todos + num_code + num_expects + num_empty))
 
+def hr(len=75):
+  print("-"*len)
 
 print(C_FORMAT_LINE.format(
-    "", "files", "';'", "todos", "code", "comment", "empty", "total"))
-c_metrics("vm",       ["src/vm", "src/include"])
-c_metrics("optional", ["src/optional"])
+    "C", "files", "';'", "todos", "code", "comment", "empty", "total"))
+hr()
+c_metrics("vm",       ["deps/wren/src/vm", "src/include"])
+c_metrics("optional", ["deps/wren/src/optional"])
 c_metrics("cli",      ["src/cli", "src/module"])
 
 print()
 print(WREN_FORMAT_LINE.format(
-    "", "files", "todos", "code", "expects", "empty", "total"))
-wren_metrics("core",      ["src/vm"])
-wren_metrics("optional",  ["src/optional"])
+    "WREN", "files", "todos", "code", "expects", "empty", "total"))
+hr(66)
+wren_metrics("core",      ["deps/wren/src/vm"])
+wren_metrics("optional",  ["deps/wren/src/optional"])
 wren_metrics("cli",       ["src/module"])
 wren_metrics("test",      ["test"])
