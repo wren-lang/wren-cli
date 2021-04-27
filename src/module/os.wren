@@ -13,3 +13,7 @@ class Process {
   foreign static version
   foreign static cwd
 }
+
+class Time {
+  foreign static time
+}

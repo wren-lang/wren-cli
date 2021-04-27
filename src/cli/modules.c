@@ -27,6 +27,7 @@ extern void platformName(WrenVM* vm);
 extern void processAllArguments(WrenVM* vm);
 extern void processVersion(WrenVM* vm);
 extern void processCwd(WrenVM* vm);
+extern void timeTime(WrenVM* vm);
 extern void statPath(WrenVM* vm);
 extern void statBlockCount(WrenVM* vm);
 extern void statBlockSize(WrenVM* vm);
@@ -169,6 +170,9 @@ static ModuleRegistry modules[] =
       STATIC_METHOD("allArguments", processAllArguments)
       STATIC_METHOD("version", processVersion)
       STATIC_METHOD("cwd", processCwd)
+    END_CLASS
+    CLASS(Time)
+      STATIC_METHOD("time", timeTime)
     END_CLASS
   END_MODULE
   MODULE(repl)

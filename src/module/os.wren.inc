@@ -14,4 +14,7 @@ static const char* osModuleSource =
 "  foreign static allArguments\n"
 "  foreign static version\n"
 "  foreign static cwd\n"
+"}\n"
+"class Time {\n"
+"  foreign static time\n"
 "}\n";

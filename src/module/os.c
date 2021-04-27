@@ -1,6 +1,7 @@
 #include "os.h"
 #include "uv.h"
 #include "wren.h"
+#include <time.h>
 
 #if __APPLE__
   #include "TargetConditionals.h"
@@ -91,4 +92,9 @@ void processCwd(WrenVM* vm)
   }
 
   wrenSetSlotString(vm, 0, buffer);
+}
+
+void timeTime(WrenVM* vm) {
+  wrenEnsureSlots(vm, 1);
+  wrenSetSlotDouble(vm, 0, time(NULL));
 }
