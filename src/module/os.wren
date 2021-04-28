@@ -1,3 +1,5 @@
+import "scheduler" for Scheduler
+
 class Platform {
   foreign static homePath
   foreign static isPosix
@@ -10,6 +12,13 @@ class Process {
   // TODO: This will need to be smarter when wren supports CLI options.
   static arguments { allArguments.count >= 2 ? allArguments[2..-1] : [] }
 
+  // executes a command passing it the specified arguments (as a list)
+  static exec(cmd, argList) {
+    exec_(cmd, argList, Fiber.current)
+    return Scheduler.runNextScheduled_()
+  }
+
+  foreign static exec_(cmd, args, fiber)
   foreign static allArguments
   foreign static cwd
   foreign static pid

@@ -2,6 +2,8 @@
 // from `src/module/os.wren` using `util/wren_to_c_string.py`
 
 static const char* osModuleSource =
+"import \"scheduler\" for Scheduler\n"
+"\n"
 "class Platform {\n"
 "  foreign static homePath\n"
 "  foreign static isPosix\n"
@@ -14,6 +16,13 @@ static const char* osModuleSource =
 "  // TODO: This will need to be smarter when wren supports CLI options.\n"
 "  static arguments { allArguments.count >= 2 ? allArguments[2..-1] : [] }\n"
 "\n"
+"  // executes a command passing it the specified arguments (as a list)\n"
+"  static exec(cmd, argList) {\n"
+"    exec_(cmd, argList, Fiber.current)\n"
+"    return Scheduler.runNextScheduled_()\n"
+"  }\n"
+"\n"
+"  foreign static exec_(cmd, args, fiber)\n"
 "  foreign static allArguments\n"
 "  foreign static cwd\n"
 "  foreign static pid\n"
