@@ -26,3 +26,6 @@ for (i in 1..4) {
 // TODO: This doesn't actually detect a visible difference between raw and
 // non-raw mode. Maybe add support to the test runner for writing non-printing
 // characters to stdin?
+
+System.print(Stdin.isRaw=false) // expect: false
+System.print(Stdin.isRaw=true) // expect: true

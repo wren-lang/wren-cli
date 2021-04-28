@@ -522,6 +522,7 @@ void stdinIsRawSet(WrenVM* vm)
     // Can't set raw mode when not talking to a TTY.
     // TODO: Make this a runtime error?
   }
+  wrenSetSlotBool(vm, 0, isStdinRaw);
 }
 
 void stdinIsTerminal(WrenVM* vm)
