@@ -2,7 +2,7 @@ import "scheduler" for Scheduler
 
 class Directory {
   // TODO: Copied from File. Figure out good way to share this.
-  static ensurePath_(path) {
+  static ensureString_(path) {
     if (!(path is String)) Fiber.abort("Path must be a string.")
   }
 
@@ -17,7 +17,7 @@ class Directory {
   }
 
   static exists(path) {
-    ensurePath_(path)
+    ensureString_(path)
     var stat
     Fiber.new {
       stat = Stat.path(path)
@@ -29,8 +29,12 @@ class Directory {
   }
 
   static list(path) {
-    ensurePath_(path)
-    list_(path, Fiber.current)
+    ensureString_(path)
+    return await { list_(path, Fiber.current) }
+  }
+
+  static await(fn) {
+    fn.call()
     return Scheduler.runNextScheduled_()
   }
 
@@ -55,13 +59,12 @@ foreign class File {
   }
 
   static delete(path) {
-    ensurePath_(path)
-    delete_(path, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    ensureString_(path)
+    await { delete_(path, Fiber.current) }
   }
 
   static exists(path) {
-    ensurePath_(path)
+    ensureString_(path)
     var stat
     Fiber.new {
       stat = Stat.path(path)
@@ -79,7 +82,7 @@ foreign class File {
   // TODO: Add named parameters and then call this "open(_,flags:_)"?
   // TODO: Test.
   static openWithFlags(path, flags) {
-    ensurePath_(path)
+    ensureString_(path)
     ensureInt_(flags, "Flags")
     open_(path, flags, Fiber.current)
     var fd = Scheduler.runNextScheduled_()
@@ -106,15 +109,13 @@ foreign class File {
   // TODO: This works for directories too, so putting it on File is kind of
   // lame. Consider reorganizing these classes some.
   static realPath(path) {
-    ensurePath_(path)
-    realPath_(path, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    ensureString_(path)
+    return await { realPath_(path, Fiber.current) }
   }
 
   static size(path) {
-    ensurePath_(path)
-    sizePath_(path, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    ensureString_(path)
+    return await { sizePath_(path, Fiber.current) }
   }
 
   construct new_(fd) {}
@@ -166,7 +167,7 @@ foreign class File {
     if (!isOpen) Fiber.abort("File is not open.")
   }
 
-  static ensurePath_(path) {
+  static ensureString_(path) {
     if (!(path is String)) Fiber.abort("Path must be a string.")
   }
 
