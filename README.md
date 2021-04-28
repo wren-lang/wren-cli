@@ -25,6 +25,12 @@ The `projects/vs20xx` folders contain Visual Studio projects.
 
 The `projects/xcode` folder contains an Xcode project. 
 
+The `projects/make.mac` folder also contains a `make` project.   
+From that folder, run `make`.
+
+`cd projects/make.mac`   
+`make`
+
 ### Linux
 
 The `projects/make` folder contains a `make` project.   
