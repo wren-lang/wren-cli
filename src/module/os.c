@@ -71,12 +71,6 @@ void processAllArguments(WrenVM* vm)
   }
 }
 
-
-void processVersion(WrenVM* vm) {
-  wrenEnsureSlots(vm, 1);
-  wrenSetSlotString(vm, 0, WREN_VERSION_STRING);
-}
-
 void processCwd(WrenVM* vm)
 {
   wrenEnsureSlots(vm, 1);
@@ -91,4 +85,19 @@ void processCwd(WrenVM* vm)
   }
 
   wrenSetSlotString(vm, 0, buffer);
+}
+
+void processPid(WrenVM* vm) {
+  wrenEnsureSlots(vm, 1);
+  wrenSetSlotDouble(vm, 0, uv_os_getpid());
+}
+
+void processPpid(WrenVM* vm) {
+  wrenEnsureSlots(vm, 1);
+  wrenSetSlotDouble(vm, 0, uv_os_getppid());
+}
+
+void processVersion(WrenVM* vm) {
+  wrenEnsureSlots(vm, 1);
+  wrenSetSlotString(vm, 0, WREN_VERSION_STRING);
 }
