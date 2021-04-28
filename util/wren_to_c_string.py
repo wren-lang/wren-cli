@@ -33,26 +33,27 @@ def wren_to_c_string(input_path, wren_source_lines, module):
 
   return PREAMBLE.format(input_path, module, wren_source)
 
+def process_file(path):
+  infile = os.path.basename(path)
+  outfile = infile + ".inc"
+  print("{} => {}").format(path.replace("src/",""), outfile)
 
-def main():
-  parser = argparse.ArgumentParser(
-      description="Convert a Wren library to a C string literal.")
-  parser.add_argument("output", help="The output file to write")
-  parser.add_argument("input", help="The source .wren file")
-
-  args = parser.parse_args()
-
-  with open(args.input, "r") as f:
+  with open(path, "r") as f:
     wren_source_lines = f.readlines()
 
-  module = os.path.splitext(os.path.basename(args.input))[0]
+  module = os.path.splitext(infile)[0]
   module = module.replace("opt_", "")
   module = module.replace("wren_", "")
 
-  c_source = wren_to_c_string(args.input, wren_source_lines, module)
+  c_source = wren_to_c_string(infile, wren_source_lines, module)
 
-  with open(args.output, "w") as f:
+  with open(outfile, "w") as f:
     f.write(c_source)
 
+
+def main():
+  files = glob.glob("src/module/*.wren")
+  for file in files:
+    process_file(file)
 
 main()
