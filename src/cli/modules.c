@@ -111,7 +111,8 @@ typedef struct
 
 #define METHOD(signature, fn) { false, signature, fn },
 #define STATIC_METHOD(signature, fn) { true, signature, fn },
-#define FINALIZER(fn) { true, "<finalize>", (WrenForeignMethodFn)fn },
+#define ALLOCATE(fn) { true, "<allocate>", (WrenForeignMethodFn)fn },
+#define FINALIZE(fn) { true, "<finalize>", (WrenForeignMethodFn)fn },
 
 // The array of built-in modules.
 static ModuleRegistry modules[] =
@@ -121,8 +122,8 @@ static ModuleRegistry modules[] =
       STATIC_METHOD("list_(_,_)", directoryList)
     END_CLASS
     CLASS(File)
-      STATIC_METHOD("<allocate>", fileAllocate)
-      FINALIZER(fileFinalize)
+      ALLOCATE(fileAllocate)
+      FINALIZE(fileFinalize)
       STATIC_METHOD("delete_(_,_)", fileDelete)
       STATIC_METHOD("open_(_,_,_)", fileOpen)
       STATIC_METHOD("realPath_(_,_)", fileRealPath)
