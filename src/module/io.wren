@@ -6,6 +6,16 @@ class Directory {
     if (!(path is String)) Fiber.abort("Path must be a string.")
   }
 
+  static create(path) {
+    ensureString_(path)
+    return await { create_(path, Fiber.current) }
+  }
+
+  static remove(path) {
+    ensureString_(path)
+    return await { remove_(path, Fiber.current) }
+  }
+
   static exists(path) {
     ensurePath_(path)
     var stat
@@ -24,6 +34,8 @@ class Directory {
     return Scheduler.runNextScheduled_()
   }
 
+  foreign static create_(path, fiber)
+  foreign static remove_(path, fiber)
   foreign static list_(path, fiber)
 }
 
