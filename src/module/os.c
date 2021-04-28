@@ -132,7 +132,7 @@ void processVersion(WrenVM* vm) {
   wrenSetSlotString(vm, 0, WREN_VERSION_STRING);
 }
 
-void proccesOnExit(uv_process_t *req, int64_t exit_status, int term_signal) {
+void processOnExit(uv_process_t *req, int64_t exit_status, int term_signal) {
     uv_close((uv_handle_t*) req, NULL);
     schedulerResume(((processData*)req->data)->fiber, true);
     wrenSetSlotDouble(getVM(), 2, exit_status);
@@ -170,7 +170,7 @@ void processExec(WrenVM* vm) {
     }
     args[argCount+1] = NULL;
 
-    data->options.exit_cb = proccesOnExit;
+    data->options.exit_cb = processOnExit;
     data->options.file = args[0];
     data->options.args = args;
 
