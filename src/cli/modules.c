@@ -163,7 +163,7 @@ REGISTRY
 // define a couple of macros to make it easier.
 #define SENTINEL_METHOD { false, NULL, NULL }
 #define SENTINEL_CLASS { NULL, { SENTINEL_METHOD } }
-#define END_REGISTRY 
+#define END_REGISTRY {NULL, NULL, { SENTINEL_CLASS } }
 
 #define MODULE(name) { #name, &name##ModuleSource, {
 #define END_MODULE SENTINEL_CLASS } },
