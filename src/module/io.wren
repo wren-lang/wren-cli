@@ -131,14 +131,12 @@ foreign class File {
 
   size {
     ensureOpen_()
-    size_(Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return await { size_(Fiber.current) }
   }
 
   stat {
     ensureOpen_()
-    stat_(Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return await { stat_(Fiber.current) }
   }
 
   readBytes(count) { readBytes(count, 0) }
@@ -148,8 +146,7 @@ foreign class File {
     File.ensureInt_(count, "Count")
     File.ensureInt_(offset, "Offset")
 
-    readBytes_(count, offset, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return await { readBytes_(count, offset, Fiber.current) }
   }
 
   writeBytes(bytes) { writeBytes(bytes, size) }
@@ -159,8 +156,7 @@ foreign class File {
     if (!(bytes is String)) Fiber.abort("Bytes must be a string.")
     File.ensureInt_(offset, "Offset")
 
-    writeBytes_(bytes, offset, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return await { writeBytes_(bytes, offset, Fiber.current) }
   }
 
   ensureOpen_() {
@@ -175,6 +171,15 @@ foreign class File {
     if (!(value is Num)) Fiber.abort("%(name) must be an integer.")
     if (!value.isInteger) Fiber.abort("%(name) must be an integer.")
     if (value < 0) Fiber.abort("%(name) cannot be negative.")
+  }
+
+  static await(fn) {
+    fn.call()
+    return Scheduler.runNextScheduled_()
+  }
+  await(fn) {
+    fn.call()
+    return Scheduler.runNextScheduled_()
   }
 
   foreign static delete_(path, fiber)
