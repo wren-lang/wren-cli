@@ -9,45 +9,6 @@
 #include "scheduler.wren.inc"
 #include "timer.wren.inc"
 
-extern void directoryList(WrenVM* vm);
-extern void fileAllocate(WrenVM* vm);
-extern void fileFinalize(void* data);
-extern void fileDelete(WrenVM* vm);
-extern void fileOpen(WrenVM* vm);
-extern void fileSizePath(WrenVM* vm);
-extern void fileClose(WrenVM* vm);
-extern void fileDescriptor(WrenVM* vm);
-extern void fileReadBytes(WrenVM* vm);
-extern void fileRealPath(WrenVM* vm);
-extern void fileSize(WrenVM* vm);
-extern void fileStat(WrenVM* vm);
-extern void fileWriteBytes(WrenVM* vm);
-extern void platformIsPosix(WrenVM* vm);
-extern void platformName(WrenVM* vm);
-extern void processAllArguments(WrenVM* vm);
-extern void processVersion(WrenVM* vm);
-extern void processCwd(WrenVM* vm);
-extern void statPath(WrenVM* vm);
-extern void statBlockCount(WrenVM* vm);
-extern void statBlockSize(WrenVM* vm);
-extern void statDevice(WrenVM* vm);
-extern void statGroup(WrenVM* vm);
-extern void statInode(WrenVM* vm);
-extern void statLinkCount(WrenVM* vm);
-extern void statMode(WrenVM* vm);
-extern void statSize(WrenVM* vm);
-extern void statSpecialDevice(WrenVM* vm);
-extern void statUser(WrenVM* vm);
-extern void statIsDirectory(WrenVM* vm);
-extern void statIsFile(WrenVM* vm);
-extern void stdinIsRaw(WrenVM* vm);
-extern void stdinIsRawSet(WrenVM* vm);
-extern void stdinIsTerminal(WrenVM* vm);
-extern void stdinReadStart(WrenVM* vm);
-extern void stdinReadStop(WrenVM* vm);
-extern void stdoutFlush(WrenVM* vm);
-extern void schedulerCaptureMethods(WrenVM* vm);
-extern void timerStartTimer(WrenVM* vm);
 
 // The maximum number of foreign methods a single class defines. Ideally, we
 // would use variable-length arrays for each class in the table below, but
@@ -96,12 +57,113 @@ typedef struct
   ClassRegistry classes[MAX_CLASSES_PER_MODULE];
 } ModuleRegistry;
 
+#define METHOD(signature, fn)        extern void fn (WrenVM* vm);;
+#define STATIC_METHOD(signature, fn) extern void fn (WrenVM* vm);;
+#define FINALIZER(fn)                extern void fn (WrenVM* vm);;
+#define SENTINEL_METHOD 
+#define SENTINEL_CLASS 
+#define MODULE(name) 
+#define END_MODULE 
+#define CLASS(name) 
+#define END_CLASS 
+
+// MODULES, CLASSES, METHODS
+//
+// all modules as well as any foreign classes or methods must be included in
+// this list to connect them to their counterpart C functions
+//
+// This macro is used to construct both the `ModuleRegistry` as well as the full
+// list of externs so that they do not need to be maintained by hand.
+#define REGISTRY MODULE(io) \
+    CLASS(Directory) \
+      STATIC_METHOD("list_(_,_)", directoryList) \
+    END_CLASS \
+    CLASS(File) \
+      STATIC_METHOD("<allocate>", fileAllocate) \
+      FINALIZER(fileFinalize) \
+      STATIC_METHOD("delete_(_,_)", fileDelete) \
+      STATIC_METHOD("open_(_,_,_)", fileOpen) \
+      STATIC_METHOD("realPath_(_,_)", fileRealPath) \
+      STATIC_METHOD("sizePath_(_,_)", fileSizePath) \
+      METHOD("close_(_)", fileClose) \
+      METHOD("descriptor", fileDescriptor) \
+      METHOD("readBytes_(_,_,_)", fileReadBytes) \
+      METHOD("size_(_)", fileSize) \
+      METHOD("stat_(_)", fileStat) \
+      METHOD("writeBytes_(_,_,_)", fileWriteBytes) \
+    END_CLASS \
+    CLASS(Stat) \
+      STATIC_METHOD("path_(_,_)", statPath) \
+      METHOD("blockCount", statBlockCount) \
+      METHOD("blockSize", statBlockSize) \
+      METHOD("device", statDevice) \
+      METHOD("group", statGroup) \
+      METHOD("inode", statInode) \
+      METHOD("linkCount", statLinkCount) \
+      METHOD("mode", statMode) \
+      METHOD("size", statSize) \
+      METHOD("specialDevice", statSpecialDevice) \
+      METHOD("user", statUser) \
+      METHOD("isDirectory", statIsDirectory) \
+      METHOD("isFile", statIsFile) \
+    END_CLASS \
+    CLASS(Stdin) \
+      STATIC_METHOD("isRaw", stdinIsRaw) \
+      STATIC_METHOD("isRaw=(_)", stdinIsRawSet) \
+      STATIC_METHOD("isTerminal", stdinIsTerminal) \
+      STATIC_METHOD("readStart_()", stdinReadStart) \
+      STATIC_METHOD("readStop_()", stdinReadStop) \
+    END_CLASS \
+    CLASS(Stdout) \
+      STATIC_METHOD("flush()", stdoutFlush) \
+    END_CLASS \
+  END_MODULE \
+  MODULE(os) \
+    CLASS(Platform) \
+      STATIC_METHOD("isPosix", platformIsPosix) \
+      STATIC_METHOD("name", platformName) \
+    END_CLASS \
+    CLASS(Process) \
+      STATIC_METHOD("allArguments", processAllArguments) \
+      STATIC_METHOD("version", processVersion) \
+      STATIC_METHOD("cwd", processCwd) \
+    END_CLASS \
+  END_MODULE \
+  MODULE(repl) \
+  END_MODULE \
+  MODULE(scheduler) \
+    CLASS(Scheduler) \
+      STATIC_METHOD("captureMethods_()", schedulerCaptureMethods) \
+    END_CLASS \
+  END_MODULE \
+  MODULE(timer) \
+    CLASS(Timer) \
+      STATIC_METHOD("startTimer_(_,_)", timerStartTimer) \
+    END_CLASS \
+  END_MODULE
+
+// this first use of REGISTRY builds out the list of externs
+// extern void directoryList(WrenVM* vm);
+// extern void fileAllocate(WrenVM* vm);
+// ...
+REGISTRY
+
+#undef SENTINEL_METHOD
+#undef SENTINEL_CLASS
+#undef MODULE
+#undef END_MODULE
+#undef CLASS
+#undef END_CLASS
+#undef METHOD
+#undef STATIC_METHOD
+#undef FINALIZER
+
 // To locate foreign classes and modules, we build a big directory for them in
 // static data. The nested collection initializer syntax gets pretty noisy, so
 // define a couple of macros to make it easier.
 #define SENTINEL_METHOD { false, NULL, NULL }
 #define SENTINEL_CLASS { NULL, { SENTINEL_METHOD } }
-#define SENTINEL_MODULE {NULL, NULL, { SENTINEL_CLASS } }
+#define END_REGISTRY 
 
 #define MODULE(name) { #name, &name##ModuleSource, {
 #define END_MODULE SENTINEL_CLASS } },
@@ -116,75 +178,8 @@ typedef struct
 // The array of built-in modules.
 static ModuleRegistry modules[] =
 {
-  MODULE(io)
-    CLASS(Directory)
-      STATIC_METHOD("list_(_,_)", directoryList)
-    END_CLASS
-    CLASS(File)
-      STATIC_METHOD("<allocate>", fileAllocate)
-      FINALIZER(fileFinalize)
-      STATIC_METHOD("delete_(_,_)", fileDelete)
-      STATIC_METHOD("open_(_,_,_)", fileOpen)
-      STATIC_METHOD("realPath_(_,_)", fileRealPath)
-      STATIC_METHOD("sizePath_(_,_)", fileSizePath)
-      METHOD("close_(_)", fileClose)
-      METHOD("descriptor", fileDescriptor)
-      METHOD("readBytes_(_,_,_)", fileReadBytes)
-      METHOD("size_(_)", fileSize)
-      METHOD("stat_(_)", fileStat)
-      METHOD("writeBytes_(_,_,_)", fileWriteBytes)
-    END_CLASS
-    CLASS(Stat)
-      STATIC_METHOD("path_(_,_)", statPath)
-      METHOD("blockCount", statBlockCount)
-      METHOD("blockSize", statBlockSize)
-      METHOD("device", statDevice)
-      METHOD("group", statGroup)
-      METHOD("inode", statInode)
-      METHOD("linkCount", statLinkCount)
-      METHOD("mode", statMode)
-      METHOD("size", statSize)
-      METHOD("specialDevice", statSpecialDevice)
-      METHOD("user", statUser)
-      METHOD("isDirectory", statIsDirectory)
-      METHOD("isFile", statIsFile)
-    END_CLASS
-    CLASS(Stdin)
-      STATIC_METHOD("isRaw", stdinIsRaw)
-      STATIC_METHOD("isRaw=(_)", stdinIsRawSet)
-      STATIC_METHOD("isTerminal", stdinIsTerminal)
-      STATIC_METHOD("readStart_()", stdinReadStart)
-      STATIC_METHOD("readStop_()", stdinReadStop)
-    END_CLASS
-    CLASS(Stdout)
-      STATIC_METHOD("flush()", stdoutFlush)
-    END_CLASS
-  END_MODULE
-  MODULE(os)
-    CLASS(Platform)
-      STATIC_METHOD("isPosix", platformIsPosix)
-      STATIC_METHOD("name", platformName)
-    END_CLASS
-    CLASS(Process)
-      STATIC_METHOD("allArguments", processAllArguments)
-      STATIC_METHOD("version", processVersion)
-      STATIC_METHOD("cwd", processCwd)
-    END_CLASS
-  END_MODULE
-  MODULE(repl)
-  END_MODULE
-  MODULE(scheduler)
-    CLASS(Scheduler)
-      STATIC_METHOD("captureMethods_()", schedulerCaptureMethods)
-    END_CLASS
-  END_MODULE
-  MODULE(timer)
-    CLASS(Timer)
-      STATIC_METHOD("startTimer_(_,_)", timerStartTimer)
-    END_CLASS
-  END_MODULE
-
-  SENTINEL_MODULE
+  REGISTRY
+  END_REGISTRY
 };
 
 #undef SENTINEL_METHOD
