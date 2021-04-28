@@ -47,6 +47,19 @@ static char* readFile(const char* path)
     fprintf(stderr, "Could not read file \"%s\".\n", path);
     exit(74);
   }
+
+  // handle #! shebang lines
+  fread(buffer, 1, 250, file);
+  if (buffer[0]=='#' && buffer[1]=='!') {
+    int i = 0;
+    while (buffer[i] != '\n') {
+      i++;
+    }
+    fileSize -= i;
+    fseek(file, i, SEEK_SET);
+  } else {
+    rewind(file);
+  }
   
   // Read the entire file.
   size_t bytesRead = fread(buffer, 1, fileSize, file);
