@@ -38,6 +38,7 @@ extern void processPid(WrenVM* vm);
 extern void processPpid(WrenVM* vm);
 extern void processVersion(WrenVM* vm);
 extern void processExit(WrenVM* vm);
+extern void processExec(WrenVM* vm);
 extern void statPath(WrenVM* vm);
 extern void statBlockCount(WrenVM* vm);
 extern void statBlockSize(WrenVM* vm);
@@ -153,6 +154,7 @@ static ModuleRegistry coreCLImodules[] =
       STATIC_METHOD("ppid", processPpid)
       STATIC_METHOD("version", processVersion)
       STATIC_METHOD("exit_(_)", processExit)
+      STATIC_METHOD("exec_(_,_,_,_,_)", processExec)
     END_CLASS
   END_MODULE
   MODULE(repl)
