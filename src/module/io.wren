@@ -33,11 +33,6 @@ class Directory {
     return Scheduler.await { list_(path, Fiber.current) }
   }
 
-  static await(fn) {
-    fn.call()
-    return Scheduler.runNextScheduled_()
-  }
-
   foreign static create_(path, fiber)
   foreign static remove_(path, fiber)
   foreign static list_(path, fiber)
@@ -171,15 +166,6 @@ foreign class File {
     if (!(value is Num)) Fiber.abort("%(name) must be an integer.")
     if (!value.isInteger) Fiber.abort("%(name) must be an integer.")
     if (value < 0) Fiber.abort("%(name) cannot be negative.")
-  }
-
-  static await(fn) {
-    fn.call()
-    return Scheduler.runNextScheduled_()
-  }
-  await(fn) {
-    fn.call()
-    return Scheduler.runNextScheduled_()
   }
 
   foreign static delete_(path, fiber)
