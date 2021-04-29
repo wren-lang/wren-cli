@@ -8,12 +8,12 @@ class Directory {
 
   static create(path) {
     ensureString_(path)
-    return await { create_(path, Fiber.current) }
+    return Scheduler.await { create_(path, Fiber.current) }
   }
 
   static remove(path) {
     ensureString_(path)
-    return await { remove_(path, Fiber.current) }
+    return Scheduler.await { remove_(path, Fiber.current) }
   }
 
   static exists(path) {
@@ -30,7 +30,7 @@ class Directory {
 
   static list(path) {
     ensureString_(path)
-    return await { list_(path, Fiber.current) }
+    return Scheduler.await { list_(path, Fiber.current) }
   }
 
   static await(fn) {
@@ -110,12 +110,12 @@ foreign class File {
   // lame. Consider reorganizing these classes some.
   static realPath(path) {
     ensureString_(path)
-    return await { realPath_(path, Fiber.current) }
+    return Scheduler.await { realPath_(path, Fiber.current) }
   }
 
   static size(path) {
     ensureString_(path)
-    return await { sizePath_(path, Fiber.current) }
+    return Scheduler.await { sizePath_(path, Fiber.current) }
   }
 
   construct new_(fd) {}
@@ -131,12 +131,12 @@ foreign class File {
 
   size {
     ensureOpen_()
-    return await { size_(Fiber.current) }
+    return Scheduler.await { size_(Fiber.current) }
   }
 
   stat {
     ensureOpen_()
-    return await { stat_(Fiber.current) }
+    return Scheduler.await { stat_(Fiber.current) }
   }
 
   readBytes(count) { readBytes(count, 0) }
@@ -146,7 +146,7 @@ foreign class File {
     File.ensureInt_(count, "Count")
     File.ensureInt_(offset, "Offset")
 
-    return await { readBytes_(count, offset, Fiber.current) }
+    return Scheduler.await { readBytes_(count, offset, Fiber.current) }
   }
 
   writeBytes(bytes) { writeBytes(bytes, size) }
@@ -156,7 +156,7 @@ foreign class File {
     if (!(bytes is String)) Fiber.abort("Bytes must be a string.")
     File.ensureInt_(offset, "Offset")
 
-    return await { writeBytes_(bytes, offset, Fiber.current) }
+    return Scheduler.await { writeBytes_(bytes, offset, Fiber.current) }
   }
 
   ensureOpen_() {
