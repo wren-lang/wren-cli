@@ -18,7 +18,7 @@ static const char* schedulerModuleSource =
 "  static resumeError_(fiber, error) { fiber.transferError(error) }\n"
 "\n"
 "  // wait for a method to finish that has a callback on the C side\n"
-"  static await(fn) {\n"
+"  static await_(fn) {\n"
 "    fn.call()\n"
 "    return Scheduler.runNextScheduled_()\n"
 "  }\n"

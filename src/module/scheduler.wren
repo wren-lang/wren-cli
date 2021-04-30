@@ -14,7 +14,7 @@ class Scheduler {
   static resumeError_(fiber, error) { fiber.transferError(error) }
 
   // wait for a method to finish that has a callback on the C side
-  static await(fn) {
+  static await_(fn) {
     fn.call()
     return Scheduler.runNextScheduled_()
   }

@@ -8,12 +8,12 @@ class Directory {
 
   static create(path) {
     ensureString_(path)
-    return Scheduler.await { create_(path, Fiber.current) }
+    return Scheduler.await_ { create_(path, Fiber.current) }
   }
 
   static remove(path) {
     ensureString_(path)
-    return Scheduler.await { remove_(path, Fiber.current) }
+    return Scheduler.await_ { remove_(path, Fiber.current) }
   }
 
   static exists(path) {
@@ -30,7 +30,7 @@ class Directory {
 
   static list(path) {
     ensureString_(path)
-    return Scheduler.await { list_(path, Fiber.current) }
+    return Scheduler.await_ { list_(path, Fiber.current) }
   }
 
   foreign static create_(path, fiber)
@@ -55,7 +55,7 @@ foreign class File {
 
   static delete(path) {
     ensureString_(path)
-    await { delete_(path, Fiber.current) }
+    Scheduler.await_ { delete_(path, Fiber.current) }
   }
 
   static exists(path) {
@@ -105,12 +105,12 @@ foreign class File {
   // lame. Consider reorganizing these classes some.
   static realPath(path) {
     ensureString_(path)
-    return Scheduler.await { realPath_(path, Fiber.current) }
+    return Scheduler.await_ { realPath_(path, Fiber.current) }
   }
 
   static size(path) {
     ensureString_(path)
-    return Scheduler.await { sizePath_(path, Fiber.current) }
+    return Scheduler.await_ { sizePath_(path, Fiber.current) }
   }
 
   construct new_(fd) {}
@@ -126,12 +126,12 @@ foreign class File {
 
   size {
     ensureOpen_()
-    return Scheduler.await { size_(Fiber.current) }
+    return Scheduler.await_ { size_(Fiber.current) }
   }
 
   stat {
     ensureOpen_()
-    return Scheduler.await { stat_(Fiber.current) }
+    return Scheduler.await_ { stat_(Fiber.current) }
   }
 
   readBytes(count) { readBytes(count, 0) }
@@ -141,7 +141,7 @@ foreign class File {
     File.ensureInt_(count, "Count")
     File.ensureInt_(offset, "Offset")
 
-    return Scheduler.await { readBytes_(count, offset, Fiber.current) }
+    return Scheduler.await_ { readBytes_(count, offset, Fiber.current) }
   }
 
   writeBytes(bytes) { writeBytes(bytes, size) }
@@ -151,7 +151,7 @@ foreign class File {
     if (!(bytes is String)) Fiber.abort("Bytes must be a string.")
     File.ensureInt_(offset, "Offset")
 
-    return Scheduler.await { writeBytes_(bytes, offset, Fiber.current) }
+    return Scheduler.await_ { writeBytes_(bytes, offset, Fiber.current) }
   }
 
   ensureOpen_() {
