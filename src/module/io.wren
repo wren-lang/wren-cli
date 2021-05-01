@@ -2,12 +2,22 @@ import "scheduler" for Scheduler
 
 class Directory {
   // TODO: Copied from File. Figure out good way to share this.
-  static ensurePath_(path) {
+  static ensureString_(path) {
     if (!(path is String)) Fiber.abort("Path must be a string.")
   }
 
+  static create(path) {
+    ensureString_(path)
+    return Scheduler.await_ { create_(path, Fiber.current) }
+  }
+
+  static delete(path) {
+    ensureString_(path)
+    return Scheduler.await_ { delete_(path, Fiber.current) }
+  }
+
   static exists(path) {
-    ensurePath_(path)
+    ensureString_(path)
     var stat
     Fiber.new {
       stat = Stat.path(path)
@@ -19,11 +29,12 @@ class Directory {
   }
 
   static list(path) {
-    ensurePath_(path)
-    list_(path, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    ensureString_(path)
+    return Scheduler.await_ { list_(path, Fiber.current) }
   }
 
+  foreign static create_(path, fiber)
+  foreign static delete_(path, fiber)
   foreign static list_(path, fiber)
 }
 
@@ -43,13 +54,12 @@ foreign class File {
   }
 
   static delete(path) {
-    ensurePath_(path)
-    delete_(path, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    ensureString_(path)
+    Scheduler.await_ { delete_(path, Fiber.current) }
   }
 
   static exists(path) {
-    ensurePath_(path)
+    ensureString_(path)
     var stat
     Fiber.new {
       stat = Stat.path(path)
@@ -67,7 +77,7 @@ foreign class File {
   // TODO: Add named parameters and then call this "open(_,flags:_)"?
   // TODO: Test.
   static openWithFlags(path, flags) {
-    ensurePath_(path)
+    ensureString_(path)
     ensureInt_(flags, "Flags")
     open_(path, flags, Fiber.current)
     var fd = Scheduler.runNextScheduled_()
@@ -94,15 +104,13 @@ foreign class File {
   // TODO: This works for directories too, so putting it on File is kind of
   // lame. Consider reorganizing these classes some.
   static realPath(path) {
-    ensurePath_(path)
-    realPath_(path, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    ensureString_(path)
+    return Scheduler.await_ { realPath_(path, Fiber.current) }
   }
 
   static size(path) {
-    ensurePath_(path)
-    sizePath_(path, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    ensureString_(path)
+    return Scheduler.await_ { sizePath_(path, Fiber.current) }
   }
 
   construct new_(fd) {}
@@ -118,14 +126,12 @@ foreign class File {
 
   size {
     ensureOpen_()
-    size_(Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return Scheduler.await_ { size_(Fiber.current) }
   }
 
   stat {
     ensureOpen_()
-    stat_(Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return Scheduler.await_ { stat_(Fiber.current) }
   }
 
   readBytes(count) { readBytes(count, 0) }
@@ -135,8 +141,7 @@ foreign class File {
     File.ensureInt_(count, "Count")
     File.ensureInt_(offset, "Offset")
 
-    readBytes_(count, offset, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return Scheduler.await_ { readBytes_(count, offset, Fiber.current) }
   }
 
   writeBytes(bytes) { writeBytes(bytes, size) }
@@ -146,15 +151,14 @@ foreign class File {
     if (!(bytes is String)) Fiber.abort("Bytes must be a string.")
     File.ensureInt_(offset, "Offset")
 
-    writeBytes_(bytes, offset, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return Scheduler.await_ { writeBytes_(bytes, offset, Fiber.current) }
   }
 
   ensureOpen_() {
     if (!isOpen) Fiber.abort("File is not open.")
   }
 
-  static ensurePath_(path) {
+  static ensureString_(path) {
     if (!(path is String)) Fiber.abort("Path must be a string.")
   }
 

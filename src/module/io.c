@@ -139,10 +139,31 @@ static void directoryListCallback(uv_fs_t* request)
 void directoryList(WrenVM* vm)
 {
   const char* path = wrenGetSlotString(vm, 1);
-  uv_fs_t* request = createRequest(wrenGetSlotHandle(vm, 2));
+  WrenHandle* fiber = wrenGetSlotHandle(vm, 2);
+  uv_fs_t* request = createRequest(fiber);
   
-  // TODO: Check return.
-  uv_fs_scandir(getLoop(), request, path, 0, directoryListCallback);
+  int error = uv_fs_scandir(getLoop(), request, path, 0, directoryListCallback);
+  if (error != 0 ) schedulerResumeError(fiber, uv_strerror(error));
+}
+
+void fileDirectoryCallback(uv_fs_t* request) {
+  if (handleRequestError(request)) return;
+
+  schedulerResume(freeRequest(request), false);
+}
+
+void directoryCreate(WrenVM* vm)
+{
+  const char* path = wrenGetSlotString(vm, 1);
+  uv_fs_t* request = createRequest(wrenGetSlotHandle(vm, 2));
+  uv_fs_mkdir(getLoop(), request, path, 0, fileDirectoryCallback);
+}
+
+void directoryDelete(WrenVM* vm)
+{
+  const char* path = wrenGetSlotString(vm, 1);
+  uv_fs_t* request = createRequest(wrenGetSlotHandle(vm, 2));
+  uv_fs_rmdir(getLoop(), request, path, fileDirectoryCallback);
 }
 
 void fileAllocate(WrenVM* vm)
@@ -174,10 +195,11 @@ static void fileDeleteCallback(uv_fs_t* request)
 void fileDelete(WrenVM* vm)
 {
   const char* path = wrenGetSlotString(vm, 1);
-  uv_fs_t* request = createRequest(wrenGetSlotHandle(vm, 2));
+  WrenHandle* fiber = wrenGetSlotHandle(vm, 2);
+  uv_fs_t* request = createRequest(fiber);
   
-  // TODO: Check return.
-  uv_fs_unlink(getLoop(), request, path, fileDeleteCallback);
+  int error = uv_fs_unlink(getLoop(), request, path, fileDeleteCallback);
+  if (error != 0 ) schedulerResumeError(fiber, uv_strerror(error));
 }
 
 static void fileOpenCallback(uv_fs_t* request)
