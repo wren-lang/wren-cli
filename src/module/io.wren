@@ -11,9 +11,9 @@ class Directory {
     return Scheduler.await_ { create_(path, Fiber.current) }
   }
 
-  static remove(path) {
+  static delete(path) {
     ensureString_(path)
-    return Scheduler.await_ { remove_(path, Fiber.current) }
+    return Scheduler.await_ { delete_(path, Fiber.current) }
   }
 
   static exists(path) {
@@ -34,7 +34,7 @@ class Directory {
   }
 
   foreign static create_(path, fiber)
-  foreign static remove_(path, fiber)
+  foreign static delete_(path, fiber)
   foreign static list_(path, fiber)
 }
 

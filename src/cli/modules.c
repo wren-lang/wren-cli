@@ -11,7 +11,7 @@
 
 extern void directoryList(WrenVM* vm);
 extern void directoryCreate(WrenVM* vm);
-extern void directoryRemove(WrenVM* vm);
+extern void directoryDelete(WrenVM* vm);
 extern void fileAllocate(WrenVM* vm);
 extern void fileFinalize(void* data);
 extern void fileDelete(WrenVM* vm);
@@ -124,7 +124,7 @@ static ModuleRegistry modules[] =
   MODULE(io)
     CLASS(Directory)
       STATIC_METHOD("create_(_,_)", directoryCreate)
-      STATIC_METHOD("remove_(_,_)", directoryRemove)
+      STATIC_METHOD("delete_(_,_)", directoryDelete)
       STATIC_METHOD("list_(_,_)", directoryList)
     END_CLASS
     CLASS(File)

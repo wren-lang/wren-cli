@@ -159,7 +159,7 @@ void directoryCreate(WrenVM* vm)
   uv_fs_mkdir(getLoop(), request, path, 0, fileDirectoryCallback);
 }
 
-void directoryRemove(WrenVM* vm)
+void directoryDelete(WrenVM* vm)
 {
   const char* path = wrenGetSlotString(vm, 1);
   uv_fs_t* request = createRequest(wrenGetSlotHandle(vm, 2));

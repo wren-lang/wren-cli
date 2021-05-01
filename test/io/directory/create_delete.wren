@@ -2,8 +2,7 @@ import "io" for Directory, Stat
 import "os" for Platform
 
 if (Directory.exists("tmp")) {
-    System.print(("removing"))
-    Directory.remove("tmp")
+    Directory.delete("tmp")
 }
 
 System.print(Directory.exists("tmp")) // expect: false
@@ -17,7 +16,7 @@ if (Platform.isPosix) {
     System.print(stat.mode && 0x1ff) // expect: 511
 }
 
-Directory.remove("tmp")
+Directory.delete("tmp")
 System.print(Directory.exists("tmp")) // expect: false
 
 
