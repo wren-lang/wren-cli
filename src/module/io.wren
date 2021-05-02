@@ -79,8 +79,7 @@ foreign class File {
   static openWithFlags(path, flags) {
     ensureString_(path)
     ensureInt_(flags, "Flags")
-    open_(path, flags, Fiber.current)
-    var fd = Scheduler.runNextScheduled_()
+    var fd = Scheduler.await_ { open_(path, flags, Fiber.current) }
     return new_(fd)
   }
 
@@ -196,8 +195,7 @@ foreign class Stat {
   static path(path) {
     if (!(path is String)) Fiber.abort("Path must be a string.")
 
-    path_(path, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return Scheduler.await_ { path_(path, Fiber.current) }
   }
 
   foreign static path_(path, fiber)
