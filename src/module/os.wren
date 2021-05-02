@@ -13,11 +13,19 @@ class Process {
   static arguments { allArguments.count >= 2 ? allArguments[2..-1] : [] }
 
   static exec(cmd, args) {
-    exec_(cmd, args, Fiber.current)
+    return exec(cmd, args, null, null)
+  }
+
+  static exec(cmd, args, cwd) { 
+    return exec(cmd, args, cwd, null) 
+  }
+  
+  static exec(cmd, args, cwd, env) { 
+    exec_(cmd, args, cwd, env, Fiber.current)
     return Scheduler.runNextScheduled_()
   }
 
-  foreign static exec_(cmd, args, fiber)
+  foreign static exec_(cmd, args, cwd, env, fiber)
   foreign static allArguments
   foreign static cwd
   foreign static pid

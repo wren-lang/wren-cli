@@ -175,7 +175,7 @@ void processExec(WrenVM* vm)
 
   data->options.file = cmd;
   data->options.exit_cb = processOnExit;
-  data->fiber = wrenGetSlotHandle(vm, 3);
+  data->fiber = wrenGetSlotHandle(vm, 5);
 
   int argCount = wrenGetListCount(vm, 2);
   int argsSize = sizeof(char*) * (argCount + 2);

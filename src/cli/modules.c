@@ -181,7 +181,7 @@ static ModuleRegistry modules[] =
       STATIC_METHOD("pid", processPid)
       STATIC_METHOD("ppid", processPpid)
       STATIC_METHOD("version", processVersion)
-      STATIC_METHOD("exec_(_,_,_)", processExec)
+      STATIC_METHOD("exec_(_,_,_,_,_)", processExec)
     END_CLASS
   END_MODULE
   MODULE(repl)
