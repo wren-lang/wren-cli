@@ -164,6 +164,8 @@ static void processOnExit(uv_process_t* req, int64_t exit_status, int term_signa
   schedulerFinishResume();
 }
 
+//        1     2    3    4     5
+// exec_(cmd, args, cwd, env, fiber)
 void processExec(WrenVM* vm) 
 {
   ProcessData* data = (ProcessData*)malloc(sizeof(ProcessData));
@@ -172,6 +174,11 @@ void processExec(WrenVM* vm)
   //:todo: add env + cwd + flags args
 
   char* cmd = cli_strdup(wrenGetSlotString(vm, 1));
+
+  if (wrenGetSlotType(vm, 3) != WREN_TYPE_NULL) {
+    const char* cwd = wrenGetSlotString(vm, 3);
+    data->options.cwd = cwd;
+  }
 
   data->options.file = cmd;
   data->options.exit_cb = processOnExit;
