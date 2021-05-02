@@ -12,6 +12,10 @@ class Process {
   // TODO: This will need to be smarter when wren supports CLI options.
   static arguments { allArguments.count >= 2 ? allArguments[2..-1] : [] }
 
+  static exec(cmd) {
+    return exec(cmd, [], null, null)
+  }
+
   static exec(cmd, args) {
     return exec(cmd, args, null, null)
   }
