@@ -12,9 +12,8 @@ class Process {
   // TODO: This will need to be smarter when wren supports CLI options.
   static arguments { allArguments.count >= 2 ? allArguments[2..-1] : [] }
 
-  // executes a command passing it the specified arguments (as a list)
-  static exec(cmd, argList) {
-    exec_(cmd, argList, Fiber.current)
+  static exec(cmd, args) {
+    exec_(cmd, args, Fiber.current)
     return Scheduler.runNextScheduled_()
   }
 
