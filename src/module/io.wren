@@ -115,12 +115,13 @@ foreign class File {
   construct new_(fd) {}
 
   close() {
-    if (close_(Fiber.current)) return
-    Scheduler.runNextScheduled_()
+    if (isClosed) return
+    return Scheduler.await_ { close_(Fiber.current) }
   }
 
   foreign descriptor
 
+  isClosed { descriptor == -1 }
   isOpen { descriptor != -1 }
 
   size {
