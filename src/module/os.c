@@ -15,11 +15,11 @@ void osSetArguments(int argc, const char* argv[])
   args = argv;
 }
 
-void platformHomedir(WrenVM* vm)
+void platformHomePath(WrenVM* vm)
 {
   wrenEnsureSlots(vm, 1);
 
-  char _buffer[WREN_PATH_MAX * 2 + 1];
+  char _buffer[WREN_PATH_MAX];
   char* buffer = _buffer;
   size_t length = sizeof(_buffer);
   int result = uv_os_homedir(buffer, &length);
