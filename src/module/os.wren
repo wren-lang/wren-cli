@@ -13,7 +13,7 @@ class Process {
   static arguments { allArguments.count >= 2 ? allArguments[2..-1] : [] }
 
   static exec(cmd) {
-    return exec(cmd, [], null, null)
+    return exec(cmd, null, null, null)
   }
 
   static exec(cmd, args) {
@@ -26,6 +26,7 @@ class Process {
   
   static exec(cmd, args, cwd, envMap) { 
     var env = []
+    args = args || []
     if (envMap is Map) {
       for (entry in envMap) {
         env.add([entry.key, entry.value].join("="))
