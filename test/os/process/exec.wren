@@ -1,5 +1,12 @@
 import "os" for Platform, Process
 
+var TRY = Fn.new { |fn|
+  var fiber = Fiber.new {
+    fn.call()
+  }
+  return fiber.try()
+}
+
 var result
 if(Platform.name == "Windows") {
   result = Process.exec("cmd.exe", [])
@@ -38,13 +45,13 @@ if (Platform.isPosix) {
 
 if (Platform.isPosix) {
   System.print(Process.exec("/usr/bin/true",[],null,{})) // expect: 0
-
-  var fiber = Fiber.new {
-    Process.exec("ls",[],null,{"PATH": "/binx/"})
+  var r = TRY.call { 
+    Process.exec("ls",[],null,{"PATH": "/binx/"}) 
   }
-  var r = fiber.try()
   System.print(r) 
+  // TODO: should be on stderr
   // expect: Could not launch ls, reason: no such file or directory
+  // TODO: should this be a runtime error?????
   // expect: Could not spawn process.
 } else if (Platform.name == "Windows") { 
 
