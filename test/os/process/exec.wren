@@ -33,3 +33,19 @@ if (Platform.isPosix) {
 } else if (Platform.name == "Windows") {
   // TODO: can this be done with dir on windows?
 }
+
+// env
+
+if (Platform.isPosix) {
+  System.print(Process.exec("/usr/bin/true",[],null,{})) // expect: 0
+
+  var fiber = Fiber.new {
+    Process.exec("ls",[],null,{"PATH": "/binx/"})
+  }
+  var r = fiber.try()
+  System.print(r) 
+  // expect: Could not launch ls, reason: no such file or directory
+  // expect: Could not spawn process.
+} else if (Platform.name == "Windows") { 
+
+}

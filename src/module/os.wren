@@ -24,7 +24,17 @@ class Process {
     return exec(cmd, args, cwd, null) 
   }
   
-  static exec(cmd, args, cwd, env) { 
+  static exec(cmd, args, cwd, envMap) { 
+    var env = []
+    if (envMap is Map) {
+      for (entry in envMap) {
+        env.add([entry.key, entry.value].join("="))
+      }
+    } else if (envMap == null) {
+      env = null
+    } else {
+      Fiber.abort("environment vars must be passed as a Map")
+    }
     exec_(cmd, args, cwd, env, Fiber.current)
     return Scheduler.runNextScheduled_()
   }
