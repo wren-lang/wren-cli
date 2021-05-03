@@ -164,7 +164,7 @@ static void processOnExit(uv_process_t* req, int64_t exit_status, int term_signa
     {
       free(env);
       index += 1;
-      env = data->options.args[index];
+      env = data->options.env[index];
     }
   }
 
@@ -200,30 +200,20 @@ void processExec(WrenVM* vm)
   if (wrenGetSlotType(vm, 4) == WREN_TYPE_NULL) {
     // no environment specified
   } else if (wrenGetSlotType(vm, 4) == WREN_TYPE_LIST) {
-    // fprintf(stderr,"got list\n");
     int envCount = wrenGetListCount(vm, 4);
     int envSize = sizeof(char*) * (envCount + 1);
 
     data->options.env = (char**)malloc(envSize);
     data->options.env[envCount] = NULL;
 
-    // fprintf(stderr,"envsize %d\n", envCount);
     for (int i = 0; i < envCount ; i++) 
     {
-      
       wrenGetListElement(vm, 4, i, 6);
       if (wrenGetSlotType(vm, 6) != WREN_TYPE_STRING) {
-        wrenSetSlotString(vm, 0, "arguments to env are supposed to be string");
+        wrenSetSlotString(vm, 0, "arguments to env are supposed to be strings");
         wrenAbortFiber(vm, 0);        
       }
       char* envKeyPlusValue = cli_strdup(wrenGetSlotString(vm, 6));
-      // fprintf(stderr,"key: %s\n", envKeyPlusValue);
-      // fprintf(stderr,"setting %s\n", envKeyPlusValue);
-      // char* equalSplit = strchr(envKeyPlusValue, '=');
-      // *equalSplit = '\0';
-      // char* key = envKeyPlusValue;
-      // char* value = equalSplit + 1;
-
       data->options.env[i] = envKeyPlusValue;
     }
   }
@@ -239,7 +229,10 @@ void processExec(WrenVM* vm)
   for (int i = 0; i < argCount; i++) 
   {
     wrenGetListElement(vm, 2, i, 3);
-    //:todo: ensure this is a string, and report an error if not
+    if (wrenGetSlotType(vm, 3) != WREN_TYPE_STRING) {
+      wrenSetSlotString(vm, 0, "arguments to args are supposed to be strings");
+      wrenAbortFiber(vm, 0);        
+    }
     char* arg = cli_strdup(wrenGetSlotString(vm, 3));
     data->options.args[i + 1] = arg;
   }
