@@ -35,8 +35,7 @@ class Process {
     } else {
       Fiber.abort("environment vars must be passed as a Map")
     }
-    exec_(cmd, args, cwd, env, Fiber.current)
-    return Scheduler.runNextScheduled_()
+    return Scheduler.await_ { exec_(cmd, args, cwd, env, Fiber.current) }
   }
 
   foreign static exec_(cmd, args, cwd, env, fiber)
