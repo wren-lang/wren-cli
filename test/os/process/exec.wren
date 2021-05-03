@@ -9,50 +9,49 @@ var TRY = Fn.new { |fn|
 
 var result
 if(Platform.name == "Windows") {
-  result = Process.exec("cmd.exe", [])
+  result = Process.exec("cmd.exe")
 } else {
-  // works on Mac
-  result = Process.exec("/usr/bin/true", [])
+  result = Process.exec("true")
 }
 System.print(result) // expect: 0
 
 // basics
 
-if (Platform.isPosix) {
+if (Platform.isWindows) {
+  // TODO: more windows argument specific tests
+} else {
   // known output of success/fail based on only command name
-  System.print(Process.exec("/usr/bin/true")) // expect: 0
-  System.print(Process.exec("/usr/bin/false")) // expect: 1
+  System.print(Process.exec("true")) // expect: 0
+  System.print(Process.exec("false")) // expect: 1
   // these test that our arguments are being passed as it proves
   // they effect the result code returned
-  System.print(Process.exec("/bin/test", ["2", "-eq", "2"])) // expect: 0
-  System.print(Process.exec("/bin/test", ["2", "-eq", "3"])) // expect: 1
-} else if (Platform.name == "Windows") {
-  // TODO: more windows argument specific tests
+  System.print(Process.exec("test", ["2", "-eq", "2"])) // expect: 0
+  System.print(Process.exec("test", ["2", "-eq", "3"])) // expect: 1
 }
 
 // cwd
 
-if (Platform.isPosix) {
-  // tests exists in our root
-  System.print(Process.exec("ls", ["test"])) // expect: 0
-  // but not in our `src` folder
-  System.print(Process.exec("ls", ["test"], "./src/")) // expect: 1
-} else if (Platform.name == "Windows") {
+if (Platform.isWindows) {
   // TODO: can this be done with dir on windows?
+} else {
+  // tests exists in our project folder
+  System.print(Process.exec("ls", ["test"])) // expect: 0
+  // but does not in our `src` folder
+  System.print(Process.exec("ls", ["test"], "./src/")) // expect: 1
 }
 
 // env
 
-if (Platform.isPosix) {
-  System.print(Process.exec("/usr/bin/true",[],null,{})) // expect: 0
-  var r = TRY.call { 
-    Process.exec("ls",[],null,{"PATH": "/binx/"}) 
+if (Platform.name == "Windows") { 
+  // TODO: how?
+} else {
+  System.print(Process.exec("true",[],null,{})) // expect: 0
+  var result = TRY.call { 
+    Process.exec("ls",[],null,{"PATH": "/whereiscarmen/"}) 
   }
-  System.print(r) 
+  System.print(result) 
   // TODO: should be on stderr
   // expect: Could not launch ls, reason: no such file or directory
   // TODO: should this be a runtime error?????
   // expect: Could not spawn process.
-} else if (Platform.name == "Windows") { 
-
 }

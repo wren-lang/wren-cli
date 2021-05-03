@@ -212,10 +212,8 @@ void processExec(WrenVM* vm)
     {
       
       wrenGetListElement(vm, 4, i, 6);
-      //:todo: ensure this is a string, and report an error if not
-
       if (wrenGetSlotType(vm, 6) != WREN_TYPE_STRING) {
-        wrenSetSlotString(vm, 0, "aruments to params are suppose to be string");
+        wrenSetSlotString(vm, 0, "arguments to env are supposed to be string");
         wrenAbortFiber(vm, 0);        
       }
       char* envKeyPlusValue = cli_strdup(wrenGetSlotString(vm, 6));
