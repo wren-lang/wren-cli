@@ -1,7 +1,5 @@
 class Scheduler {
   static add(callable) {
-    if (__scheduled == null) __scheduled = []
-
     __scheduled.add(Fiber.new {
       callable.call()
       runNextScheduled_()
@@ -20,14 +18,16 @@ class Scheduler {
   }
 
   static runNextScheduled_() {
-    if (__scheduled == null || __scheduled.isEmpty) {
+    if (__scheduled.isEmpty) {
       return Fiber.suspend()
     } else {
       return __scheduled.removeAt(0).transfer()
     }
   }
 
+  static start_() { __scheduled = [] }
   foreign static captureMethods_()
 }
 
+Scheduler.start_()
 Scheduler.captureMethods_()
