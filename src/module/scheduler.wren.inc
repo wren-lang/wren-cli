@@ -29,9 +29,12 @@ static const char* schedulerModuleSource =
 "    }\n"
 "  }\n"
 "\n"
-"  static start_() { __scheduled = [] }\n"
+"  static start_() { \n"
+"    __scheduled = [] \n"
+"    captureMethods_()\n"
+"  }\n"
+"  \n"
 "  foreign static captureMethods_()\n"
 "}\n"
 "\n"
-"Scheduler.start_()\n"
-"Scheduler.captureMethods_()\n";
+"Scheduler.start_()\n";

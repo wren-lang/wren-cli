@@ -25,9 +25,12 @@ class Scheduler {
     }
   }
 
-  static start_() { __scheduled = [] }
+  static start_() { 
+    __scheduled = [] 
+    captureMethods_()
+  }
+  
   foreign static captureMethods_()
 }
 
 Scheduler.start_()
-Scheduler.captureMethods_()
