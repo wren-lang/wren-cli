@@ -286,10 +286,18 @@ static void initVM()
   uv_loop_init(loop);
 }
 
+void on_uvClose(uv_handle_t* handle)
+{
+    if (handle != NULL)
+    {
+        free(handle);
+    }
+}
+
 void on_uvWalkForShutdown(uv_handle_t* handle, void* arg)
 {
    if (!uv_is_closing(handle))
-    uv_close(handle, NULL);
+    uv_close(handle, on_uvClose);
 }
 
 static void uvShutdown() {
