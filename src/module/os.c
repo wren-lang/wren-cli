@@ -82,7 +82,7 @@ void platformIsPosix(WrenVM* vm)
   #elif defined(_POSIX_VERSION)
     wrenSetSlotBool(vm, 0, true);
   #else
-    wrenSetSlotString(vm, 0, false);
+    wrenSetSlotBool(vm, 0, false);
   #endif
 }
 
