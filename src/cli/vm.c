@@ -286,12 +286,31 @@ static void initVM()
   uv_loop_init(loop);
 }
 
+void on_uvWalkForShutdown(uv_handle_t* handle, void* arg)
+{
+   if (!uv_is_closing(handle))
+    uv_close(handle, NULL);
+}
+
+static void uvShutdown() {
+  uv_loop_t *loop = getLoop();
+  int result = uv_loop_close(loop);
+  if (result == UV_EBUSY)
+  {
+    uv_walk(loop, on_uvWalkForShutdown, NULL);
+    uv_run(loop, UV_RUN_ONCE);
+  }
+  result = uv_loop_close(loop);
+  if (result != 0) {
+    fprintf(stderr, "could not close UV event loop completely");
+  }
+}
+
 static void freeVM()
 {
   ioShutdown();
   schedulerShutdown();
-  
-  uv_loop_close(loop);
+  uvShutdown();
   free(loop);
   
   wrenFreeVM(vm);
