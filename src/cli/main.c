@@ -39,5 +39,8 @@ int main(int argc, const char* argv[])
   if (result == WREN_RESULT_COMPILE_ERROR) return 65; // EX_DATAERR.
   if (result == WREN_RESULT_RUNTIME_ERROR) return 70; // EX_SOFTWARE.
 
+  // flush all pipes before exiting
+  if (fflush(0)) { (void) fputs("Write error!\n", stderr); setExitCode(EXIT_FAILURE); }
+
   return getExitCode();
 }
