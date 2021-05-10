@@ -41,6 +41,9 @@ void pathFree(Path* path);
 // Strips off the last component of the path name.
 void pathDirName(Path* path);
 
+// returns the basename of the path
+void pathBaseName(Path* path);
+
 // Strips off the file extension from the last component of the path.
 void pathRemoveExtension(Path* path);
 

@@ -131,6 +131,20 @@ void pathFree(Path* path)
   free(path);
 }
 
+void pathBaseName(Path* path) {
+  int pos = 0;
+  for (size_t i = path->length - 1; i >=0 ; i--)
+  {
+    if (isSeparator(path->chars[i]))
+    {
+      pos = i;
+      break;
+    }
+  }
+  if (pos == 0) return;
+  strcpy(path->chars, (char*)path->chars + pos + 1);
+}
+
 void pathDirName(Path* path)
 {
   // Find the last path separator.
