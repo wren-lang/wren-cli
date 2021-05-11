@@ -303,11 +303,11 @@ void on_uvWalkForShutdown(uv_handle_t* handle, void* arg)
 static void uvShutdown() {
   uv_loop_t *loop = getLoop();
   int result = uv_loop_close(loop);
-  if (result == UV_EBUSY)
-  {
-    uv_walk(loop, on_uvWalkForShutdown, NULL);
-    uv_run(loop, UV_RUN_ONCE);
-  }
+  if (result != UV_EBUSY) return;
+
+  // walk open handles and shut them down    
+  uv_walk(loop, on_uvWalkForShutdown, NULL);
+  uv_run(loop, UV_RUN_ONCE);
   result = uv_loop_close(loop);
   if (result != 0) {
     fprintf(stderr, "could not close UV event loop completely");
