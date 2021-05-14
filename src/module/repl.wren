@@ -13,6 +13,16 @@ class Repl {
     _historyIndex = 0
   }
 
+  static start() {
+    // Fire up the REPL. We use ANSI when talking to a POSIX TTY.
+    if (Platform.isPosix && Stdin.isTerminal) {
+      AnsiRepl.new().run()
+    } else {
+      // ANSI escape sequences probably aren't supported, so degrade.
+      SimpleRepl.new().run()
+    }
+  }
+
   cursor { _cursor }
   cursor=(value) { _cursor = value }
   line { _line }
@@ -945,10 +955,3 @@ class Lexer {
   makeToken(type) { Token.new(_source, type, _start, _current - _start) }
 }
 
-// Fire up the REPL. We use ANSI when talking to a POSIX TTY.
-if (Platform.isPosix && Stdin.isTerminal) {
-  AnsiRepl.new().run()
-} else {
-  // ANSI escape sequences probably aren't supported, so degrade.
-  SimpleRepl.new().run()
-}

@@ -8,7 +8,9 @@
 #include "repl.wren.inc"
 #include "scheduler.wren.inc"
 #include "timer.wren.inc"
+#include "cli.wren.inc"
 
+extern void setRootDirectory(WrenVM* vm);
 extern void directoryList(WrenVM* vm);
 extern void directoryCreate(WrenVM* vm);
 extern void directoryDelete(WrenVM* vm);
@@ -122,6 +124,11 @@ typedef struct
 // The array of built-in modules.
 static ModuleRegistry modules[] =
 {
+  MODULE(cli)
+    CLASS(CLI)
+      STATIC_METHOD("setRootDirectory_(_)", setRootDirectory)
+    END_CLASS
+  END_MODULE
   MODULE(io)
     CLASS(Directory)
       STATIC_METHOD("create_(_,_)", directoryCreate)

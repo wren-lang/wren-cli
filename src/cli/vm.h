@@ -3,12 +3,19 @@
 
 #include "uv.h"
 #include "wren.h"
+#include "path.h"
 
 // Executes the Wren script at [path] in a new VM.
 WrenInterpretResult runFile(const char* path);
 
 // Runs the Wren interactive REPL.
 WrenInterpretResult runRepl();
+
+// run the wren CLI
+WrenInterpretResult runCLI();
+
+char* rootDirectory;
+Path* wrenModulesDirectory;
 
 // Gets the currently running VM.
 WrenVM* getVM();

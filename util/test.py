@@ -24,7 +24,7 @@ is_debug = args.suffix.startswith('_d')
 config_dir = ("debug" if is_debug else "release") + config
 
 WREN_DIR = dirname(dirname(realpath(__file__)))
-WREN_APP = join(WREN_DIR, 'bin', 'wren_cli' + args.suffix)
+WREN_APP = join(WREN_DIR, 'bin', 'wren_cli_d' + args.suffix)
 
 # print("Wren Test Directory - " + WREN_DIR)
 # print("Wren Test App - " + WREN_APP)

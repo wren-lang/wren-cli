@@ -46,8 +46,8 @@ TARGETDIR = ../../bin
 TARGET = $(TARGETDIR)/wren_cli
 OBJDIR = obj/64bit/Release
 DEFINES += -DNDEBUG -D_DARWIN_USE_64_BIT_INODE=1 -D_DARWIN_UNLIMITED_SELECT=1
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O3 -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O3
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O3 -std=c99 -mmacosx-version-min=10.12
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O3 -mmacosx-version-min=10.12
 ALL_LDFLAGS += $(LDFLAGS) -m64
 
 else ifeq ($(config),release_32bit)
@@ -55,8 +55,8 @@ TARGETDIR = ../../bin
 TARGET = $(TARGETDIR)/wren_cli
 OBJDIR = obj/32bit/Release
 DEFINES += -DNDEBUG -D_DARWIN_USE_64_BIT_INODE=1 -D_DARWIN_UNLIMITED_SELECT=1
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O3 -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O3
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O3 -std=c99 -mmacosx-version-min=10.12
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O3 -mmacosx-version-min=10.12
 ALL_LDFLAGS += $(LDFLAGS) -m32
 
 else ifeq ($(config),release_64bit-no-nan-tagging)
@@ -64,8 +64,8 @@ TARGETDIR = ../../bin
 TARGET = $(TARGETDIR)/wren_cli
 OBJDIR = obj/64bit-no-nan-tagging/Release
 DEFINES += -DNDEBUG -DWREN_NAN_TAGGING=0 -D_DARWIN_USE_64_BIT_INODE=1 -D_DARWIN_UNLIMITED_SELECT=1
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O3 -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O3
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O3 -std=c99 -mmacosx-version-min=10.12
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O3 -mmacosx-version-min=10.12
 ALL_LDFLAGS += $(LDFLAGS)
 
 else ifeq ($(config),debug_64bit)
@@ -73,8 +73,8 @@ TARGETDIR = ../../bin
 TARGET = $(TARGETDIR)/wren_cli_d
 OBJDIR = obj/64bit/Debug
 DEFINES += -DDEBUG -D_DARWIN_USE_64_BIT_INODE=1 -D_DARWIN_UNLIMITED_SELECT=1
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c99 -mmacosx-version-min=10.12
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -mmacosx-version-min=10.12
 ALL_LDFLAGS += $(LDFLAGS) -m64
 
 else ifeq ($(config),debug_32bit)
@@ -82,8 +82,8 @@ TARGETDIR = ../../bin
 TARGET = $(TARGETDIR)/wren_cli_d
 OBJDIR = obj/32bit/Debug
 DEFINES += -DDEBUG -D_DARWIN_USE_64_BIT_INODE=1 -D_DARWIN_UNLIMITED_SELECT=1
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -std=c99 -mmacosx-version-min=10.12
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g -mmacosx-version-min=10.12
 ALL_LDFLAGS += $(LDFLAGS) -m32
 
 else ifeq ($(config),debug_64bit-no-nan-tagging)
@@ -91,12 +91,10 @@ TARGETDIR = ../../bin
 TARGET = $(TARGETDIR)/wren_cli_d
 OBJDIR = obj/64bit-no-nan-tagging/Debug
 DEFINES += -DDEBUG -DWREN_NAN_TAGGING=0 -D_DARWIN_USE_64_BIT_INODE=1 -D_DARWIN_UNLIMITED_SELECT=1
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -std=c99 -mmacosx-version-min=10.12
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -mmacosx-version-min=10.12
 ALL_LDFLAGS += $(LDFLAGS)
 
-else
-  $(error "invalid configuration $(config)")
 endif
 
 # Per File Configurations
@@ -106,10 +104,66 @@ endif
 # File sets
 # #############################################
 
+GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/async.o
+GENERATED += $(OBJDIR)/bsd-ifaddrs.o
+GENERATED += $(OBJDIR)/cli.o
+GENERATED += $(OBJDIR)/core.o
+GENERATED += $(OBJDIR)/darwin-proctitle.o
+GENERATED += $(OBJDIR)/darwin.o
+GENERATED += $(OBJDIR)/dl.o
+GENERATED += $(OBJDIR)/fs-poll.o
+GENERATED += $(OBJDIR)/fs.o
+GENERATED += $(OBJDIR)/fsevents.o
+GENERATED += $(OBJDIR)/getaddrinfo.o
+GENERATED += $(OBJDIR)/getnameinfo.o
+GENERATED += $(OBJDIR)/idna.o
+GENERATED += $(OBJDIR)/inet.o
+GENERATED += $(OBJDIR)/io.o
+GENERATED += $(OBJDIR)/kqueue.o
+GENERATED += $(OBJDIR)/loop-watcher.o
+GENERATED += $(OBJDIR)/loop.o
+GENERATED += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/modules.o
+GENERATED += $(OBJDIR)/os.o
+GENERATED += $(OBJDIR)/path.o
+GENERATED += $(OBJDIR)/pipe.o
+GENERATED += $(OBJDIR)/poll.o
+GENERATED += $(OBJDIR)/process.o
+GENERATED += $(OBJDIR)/proctitle.o
+GENERATED += $(OBJDIR)/random-devurandom.o
+GENERATED += $(OBJDIR)/random-getentropy.o
+GENERATED += $(OBJDIR)/random.o
+GENERATED += $(OBJDIR)/repl.o
+GENERATED += $(OBJDIR)/scheduler.o
+GENERATED += $(OBJDIR)/signal.o
+GENERATED += $(OBJDIR)/stream.o
+GENERATED += $(OBJDIR)/strscpy.o
+GENERATED += $(OBJDIR)/tcp.o
+GENERATED += $(OBJDIR)/thread.o
+GENERATED += $(OBJDIR)/threadpool.o
+GENERATED += $(OBJDIR)/timer.o
+GENERATED += $(OBJDIR)/timer1.o
+GENERATED += $(OBJDIR)/tty.o
+GENERATED += $(OBJDIR)/udp.o
+GENERATED += $(OBJDIR)/uv-common.o
+GENERATED += $(OBJDIR)/uv-data-getter-setters.o
+GENERATED += $(OBJDIR)/version.o
+GENERATED += $(OBJDIR)/vm.o
+GENERATED += $(OBJDIR)/wren_compiler.o
+GENERATED += $(OBJDIR)/wren_core.o
+GENERATED += $(OBJDIR)/wren_debug.o
+GENERATED += $(OBJDIR)/wren_opt_meta.o
+GENERATED += $(OBJDIR)/wren_opt_random.o
+GENERATED += $(OBJDIR)/wren_primitive.o
+GENERATED += $(OBJDIR)/wren_utils.o
+GENERATED += $(OBJDIR)/wren_value.o
+GENERATED += $(OBJDIR)/wren_vm.o
 OBJECTS += $(OBJDIR)/async.o
 OBJECTS += $(OBJDIR)/bsd-ifaddrs.o
+OBJECTS += $(OBJDIR)/cli.o
 OBJECTS += $(OBJDIR)/core.o
 OBJECTS += $(OBJDIR)/darwin-proctitle.o
 OBJECTS += $(OBJDIR)/darwin.o
@@ -168,7 +222,7 @@ OBJECTS += $(OBJDIR)/wren_vm.o
 all: $(TARGET)
 	@:
 
-$(TARGET): $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
+$(TARGET): $(GENERATED) $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
 	$(PRELINKCMDS)
 	@echo Linking wren_cli
 	$(SILENT) $(LINKCMD)
@@ -194,9 +248,11 @@ clean:
 	@echo Cleaning wren_cli
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
+	$(SILENT) rm -rf $(GENERATED)
 	$(SILENT) rm -rf $(OBJDIR)
 else
 	$(SILENT) if exist $(subst /,\\,$(TARGET)) del $(subst /,\\,$(TARGET))
+	$(SILENT) if exist $(subst /,\\,$(GENERATED)) rmdir /s /q $(subst /,\\,$(GENERATED))
 	$(SILENT) if exist $(subst /,\\,$(OBJDIR)) rmdir /s /q $(subst /,\\,$(OBJDIR))
 endif
 
@@ -364,6 +420,9 @@ $(OBJDIR)/path.o: ../../src/cli/path.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/vm.o: ../../src/cli/vm.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/cli.o: ../../src/module/cli.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/io.o: ../../src/module/io.c

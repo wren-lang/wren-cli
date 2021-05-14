@@ -7,37 +7,15 @@
 
 int main(int argc, const char* argv[])
 {
-  if (argc == 2 && strcmp(argv[1], "--help") == 0)
-  {
-    printf("Usage: wren [file] [arguments...]\n");
-    printf("\n");
-    printf("Optional arguments:\n");
-    printf("  --help     Show command line usage\n");
-    printf("  --version  Show version\n");
-    return 0;
-  }
-
-  if (argc == 2 && strcmp(argv[1], "--version") == 0)
-  {
-    printf("wren %s\n", WREN_VERSION_STRING);
-    return 0;
-  }
-
   osSetArguments(argc, argv);
 
   WrenInterpretResult result;
-  if (argc == 1)
-  {
-    result = runRepl();
-  }
-  else
-  {
-    result = runFile(argv[1]);
-  }
+  result = runCLI();
 
-  // Exit with an error code if the script failed.
-  if (result == WREN_RESULT_COMPILE_ERROR) return 65; // EX_DATAERR.
+  // Exit with an error code if the script failed. 
   if (result == WREN_RESULT_RUNTIME_ERROR) return 70; // EX_SOFTWARE.
+  // TODO: 65 is impossible now and will need to be handled inside `cli.wren`
+  if (result == WREN_RESULT_COMPILE_ERROR) return 65; // EX_DATAERR.
 
   return getExitCode();
 }

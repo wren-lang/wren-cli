@@ -55,7 +55,8 @@
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>wren_cli</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <LatestTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</LatestTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release 64bit|x64'" Label="Configuration">
@@ -318,6 +319,7 @@
     <ClInclude Include="..\..\deps\wren\src\vm\wren_compiler.h" />
     <ClInclude Include="..\..\deps\wren\src\vm\wren_core.h" />
     <ClInclude Include="..\..\deps\wren\src\vm\wren_debug.h" />
+    <ClInclude Include="..\..\deps\wren\src\vm\wren_math.h" />
     <ClInclude Include="..\..\deps\wren\src\vm\wren_opcodes.h" />
     <ClInclude Include="..\..\deps\wren\src\vm\wren_primitive.h" />
     <ClInclude Include="..\..\deps\wren\src\vm\wren_utils.h" />
@@ -327,6 +329,7 @@
     <ClInclude Include="..\..\src\cli\path.h" />
     <ClInclude Include="..\..\src\cli\stat.h" />
     <ClInclude Include="..\..\src\cli\vm.h" />
+    <ClInclude Include="..\..\src\module\cli.h" />
     <ClInclude Include="..\..\src\module\io.h" />
     <ClInclude Include="..\..\src\module\os.h" />
     <ClInclude Include="..\..\src\module\repl.h" />
@@ -381,6 +384,7 @@
     <ClCompile Include="..\..\src\cli\modules.c" />
     <ClCompile Include="..\..\src\cli\path.c" />
     <ClCompile Include="..\..\src\cli\vm.c" />
+    <ClCompile Include="..\..\src\module\cli.c" />
     <ClCompile Include="..\..\src\module\io.c" />
     <ClCompile Include="..\..\src\module\os.c" />
     <ClCompile Include="..\..\src\module\repl.c" />
@@ -390,6 +394,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\src\module\cli.wren.inc" />
     <None Include="..\..\src\module\io.wren.inc" />
     <None Include="..\..\src\module\os.wren.inc" />
     <None Include="..\..\src\module\repl.wren.inc" />

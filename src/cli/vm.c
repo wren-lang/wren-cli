@@ -19,8 +19,8 @@ static uv_loop_t* loop;
 
 // TODO: This isn't currently used, but probably will be when package imports
 // are supported. If not then, then delete this.
-static char* rootDirectory = NULL;
-static Path* wrenModulesDirectory = NULL;
+char* rootDirectory = NULL;
+Path* wrenModulesDirectory = NULL;
 
 // The exit code to use unless some other error overrides it.
 int defaultExitCode = 0;
@@ -79,8 +79,10 @@ static bool isDirectory(Path* path)
 static Path* realPath(Path* path)
 {
   uv_fs_t request;
+  // fprintf("%s", path->chars);
   uv_fs_realpath(loop, &request, path->chars, NULL);
   
+  // fprintf("%s", request.ptr);
   Path* result = pathNew((char*)request.ptr);
   
   uv_fs_req_cleanup(&request);
@@ -94,10 +96,19 @@ static Path* realPath(Path* path)
 // If [wrenModulesDirectory] has already been found, does nothing.
 static void findModulesDirectory()
 {
-  if (wrenModulesDirectory != NULL) return;
+  if (wrenModulesDirectory != NULL) {
+    // fprintf(stderr,"already found\n");
+    return;
+  }
+
+  // fprintf(stderr, "findModulesDirectory\n");
   
   Path* searchDirectory = pathNew(rootDirectory);
+  // fprintf(stderr, "- %s\n", searchDirectory->chars);
   Path* lastPath = realPath(searchDirectory);
+
+  // fprintf(stderr, "rootdir %s\n", rootDirectory);
+  // fprintf(stderr, "search %s\n", searchDirectory->chars);
 
   // Keep walking up directories as long as we find them.
   for (;;)
@@ -105,6 +116,7 @@ static void findModulesDirectory()
     Path* modulesDirectory = pathNew(searchDirectory->chars);
     pathJoin(modulesDirectory, "wren_modules");
     
+    // fprintf(stderr, "consider %s\n", modulesDirectory->chars);
     if (isDirectory(modulesDirectory))
     {
       pathNormalize(modulesDirectory);
@@ -142,6 +154,9 @@ static void findModulesDirectory()
 static const char* resolveModule(WrenVM* vm, const char* importer,
                                  const char* module)
 {
+  // fprintf(stderr, "rootdir: %s\n", rootDirectory);
+  // fprintf(stderr, "resolveModule: importer: %s module: %s\n", importer, module);
+
   // Logical import strings are used as-is and need no resolution.
   if (pathType(module) == PATH_TYPE_SIMPLE) return module;
   
@@ -166,10 +181,14 @@ static const char* resolveModule(WrenVM* vm, const char* importer,
 // module was found but could not be read.
 static WrenLoadModuleResult loadModule(WrenVM* vm, const char* module)
 {
+
+  // fprintf(stderr, "loadModule: %s\n", module);
+
   WrenLoadModuleResult result = {0};
   Path* filePath;
   if (pathType(module) == PATH_TYPE_SIMPLE)
   {
+    // fprintf(stderr, "simple path type\n");
     // If there is no "wren_modules" directory, then the only logical imports
     // we can handle are built-in ones. Let the VM try to handle it.
     findModulesDirectory();
@@ -301,72 +320,13 @@ static void freeVM()
   if (wrenModulesDirectory != NULL) pathFree(wrenModulesDirectory);
 }
 
-WrenInterpretResult runFile(const char* path)
-{
-  char* source = readFile(path);
-  if (source == NULL)
-  {
-    fprintf(stderr, "Could not find file \"%s\".\n", path);
-    exit(66);
-  }
-
-  // If it looks like a relative path, make it explicitly relative so that we
-  // can distinguish it from logical paths.
-  // TODO: It might be nice to be able to run scripts from within a surrounding
-  // "wren_modules" directory by passing in a simple path like "foo/bar". In
-  // that case, here, we could check to see whether the give path exists inside
-  // "wren_modules" or as a relative path and choose to add "./" or not based
-  // on that.
-  Path* module = pathNew(path);
-  if (pathType(module->chars) == PATH_TYPE_SIMPLE)
-  {
-    Path* relative = pathNew(".");
-    pathJoin(relative, path);
-
-    pathFree(module);
-    module = relative;
-  }
-
-  pathRemoveExtension(module);
-
-  // Use the directory where the file is as the root to resolve imports
-  // relative to.
-  Path* directory = pathNew(module->chars);
-  
-  pathDirName(directory);
-  rootDirectory = pathToString(directory);
-  pathFree(directory);
-  
-  initVM();
-
-  WrenInterpretResult result = wrenInterpret(vm, module->chars, source);
-
-  if (afterLoadFn != NULL) afterLoadFn(vm);
-  
-  if (result == WREN_RESULT_SUCCESS)
-  {
-    uv_run(loop, UV_RUN_DEFAULT);
-  }
-
-  freeVM();
-
-  free(source);
-  free(rootDirectory);
-  pathFree(module);
-
-  return result;
-}
-
-WrenInterpretResult runRepl()
+WrenInterpretResult runCLI()
 {
   // This cast is safe since we don't try to free the string later.
   rootDirectory = (char*)".";
   initVM();
 
-  printf("\\\\/\"-\n");
-  printf(" \\_/   wren v%s\n", WREN_VERSION_STRING);
-
-  WrenInterpretResult result = wrenInterpret(vm, "<repl>", "import \"repl\"\n");
+  WrenInterpretResult result = wrenInterpret(vm, "<cli>", "import \"cli\"\n");
   
   if (result == WREN_RESULT_SUCCESS)
   {
