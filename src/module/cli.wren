@@ -12,13 +12,19 @@ class Wren {
 class CLI {
   static start() {
     // TODO: pull out argument processing into it's own class
-    if (Process.allArguments.count == 2) {
-      if (Process.allArguments[1] == "--version") {
+    if (Process.allArguments.count >=2) {
+      var flag = Process.allArguments[1]
+      if (flag == "--version") {
         showVersion()
         return
       }
-      if (Process.allArguments[1] == "--help") {
+      if (flag == "--help") {
         showHelp()
+        return
+      }
+      if (flag == "-e" && Process.allArguments.count >= 3) {
+        var code = Process.allArguments[2]
+        runCode(code,"<eval>")
         return
       }
     }
@@ -46,13 +52,7 @@ class CLI {
   static missingScript(file) {
     System.print("wren_cli: No such file -- %(file)")
   }
-  static runFile(file) {
-    if (!File.exists(file)) return missingScript(file)
-
-    // TODO: absolute paths, need Path class likely
-    var moduleName = "./" + file
-    var code = File.read(file)
-    setRootDirectory_(dirForModule(moduleName))
+  static runCode(code,moduleName) {
     var fn = Meta.compile(code,moduleName)
     if (fn != null) {
       fn.call()
@@ -61,6 +61,16 @@ class CLI {
       // https://github.com/wren-lang/wren-cli/pull/74
       Fiber.abort("COMPILE ERROR, should exit 65")
     }
+  }
+  static runFile(file) {
+    if (!File.exists(file)) return missingScript(file)
+
+    // TODO: absolute paths, need Path class likely
+    var moduleName = "./" + file
+    var code = File.read(file)
+    setRootDirectory_(dirForModule(moduleName))
+    // System.print(moduleName)
+    runCode(code,moduleName)
   }
   static repl() {
     System.print("""\\\\/\\"-""")
