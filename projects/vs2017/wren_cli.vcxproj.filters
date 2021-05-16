@@ -177,6 +177,9 @@
     <ClInclude Include="..\..\src\cli\path.h">
       <Filter>src\cli</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\cli\resolver.h">
+      <Filter>src\cli</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\cli\stat.h">
       <Filter>src\cli</Filter>
     </ClInclude>
@@ -341,6 +344,9 @@
     <ClCompile Include="..\..\src\cli\path.c">
       <Filter>src\cli</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\cli\resolver.c">
+      <Filter>src\cli</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\cli\vm.c">
       <Filter>src\cli</Filter>
     </ClCompile>
@@ -364,6 +370,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\src\cli\resolver.wren.inc">
+      <Filter>src\cli</Filter>
+    </None>
     <None Include="..\..\src\module\cli.wren.inc">
       <Filter>src\module</Filter>
     </None>

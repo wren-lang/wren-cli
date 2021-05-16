@@ -23,6 +23,10 @@ WrenVM* getVM();
 // Gets the event loop the VM is using.
 uv_loop_t* getLoop();
 
+// error reporting
+void reportError(WrenVM* vm, WrenErrorType type,
+                        const char* module, int line, const char* message);
+
 // Get the exit code the CLI should exit with when done.
 int getExitCode();
 

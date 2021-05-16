@@ -22,6 +22,7 @@
 		3EE5E6A159B255535D82ECE1 /* wren_value.c in Sources */ = {isa = PBXBuildFile; fileRef = 165BEEA98383FD1B8516ECE9 /* wren_value.c */; };
 		40602D279BAB7D5989DD6367 /* uv-data-getter-setters.c in Sources */ = {isa = PBXBuildFile; fileRef = FF72290F112969018697574F /* uv-data-getter-setters.c */; };
 		42240B7CF51A152E463C71BC /* wren_opt_meta.c in Sources */ = {isa = PBXBuildFile; fileRef = BD161D04B115667636007B44 /* wren_opt_meta.c */; };
+		44968CA488E53216CB0C6AE4 /* resolver.c in Sources */ = {isa = PBXBuildFile; fileRef = F8423C6C1A0DE99E56C312AC /* resolver.c */; };
 		505B1DD56284FA879675E415 /* strscpy.c in Sources */ = {isa = PBXBuildFile; fileRef = 5F4494DD5906514F9305531D /* strscpy.c */; };
 		510774FE147336B05316DB3E /* cli.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B5ECC0604C4CD78F8602A46 /* cli.c */; };
 		54A39645EA1A557758B6AC85 /* inet.c in Sources */ = {isa = PBXBuildFile; fileRef = B77B234DE70CF23FC21A318D /* inet.c */; };
@@ -101,6 +102,7 @@
 		4EC9A0A44F7C9D96C35E6EE4 /* os.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = os.h; path = ../../src/module/os.h; sourceTree = "<group>"; };
 		550A8B6655BD8858C99F59A6 /* io.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = io.c; path = ../../src/module/io.c; sourceTree = "<group>"; };
 		594F904E4D4ED9C0D239EE8E /* wren_opt_meta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = wren_opt_meta.h; path = ../../deps/wren/src/optional/wren_opt_meta.h; sourceTree = "<group>"; };
+		59FA2B367BC5D868B87B0176 /* resolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = resolver.h; path = ../../src/cli/resolver.h; sourceTree = "<group>"; };
 		5E55895EFC368A10D3B4CF9E /* random-getentropy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "random-getentropy.c"; path = "../../deps/libuv/src/unix/random-getentropy.c"; sourceTree = "<group>"; };
 		5F08F3FC434FFC2EC73D2A3C /* fsevents.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = fsevents.c; path = ../../deps/libuv/src/unix/fsevents.c; sourceTree = "<group>"; };
 		5F4494DD5906514F9305531D /* strscpy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = strscpy.c; path = ../../deps/libuv/src/strscpy.c; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		898D2692AB58D3C4E80DFCD2 /* fs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = fs.c; path = ../../deps/libuv/src/unix/fs.c; sourceTree = "<group>"; };
 		89FC45988D6D17CA0ED9BBD8 /* vm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = vm.h; path = ../../src/cli/vm.h; sourceTree = "<group>"; };
 		8B785739853A13ABBF391579 /* version.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = version.c; path = ../../deps/libuv/src/version.c; sourceTree = "<group>"; };
+		902D0E6EA256EB20D647D4AE /* resolver.wren.inc */ = {isa = PBXFileReference; lastKnownFileType = text; name = resolver.wren.inc; path = ../../src/cli/resolver.wren.inc; sourceTree = "<group>"; };
 		91FD967255695824940CFCB2 /* udp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = udp.c; path = ../../deps/libuv/src/unix/udp.c; sourceTree = "<group>"; };
 		94C80D112D14F2C35B5BF351 /* threadpool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = threadpool.h; path = ../../deps/libuv/include/uv/threadpool.h; sourceTree = "<group>"; };
 		950389A4BD3E4256A4D9CFE4 /* modules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = modules.h; path = ../../src/cli/modules.h; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 		F460E68EF7D1B8C0793E5CCE /* vm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = vm.c; path = ../../src/cli/vm.c; sourceTree = "<group>"; };
 		F4B4EC1F4217E251B836E25F /* bsd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bsd.h; path = ../../deps/libuv/include/uv/bsd.h; sourceTree = "<group>"; };
 		F78630E4DBCD39165FBA6724 /* internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = internal.h; path = ../../deps/libuv/src/unix/internal.h; sourceTree = "<group>"; };
+		F8423C6C1A0DE99E56C312AC /* resolver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = resolver.c; path = ../../src/cli/resolver.c; sourceTree = "<group>"; };
 		FF72290F112969018697574F /* uv-data-getter-setters.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "uv-data-getter-setters.c"; path = "../../deps/libuv/src/uv-data-getter-setters.c"; sourceTree = "<group>"; };
 		FF784D1C94EF0C4E038B635C /* signal.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = signal.c; path = ../../deps/libuv/src/unix/signal.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -268,6 +272,9 @@
 				950389A4BD3E4256A4D9CFE4 /* modules.h */,
 				D69A4422EDACDF54DDC8DA62 /* path.c */,
 				C000D86CD713739EC72F6EAC /* path.h */,
+				F8423C6C1A0DE99E56C312AC /* resolver.c */,
+				59FA2B367BC5D868B87B0176 /* resolver.h */,
+				902D0E6EA256EB20D647D4AE /* resolver.wren.inc */,
 				0F964BCA26A8E6FC16C4E20A /* stat.h */,
 				F460E68EF7D1B8C0793E5CCE /* vm.c */,
 				89FC45988D6D17CA0ED9BBD8 /* vm.h */,
@@ -532,6 +539,7 @@
 				11AB2EAA6CEC821C4046CCEA /* main.c in Sources */,
 				E333D892545679840A1D26D2 /* modules.c in Sources */,
 				E0B432BA3BF5862C0F4FD0FA /* path.c in Sources */,
+				44968CA488E53216CB0C6AE4 /* resolver.c in Sources */,
 				88095BE6DE96C658B70FDA26 /* vm.c in Sources */,
 				510774FE147336B05316DB3E /* cli.c in Sources */,
 				3E35E55E600192909CB6BB9E /* io.c in Sources */,

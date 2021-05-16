@@ -7,6 +7,7 @@
 #include "scheduler.h"
 #include "stat.h"
 #include "vm.h"
+#include "resolver.h"
 
 // The single VM instance that the CLI uses.
 static WrenVM* vm;
@@ -154,24 +155,7 @@ static void findModulesDirectory()
 static const char* resolveModule(WrenVM* vm, const char* importer,
                                  const char* module)
 {
-  // fprintf(stderr, "rootdir: %s\n", rootDirectory);
-  // fprintf(stderr, "resolveModule: importer: %s module: %s\n", importer, module);
-
-  // Logical import strings are used as-is and need no resolution.
-  if (pathType(module) == PATH_TYPE_SIMPLE) return module;
-  
-  // Get the directory containing the importing module.
-  Path* path = pathNew(importer);
-  pathDirName(path);
-  
-  // Add the relative import path.
-  pathJoin(path, module);
-  
-  pathNormalize(path);
-  char* resolved = pathToString(path);
-  
-  pathFree(path);
-  return resolved;
+  return wrenResolveModule(importer, module);
 }
 
 // Attempts to read the source for [module] relative to the current root
@@ -265,7 +249,7 @@ static void write(WrenVM* vm, const char* text)
   printf("%s", text);
 }
 
-static void reportError(WrenVM* vm, WrenErrorType type,
+void reportError(WrenVM* vm, WrenErrorType type,
                         const char* module, int line, const char* message)
 {
   switch (type)
@@ -322,6 +306,8 @@ static void freeVM()
 
 WrenInterpretResult runCLI()
 {
+  initResolverVM();
+
   // This cast is safe since we don't try to free the string later.
   rootDirectory = (char*)".";
   initVM();

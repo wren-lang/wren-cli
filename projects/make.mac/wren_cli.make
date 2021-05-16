@@ -137,6 +137,7 @@ GENERATED += $(OBJDIR)/random-devurandom.o
 GENERATED += $(OBJDIR)/random-getentropy.o
 GENERATED += $(OBJDIR)/random.o
 GENERATED += $(OBJDIR)/repl.o
+GENERATED += $(OBJDIR)/resolver.o
 GENERATED += $(OBJDIR)/scheduler.o
 GENERATED += $(OBJDIR)/signal.o
 GENERATED += $(OBJDIR)/stream.o
@@ -191,6 +192,7 @@ OBJECTS += $(OBJDIR)/random-devurandom.o
 OBJECTS += $(OBJDIR)/random-getentropy.o
 OBJECTS += $(OBJDIR)/random.o
 OBJECTS += $(OBJDIR)/repl.o
+OBJECTS += $(OBJDIR)/resolver.o
 OBJECTS += $(OBJDIR)/scheduler.o
 OBJECTS += $(OBJDIR)/signal.o
 OBJECTS += $(OBJDIR)/stream.o
@@ -417,6 +419,9 @@ $(OBJDIR)/modules.o: ../../src/cli/modules.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/path.o: ../../src/cli/path.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/resolver.o: ../../src/cli/resolver.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/vm.o: ../../src/cli/vm.c
