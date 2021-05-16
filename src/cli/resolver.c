@@ -15,6 +15,21 @@ void fileExistsSync(WrenVM* vm) {
   wrenSetSlotBool(vm, 0, r == 0);
 }
 
+void fileRealPathSync(WrenVM* vm)
+{
+  const char* path = wrenGetSlotString(vm, 1);
+
+  uv_fs_t request;
+  uv_fs_realpath(getLoop(), &request, path, NULL);
+  
+  // fprintf("%s", request.ptr);
+  // Path* result = pathNew((char*)request.ptr);
+  wrenSetSlotString(vm, 0, (const char*)request.ptr);
+  
+  uv_fs_req_cleanup(&request);
+  // return result;
+}
+
 WrenHandle* resolveModuleFn;
 WrenHandle* loadModuleFn;
 WrenHandle* resolverClass;
@@ -24,7 +39,7 @@ void saveResolverHandles(WrenVM* vm) {
   wrenGetVariable(resolver, "<resolver>", "Resolver", 0);
   resolverClass = wrenGetSlotHandle(vm, 0);
   resolveModuleFn = wrenMakeCallHandle(resolver,"resolveModule(_,_)");
-  loadModuleFn = wrenMakeCallHandle(resolver,"loadModule(_)");
+  loadModuleFn = wrenMakeCallHandle(resolver,"loadModule(_,_)");
 }
 
 static WrenForeignMethodFn bindResolverForeignMethod(WrenVM* vm, const char* module,
@@ -33,12 +48,28 @@ static WrenForeignMethodFn bindResolverForeignMethod(WrenVM* vm, const char* mod
   if (strcmp(signature,"existsSync(_)")==0) {
     return fileExistsSync;
   }
+  if (strcmp(signature,"realPathSync(_)")==0) {
+    return fileRealPathSync;
+  }
   return NULL;
 }
 
 static void write(WrenVM* vm, const char* text)
 {
   printf("%s", text);
+}
+
+char* wrenLoadModule(const char* module) {
+  WrenVM *vm = resolver;
+  wrenEnsureSlots(vm,2);
+  wrenSetSlotHandle(vm,0, resolverClass);
+  wrenSetSlotString(vm,1, module);
+  wrenSetSlotString(vm,2, rootDirectory);
+  wrenCall(resolver,loadModuleFn);
+  const char *tmp = wrenGetSlotString(vm,0);
+  char *result = malloc(strlen(tmp+1));
+  strcpy(result,tmp);
+  return result;
 }
 
 char* wrenResolveModule(const char* importer, const char* module) {

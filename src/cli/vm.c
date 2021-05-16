@@ -165,10 +165,24 @@ static const char* resolveModule(WrenVM* vm, const char* importer,
 // module was found but could not be read.
 static WrenLoadModuleResult loadModule(WrenVM* vm, const char* module)
 {
+  WrenLoadModuleResult result = {0};
+  char *moduleLoc = wrenLoadModule(module);
+
+  if (moduleLoc[0] == ':') {
+    // fprintf(stderr, "%s\n", moduleLoc+1);
+    result = loadBuiltInModule(moduleLoc+1);
+  } else {
+    result.onComplete = loadModuleComplete;
+    // fprintf(stderr, "found: %s\n", moduleLoc);
+    result.source = readFile(moduleLoc);
+    // if (result.source != NULL) return result;
+  }
+  free(moduleLoc);
+
+  return result;
 
   // fprintf(stderr, "loadModule: %s\n", module);
 
-  WrenLoadModuleResult result = {0};
   Path* filePath;
   if (pathType(module) == PATH_TYPE_SIMPLE)
   {
