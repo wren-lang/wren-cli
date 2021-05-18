@@ -3,6 +3,22 @@ name: Build & CI
 on: [push]
 
 jobs:
+  build_and_test_mac:
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: build & test
+        run: |
+          make -j8 -C projects/make.mac/
+          python3 ./util/test.py
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: wren_cli-mac
+          path: |
+            bin/wren_cli
+
   build_and_test:
     runs-on: ubuntu-latest
     steps:
