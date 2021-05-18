@@ -8,6 +8,5 @@ System.print(Process.ppid is Num) // expect: true
 System.print(Process.ppid.isInteger) // expect: true
 System.print(Process.ppid > 0) // expect: true
 
-System.print("pid: %(Process.pid)")
-System.print("ppid: %(Process.ppid)")
-System.print(Process.pid > Process.ppid) // expect: true
+// on Windows it seems process IDs are perhaps randomized?
+System.print(Process.pid != Process.ppid) // expect: true
