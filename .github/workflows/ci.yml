@@ -1,0 +1,20 @@
+name: Build & CI
+
+on: [push]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: build & test
+        run: |
+          make -j8 -C projects/make/
+          python3 ./util/test.py
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: wren_cli-linux
+          path: |
+            bin/wren_cli
