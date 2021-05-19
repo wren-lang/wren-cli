@@ -1,8 +1,7 @@
+// nontest
 import "wren-assert/Assert" for Assert
 import "wren-testie/testie" for Testie
 import "../../src/cli/path" for Path
-
-
 
 class TestNormalize {
   construct new() {}
@@ -88,6 +87,7 @@ Testie.new("Path") { |it, skip|
   it.should("detect root") {
     Assert.ok(Path.new("/").isRoot)
     Assert.ok(Path.new("C:\\").isRoot)
+    Assert.ok(Path.new("E:").isRoot)
     Assert.ok(Path.new("Z:\\").isRoot)
     Assert.ok(!Path.new("Z::").isRoot)
     Assert.ok(!Path.new("/bob").isRoot)
@@ -113,5 +113,19 @@ Testie.new("Path") { |it, skip|
     Assert.equal(Path.new("a").dirname.toString, ".")
     Assert.equal(Path.new("/a").dirname.toString, "/")
   }
-
+  it.should("split") {
+    Assert.deepEqual(Path.split("c:"),["c:"])
+    Assert.deepEqual(Path.split("c:\\"),["c:",""])
+    Assert.deepEqual(Path.split("c:\\bob\\smith"),["c:","bob","smith"])
+    Assert.deepEqual(Path.split("c:\\bob\\smith\\"),["c:","bob","smith",""])
+  }
+  it.should("windows") {
+    Assert.equal(Path.new("c:\\bob\\smith").up().toString, "c:\\bob")
+    Assert.equal(Path.new("c:\\bob\\smith").dirname.toString, "c:\\bob")
+    Assert.equal(Path.new("c:\\").dirname.toString, "c:")
+    Assert.equal(Path.new("c:\\bob\\ellis").join("./smith").toString, "c:\\bob\\ellis\\smith")
+    Assert.equal(Path.new("c:\\bob\\ellis").join("../smith").toString, "c:\\bob\\smith")
+    Assert.equal(Path.new("c:\\bob\\ellis").join("../..").toString, "c:")
+    Assert.equal(Path.new("c:").join("a/b").toString, "c:\\a\\b")
+  }
 }.run()
