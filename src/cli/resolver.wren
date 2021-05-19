@@ -101,35 +101,6 @@ class Resolver {
   }
 }
 
-class Path {
-  construct new(path) {
-    _path = path
-  }
-  dirname {
-    var pieces = _path.split("/")
-    return Path.new(pieces[0..-2].join("/"))
-    // debug(_path)
-    // var pos = _path.indexOf("/",-1)
-    // debug(pos)
-    // return Path.new(_path[0..pos])
-  }
-  isRoot { 
-    return _path == "/"  || (_path.count == 3 && path[1..2] == ":\\") 
-  }
-  up() {
-    // TODO: we can do this without realPathSync
-    return Path.new(File.realPathSync(_path + "/.."))
-  }
-  stripRelative(s) {
-    if (s.startsWith("./")) return s[2..-1]
-    return s
-  }
-  join(path) {
-    return Path.new((_path + "/" + stripRelative(path)).replace("//","/"))
-  }
-  toString { _path }
-}
-
 class PathType {
   static SIMPLE { 1 }
   static ABSOLUTE { 2 }
