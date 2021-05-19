@@ -3,6 +3,20 @@ class Resolver {
   static debug(s) { 
     if (this.DEBUG) System.print(s) 
   }
+  // load a dynamic library
+  static loadLibrary(name, file, root) {
+    var moduleDirectory = findModulesDirectory(root)
+    if (moduleDirectory == null) {
+      Fiber.abort("dynamic libraries require a wren_modules folder")
+    }
+    var libPath = Path.new(moduleDirectory).join(file).toString
+    if (!File.existsSync(libPath)) {
+      Fiber.abort("library not found -- %(libPath)")
+    }
+    // System.print(libPath)
+    File.loadDynamicLibrary(name, libPath)
+  }
+  static isLibrary(module) { module.contains(":") }
   // Applies the CLI's import resolution policy. The rules are:
   //
   // * If [module] starts with "./" or "../", it is a relative import, relative
@@ -10,7 +24,15 @@ class Resolver {
   //   containing [importer] and then normalized.
   //
   //   For example, importing "./a/./b/../c" from "./d/e/f" gives you "./d/e/a/c".
-  static resolveModule(importer, module) {
+  static resolveModule(importer, module, rootDir) {
+    if (isLibrary(module)) {
+      var pieces = module.split(":")
+      module = pieces[1]
+      var libraryName = pieces[0]
+      var libraryFile = "lib%(pieces[0]).dylib"
+      loadLibrary(libraryName, libraryFile, rootDir)
+      return module
+    }
     // System.print("importer: %(importer)  module: %(module)")
     if (PathType.resolve(module) == PathType.SIMPLE) return module
 
@@ -128,6 +150,7 @@ class PathType {
 }
 
 class File {
+  foreign static loadDynamicLibrary(name, path)
   foreign static existsSync(s)
   foreign static realPathSync(s)
 }

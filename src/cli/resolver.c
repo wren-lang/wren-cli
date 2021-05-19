@@ -3,8 +3,28 @@
 #include "wren.h"
 #include "vm.h"
 #include "./resolver.wren.inc"
+#include "modules.h"
 
 WrenVM *resolver;
+
+void fileLoadDynamicLibrary(WrenVM* vm) {
+  const char* name = wrenGetSlotString(vm,1);
+  const char* path = wrenGetSlotString(vm,2);
+  // fprintf(stderr,"loading dylib %s at %s\n",name,path);
+
+  uv_lib_t *lib = (uv_lib_t*) malloc(sizeof(uv_lib_t));
+  // fprintf(stderr, "importing TIME OH BOY");
+  int r = uv_dlopen(path, lib);
+  if (r !=0) {
+    fprintf(stderr, "error with lib %s dlopen of %s", name, path);
+  }
+  registryGiverFunc registryGiver;
+  if (uv_dlsym(lib, "returnRegistry", (void **) &registryGiver)) {
+      fprintf(stderr, "dlsym error: %s\n", uv_dlerror(lib));
+  }
+  ModuleRegistry* m = registryGiver();
+  registerLibrary(name, m);
+}
 
 void fileExistsSync(WrenVM* vm) {
   uv_fs_t req;
@@ -38,7 +58,7 @@ void saveResolverHandles(WrenVM* vm) {
   wrenEnsureSlots(vm,1);
   wrenGetVariable(resolver, "<resolver>", "Resolver", 0);
   resolverClass = wrenGetSlotHandle(vm, 0);
-  resolveModuleFn = wrenMakeCallHandle(resolver,"resolveModule(_,_)");
+  resolveModuleFn = wrenMakeCallHandle(resolver,"resolveModule(_,_,_)");
   loadModuleFn = wrenMakeCallHandle(resolver,"loadModule(_,_)");
 }
 
@@ -50,6 +70,9 @@ static WrenForeignMethodFn bindResolverForeignMethod(WrenVM* vm, const char* mod
   }
   if (strcmp(signature,"realPathSync(_)")==0) {
     return fileRealPathSync;
+  }
+  if (strcmp(signature,"loadDynamicLibrary(_,_)")==0) {
+    return fileLoadDynamicLibrary;
   }
   return NULL;
 }
@@ -74,10 +97,11 @@ char* wrenLoadModule(const char* module) {
 
 char* wrenResolveModule(const char* importer, const char* module) {
   WrenVM *vm = resolver;
-  wrenEnsureSlots(vm,3);
+  wrenEnsureSlots(vm,4);
   wrenSetSlotHandle(vm,0, resolverClass);
   wrenSetSlotString(vm,1, importer);
   wrenSetSlotString(vm,2, module);
+  wrenSetSlotString(vm,3, rootDirectory);
   wrenCall(resolver,resolveModuleFn);
   const char *tmp = wrenGetSlotString(vm,0);
   char *result = malloc(strlen(tmp+1));
