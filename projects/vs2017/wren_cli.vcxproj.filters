@@ -171,6 +171,9 @@
     <ClInclude Include="..\..\deps\wren\src\vm\wren_vm.h">
       <Filter>deps\wren\src\vm</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\cli\cli.h">
+      <Filter>src\cli</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\cli\modules.h">
       <Filter>src\cli</Filter>
     </ClInclude>
@@ -185,9 +188,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\cli\vm.h">
       <Filter>src\cli</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\module\cli.h">
-      <Filter>src\module</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\module\io.h">
       <Filter>src\module</Filter>
@@ -335,6 +335,9 @@
     <ClCompile Include="..\..\deps\wren\src\vm\wren_vm.c">
       <Filter>deps\wren\src\vm</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\cli\cli.c">
+      <Filter>src\cli</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\cli\main.c">
       <Filter>src\cli</Filter>
     </ClCompile>
@@ -349,9 +352,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\cli\vm.c">
       <Filter>src\cli</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\module\cli.c">
-      <Filter>src\module</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\module\io.c">
       <Filter>src\module</Filter>
@@ -370,11 +370,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\cli\resolver.wren.inc">
+    <None Include="..\..\src\cli\cli.wren.inc">
       <Filter>src\cli</Filter>
     </None>
-    <None Include="..\..\src\module\cli.wren.inc">
-      <Filter>src\module</Filter>
+    <None Include="..\..\src\cli\resolver.wren.inc">
+      <Filter>src\cli</Filter>
     </None>
     <None Include="..\..\src\module\io.wren.inc">
       <Filter>src\module</Filter>
