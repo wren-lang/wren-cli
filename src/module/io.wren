@@ -220,6 +220,7 @@ class Stdin {
   foreign static isRaw
   foreign static isRaw=(value)
   foreign static isTerminal
+  static isClosed { __isClosed }
 
   static readByte() {
     return read_ {
@@ -240,6 +241,14 @@ class Stdin {
       var line = __buffered[0...lineSeparator]
       __buffered = __buffered[lineSeparator + 1..-1]
       return line
+    }
+  }
+
+  static read() {
+    return read_ {
+      var data = __buffered
+      __buffered = ""
+      return data
     }
   }
 

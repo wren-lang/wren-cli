@@ -1,6 +1,6 @@
 import "repl" for Repl, AnsiRepl, SimpleRepl
 import "os" for Platform, Process
-import "io" for Stdin, File, Stdout
+import "io" for Stdin, File, Stdout, Stat
 import "meta" for Meta
 
 // TODO: Wren needs to expose System.version
@@ -62,7 +62,15 @@ class CLI {
       Fiber.abort("COMPILE ERROR, should exit 65")
     }
   }
+  static runInput() {
+    var code = ""
+    while(!Stdin.isClosed) code = code + Stdin.read()
+    runCode(code,"(script)")
+    return
+  }
   static runFile(file) {
+    if (file == "-") return runInput()
+
     if (!File.exists(file)) return missingScript(file)
 
     // TODO: absolute paths, need Path class likely
