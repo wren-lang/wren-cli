@@ -177,9 +177,6 @@
     <ClInclude Include="..\..\src\cli\modules.h">
       <Filter>src\cli</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\cli\path.h">
-      <Filter>src\cli</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\cli\resolver.h">
       <Filter>src\cli</Filter>
     </ClInclude>
@@ -342,9 +339,6 @@
       <Filter>src\cli</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\cli\modules.c">
-      <Filter>src\cli</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\cli\path.c">
       <Filter>src\cli</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\cli\resolver.c">

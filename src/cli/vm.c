@@ -3,7 +3,6 @@
 
 #include "io.h"
 #include "modules.h"
-#include "path.h"
 #include "scheduler.h"
 #include "stat.h"
 #include "vm.h"

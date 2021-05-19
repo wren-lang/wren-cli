@@ -11,5 +11,4 @@ void setRootDirectory(WrenVM* vm) {
   // fprintf(stderr, "setting root dir: %s %d\n", copydir, strlen(copydir));
   // memcpy(copydir, dir, strlen(dir)+20);
   rootDirectory = copydir;
-  wrenModulesDirectory = NULL;
 }

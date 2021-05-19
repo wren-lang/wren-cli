@@ -119,7 +119,6 @@ GENERATED += $(OBJDIR)/loop.o
 GENERATED += $(OBJDIR)/main.o
 GENERATED += $(OBJDIR)/modules.o
 GENERATED += $(OBJDIR)/os.o
-GENERATED += $(OBJDIR)/path.o
 GENERATED += $(OBJDIR)/pipe.o
 GENERATED += $(OBJDIR)/poll.o
 GENERATED += $(OBJDIR)/posix-hrtime.o
@@ -173,7 +172,6 @@ OBJECTS += $(OBJDIR)/loop.o
 OBJECTS += $(OBJDIR)/main.o
 OBJECTS += $(OBJDIR)/modules.o
 OBJECTS += $(OBJDIR)/os.o
-OBJECTS += $(OBJDIR)/path.o
 OBJECTS += $(OBJDIR)/pipe.o
 OBJECTS += $(OBJDIR)/poll.o
 OBJECTS += $(OBJDIR)/posix-hrtime.o
@@ -406,9 +404,6 @@ $(OBJDIR)/main.o: ../../src/cli/main.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/modules.o: ../../src/cli/modules.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/path.o: ../../src/cli/path.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/resolver.o: ../../src/cli/resolver.c

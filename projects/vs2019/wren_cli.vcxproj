@@ -326,7 +326,6 @@
     <ClInclude Include="..\..\deps\wren\src\vm\wren_vm.h" />
     <ClInclude Include="..\..\src\cli\cli.h" />
     <ClInclude Include="..\..\src\cli\modules.h" />
-    <ClInclude Include="..\..\src\cli\path.h" />
     <ClInclude Include="..\..\src\cli\resolver.h" />
     <ClInclude Include="..\..\src\cli\stat.h" />
     <ClInclude Include="..\..\src\cli\vm.h" />
@@ -383,7 +382,6 @@
     <ClCompile Include="..\..\src\cli\cli.c" />
     <ClCompile Include="..\..\src\cli\main.c" />
     <ClCompile Include="..\..\src\cli\modules.c" />
-    <ClCompile Include="..\..\src\cli\path.c" />
     <ClCompile Include="..\..\src\cli\resolver.c" />
     <ClCompile Include="..\..\src\cli\vm.c" />
     <ClCompile Include="..\..\src\module\io.c" />
