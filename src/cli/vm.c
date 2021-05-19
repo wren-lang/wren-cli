@@ -18,10 +18,9 @@ static WrenForeignMethodFn afterLoadFn = NULL;
 
 static uv_loop_t* loop;
 
-// TODO: This isn't currently used, but probably will be when package imports
-// are supported. If not then, then delete this.
+// the directory of the original script - used as an offset when searching
+// for wren_modules, etc.
 char* rootDirectory = NULL;
-Path* wrenModulesDirectory = NULL;
 
 // The exit code to use unless some other error overrides it.
 int defaultExitCode = 0;
@@ -64,87 +63,6 @@ static char* readFile(const char* path)
   return buffer;
 }
 
-static bool isDirectory(Path* path)
-{
-  uv_fs_t request;
-  uv_fs_stat(loop, &request, path->chars, NULL);
-  // TODO: Check request.result value?
-  
-  bool result = request.result == 0 && 
-      (request.statbuf.st_mode & S_IFDIR);
-  
-  uv_fs_req_cleanup(&request);
-  return result;
-}
-
-static Path* realPath(Path* path)
-{
-  uv_fs_t request;
-  // fprintf("%s", path->chars);
-  uv_fs_realpath(loop, &request, path->chars, NULL);
-  
-  // fprintf("%s", request.ptr);
-  Path* result = pathNew((char*)request.ptr);
-  
-  uv_fs_req_cleanup(&request);
-  return result;
-}
-
-// Starting at [rootDirectory], walks up containing directories looking for a
-// nearby "wren_modules" directory. If found, stores it in
-// [wrenModulesDirectory].
-//
-// If [wrenModulesDirectory] has already been found, does nothing.
-static void findModulesDirectory()
-{
-  if (wrenModulesDirectory != NULL) {
-    // fprintf(stderr,"already found\n");
-    return;
-  }
-
-  // fprintf(stderr, "findModulesDirectory\n");
-  
-  Path* searchDirectory = pathNew(rootDirectory);
-  // fprintf(stderr, "- %s\n", searchDirectory->chars);
-  Path* lastPath = realPath(searchDirectory);
-
-  // fprintf(stderr, "rootdir %s\n", rootDirectory);
-  // fprintf(stderr, "search %s\n", searchDirectory->chars);
-
-  // Keep walking up directories as long as we find them.
-  for (;;)
-  {
-    Path* modulesDirectory = pathNew(searchDirectory->chars);
-    pathJoin(modulesDirectory, "wren_modules");
-    
-    // fprintf(stderr, "consider %s\n", modulesDirectory->chars);
-    if (isDirectory(modulesDirectory))
-    {
-      pathNormalize(modulesDirectory);
-      wrenModulesDirectory = modulesDirectory;
-      break;
-    }
-    
-    pathFree(modulesDirectory);
-    
-    // Walk up directories until we hit the root. We can tell that because
-    // adding ".." yields the same real path.
-    pathJoin(searchDirectory, "..");
-    Path* thisPath = realPath(searchDirectory);
-    if (strcmp(lastPath->chars, thisPath->chars) == 0)
-    {
-      pathFree(thisPath);
-      break;
-    }
-    
-    pathFree(lastPath);
-    lastPath = thisPath;
-  }
-  
-  pathFree(lastPath);
-  pathFree(searchDirectory);
-}
-
 // Applies the CLI's import resolution policy. The rules are:
 //
 // * If [module] starts with "./" or "../", it is a relative import, relative
@@ -178,50 +96,7 @@ static WrenLoadModuleResult loadModule(WrenVM* vm, const char* module)
     // if (result.source != NULL) return result;
   }
   free(moduleLoc);
-
   return result;
-
-  // fprintf(stderr, "loadModule: %s\n", module);
-
-  Path* filePath;
-  if (pathType(module) == PATH_TYPE_SIMPLE)
-  {
-    // fprintf(stderr, "simple path type\n");
-    // If there is no "wren_modules" directory, then the only logical imports
-    // we can handle are built-in ones. Let the VM try to handle it.
-    findModulesDirectory();
-    if (wrenModulesDirectory == NULL) return loadBuiltInModule(module);
-    
-    // TODO: Should we explicitly check for the existence of the module's base
-    // directory inside "wren_modules" here?
-    
-    // Look up the module in "wren_modules".
-    filePath = pathNew(wrenModulesDirectory->chars);
-    pathJoin(filePath, module);
-    
-    // If the module is a single bare name, treat it as a module with the same
-    // name inside the package. So "foo" means "foo/foo".
-    if (strchr(module, '/') == NULL) pathJoin(filePath, module);
-  }
-  else
-  {
-    // The module path is already a file path.
-    filePath = pathNew(module);
-  }
-  
-  // Add a ".wren" file extension.
-  pathAppendString(filePath, ".wren");
-
-  result.onComplete = loadModuleComplete;
-  result.source = readFile(filePath->chars);
-  pathFree(filePath);
-  
-  // If we didn't find it, it may be a module built into the CLI or VM, so keep
-  // going.
-  if (result.source != NULL) return result;
-
-  // Otherwise, see if it's a built-in module.
-  return loadBuiltInModule(module);
 }
 
 // Binds foreign methods declared in either built in modules, or the injected
@@ -314,8 +189,6 @@ static void freeVM()
   wrenFreeVM(vm);
 
   uv_tty_reset_mode();
-  
-  if (wrenModulesDirectory != NULL) pathFree(wrenModulesDirectory);
 }
 
 WrenInterpretResult runCLI()
