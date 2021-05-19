@@ -9,7 +9,7 @@
 #include "repl.wren.inc"
 #include "scheduler.wren.inc"
 #include "timer.wren.inc"
-#include "cli.wren.inc"
+#include "_wren.inc"
 
 extern void setRootDirectory(WrenVM* vm);
 extern void directoryList(WrenVM* vm);

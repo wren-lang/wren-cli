@@ -2,7 +2,7 @@
 #include "uv.h"
 #include "wren.h"
 #include "vm.h"
-#include "./resolver.wren.inc"
+#include "_wren.inc"
 #include "modules.h"
 
 WrenVM *resolver;
