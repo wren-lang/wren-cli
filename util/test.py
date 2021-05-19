@@ -9,6 +9,7 @@ from os.path import abspath, basename, dirname, isdir, isfile, join, realpath, r
 import re
 from subprocess import Popen, PIPE
 import sys
+import os
 from threading import Timer
 
 # Runs the tests.
@@ -394,6 +395,11 @@ def run_example(path):
 
 walk(join(WREN_DIR, 'test'), run_test)
 walk(join(WREN_DIR, 'example'), run_example)
+err = os.system("./bin/wren_cli test/unit/path_test.wren")
+if (err!=0): 
+  failed += 1
+else:
+  passed += 1
 
 print_line()
 if failed == 0:
@@ -404,6 +410,8 @@ else:
 
 for key in sorted(skipped.keys()):
   print('Skipped ' + yellow(skipped[key]) + ' tests: ' + key)
+
+
 
 if failed != 0:
   sys.exit(1)
