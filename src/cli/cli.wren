@@ -15,11 +15,11 @@ class CLI {
     // TODO: pull out argument processing into it's own class
     if (Process.allArguments.count >=2) {
       var flag = Process.allArguments[1]
-      if (flag == "--version") {
+      if (flag == "--version" || flag == "-v") {
         showVersion()
         return
       }
-      if (flag == "--help") {
+      if (flag == "--help" || flag == "-h") {
         showHelp()
         return
       }
@@ -37,21 +37,27 @@ class CLI {
     }
     Stdout.flush()
   }
+  static versionInfo { "wrenc v%(Wren.CLI_VERSION) (wren v%(Wren.VERSION))" }
   static showVersion() {
-    System.print("wren v%(Wren.VERSION)") 
+    System.print(versionInfo) 
   }
   static showHelp() {
-    System.print("Usage: wren [file] [arguments...]")
+    System.print("Usage: wrenc [file] [arguments...]")
     System.print("")
     System.print("Optional arguments:")
-    System.print("  --help     Show command line usage")
-    System.print("  --version  Show version")
+    System.print("  -                read script from stdin")
+    System.print("  -h, --help       print wrenc command line options")
+    System.print("  -v, --version    print wrenc and Wren version")
+    System.print("  -e '[code]'      evaluate code")
+    System.print()
+    System.print("Documentation can be found at https://github.com/joshgoebel/wren-console")
+    
   }
   static dirForModule(file) {
     return file.split("/")[0..-2].join("/")
   }
   static missingScript(file) {
-    System.print("wren_cli: No such file -- %(file)")
+    System.print("wrenc: No such file -- %(file)")
   }
   static runCode(code,moduleName) {
     var fn = Meta.compile(code,moduleName)
@@ -83,7 +89,7 @@ class CLI {
   }
   static repl() {
     System.print(""" -"\//""")
-    System.print("  \\_/    \nwrenc v%(Wren.CLI_VERSION) (wren v%(Wren.VERSION)) (based on wren-cli@9c6b6933722)") 
+    System.print("  \\_/    \n%(versionInfo) (based on wren-cli@9c6b6933722)") 
     // " fix broken VS Code highlighting (not understaning escapes)
 
     Repl.start()

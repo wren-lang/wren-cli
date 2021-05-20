@@ -1,21 +1,83 @@
-# Wren CLI
+# Wren Console - `wrenc`
 
-## The CLI project is a small and simple REPL and CLI tool for running Wren scripts.
+[![](https://badgen.net/badge/latest/0.1.0/)](https://github.com/joshgoebel/wren-console/releases)
+[![](https://badgen.net/badge/license/MIT/cyan)](https://github.com/joshgoebel/wren-console/blob/main/LICENSE)
+[![](https://badgen.net/badge/wren/0.4.0/?color=purple)](https://github.com/wren-lang/wren)
+[![](https://badgen.net/badge/icon/discord?icon=discord&label&color=pink)][discord]
+![](https://badgen.net/badge/build/TODO?color=orange)
 
-It is backed by [libuv](http://libuv.org/) to implement IO functionality, and is a work in progress.
 
-For documentation and usage, see http://wren.io/cli   
-For more information about Wren, the language used by the CLI, see http://wren.io
 
-Like with Wren itself, we welcome [contributions][contribute].
+The Wren Console project is a small and simple REPL and CLI tool for running Wren scripts. It is backed by [libuv](http://libuv.org/) to implement IO functionality. It is  based on the official [Wren CLI](https://github.com/wren-lang/wren-cli) project and very much a work in progress. 
 
-[contribute]: http://wren.io/contributing.html
+The goals and priorities are slightly different than the Wren CLI project.
 
-[![Build Status](https://travis-ci.org/wren-lang/wren-cli.svg?branch=main)](https://travis-ci.org/wren-lang/wren-cli)
+- To be written as much as possible in pure Wren, not C.  This greatly simplifies much, expands the list of potential contributors, as makes developing new features faster (for everyone who knows Wren).
+- Provide the best learning environment for the forthcoming [Exercism](https://exercism.io) Wren track.  For starters this means providing full introspection of stack traces when a Fiber aborts - allowing test suites to show helpful debugging information, including source code snippets. (thanks to [@mhermier](https://github.com/mhermier))
+- Serve as a development playground for good ideas that may or may not ever make it into Wren CLI proper. If much of what we do makes it into Wren CLI, great.  If we end up going different directions, that's ok too.
+
+For now the idea is to try to maintain compatibility with whe Wren CLI modules themselves, so that [reference documentation](https://wren.io/cli/modules) may prove useful.
+
+For more information about Wren, the language that Wren Console is embedding, see http://wren.io.
+
+We welcome contributions.  Feel free to [open an issue][issues] to start a discussion or [join our Discord][discord]. You can also find me on the main Wren Discord as well.
+
+[issues]: https://github.com/joshgoebel/wren-console
+[discord]: https://discord.gg/6YjUdym5Ap
+
 
 ---
 
-## To build the Wren CLI
+## FAQ
+
+### Pure Wren? Why?
+
+- **Because I've fallen in love with Wren.** It's higher level and therefore easier to read and write for many than C.
+- *Because it's fun.* Is there any better reason?
+- Because I (and many others) don't know C nearly well enough to be efficient/proficient with CLI contributions.
+
+### Exercism?
+
+Thousands of helpful mentors, hundreds of thousands of fellow students to learn alongside.  If you're wanting to learn a new language, improve your Wren, or just sharpen your skills on an entirely different language, [Exercism is the place to be](https://exercism.io/about).
+
+
+
+---
+
+## Usage Examples
+
+Run a script from the console:
+
+```sh
+$ wrenc ./path_to_script.wren
+```
+
+Evaluate code directly:
+
+```sh
+$ wrenc -e 'System.print("Hello world")'
+```
+
+Embed inside shell scripting with heredocs:
+
+```sh
+#!/bin/sh
+wrenc /dev/fd/5 < input.txt 5<< 'EOF'
+import "io" for Stdin
+System.print(Stdin.readLine())
+EOF
+
+```
+
+Start up an interactive REPL session:
+
+```sh
+$ wrenc
+```
+
+---
+
+## To build Wren Console
 
 ### Windows
 
