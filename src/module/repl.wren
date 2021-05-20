@@ -2,56 +2,133 @@ import "meta" for Meta
 import "io" for Stdin, Stdout
 import "os" for Platform
 
+class LineEditor {
+  construct new() {
+    _line = []
+    _cursor = 0
+  }
+
+  count { _line.count }
+  isEmpty { _line.isEmpty }
+  isAtLineEnd { _cursor == _line.count }
+  cursor { _cursor }
+  cursor=(value) { _cursor = value }
+  content { _line.join() }
+  content=(value) { 
+    clear()
+    append(value)
+  }
+  home() { _cursor = 0 }
+  end() { _cursor = _line.count }
+
+  clear() {
+    _line = []
+    _cursor = 0
+  }
+
+  cursorLeft() {
+    if (_cursor > 0) _cursor = _cursor - 1
+  }
+
+  cursorRight() {
+    if (_cursor < _line.count ) _cursor = _cursor + 1
+  }
+
+  swapCharsBeforeCursor() {
+    if (_cursor<2) return
+
+    _line.swap(_cursor-1, _cursor-2)
+  }
+
+  append(s) {
+    _line.addAll(s)
+    _cursor = _line.count
+  }
+
+  deleteLeftWord() {
+    // delete all spaces in front of cursor
+    while (_cursor != 0 && _line[_cursor - 1] == " ") {
+      deleteLeft()
+    }
+    // delete all content at cursor until we find a space
+    while (_cursor != 0 && _line[_cursor - 1] != " ") {
+      deleteLeft()
+    }
+  }
+
+  // deletes all content to the right of the cursor
+  deleteAfterCursor() {
+    while (_line.count > _cursor ) {
+      _line.removeAt(-1)
+    }
+  }
+
+  // inserts a code point at the current cursor position
+  insertCodePoint(cp) {
+    _line.insert(_cursor, cp)
+    _cursor = _cursor + 1
+  }
+
+  /// Deletes the character before the cursor, if any.
+  deleteLeft() {
+    if (_cursor == 0) return
+
+    _line.removeAt(_cursor-1)
+    _cursor = _cursor - 1
+  }
+
+  /// Deletes the character after the cursor, if any.
+  deleteRight() {
+    if (_cursor == _line.count) return
+
+    _line.removeAt(_cursor)
+  }
+}
+
 /// Abstract base class for the REPL. Manages the input line and history, but
 /// does not render.
 class Repl {
   construct new() {
-    _cursor = 0
-    _line = ""
+    _editor = LineEditor.new()
 
     _history = []
     _historyIndex = 0
   }
 
-  cursor { _cursor }
-  cursor=(value) { _cursor = value }
-  line { _line }
-  line=(value) { _line = value }
+  editor { _editor }
 
   run() {
     Stdin.isRaw = true
     refreshLine(false)
 
     while (true) {
-      var byte = Stdin.readByte()
-      if (handleChar(byte)) break
+      var codepoint = Stdin.readCodePoint()
+      if (handleChar(codepoint)) break
       refreshLine(true)
     }
   }
 
-  handleChar(byte) {
+  handleChar(codepoint) {
+    var byte = codepoint.bytes[0]
     if (byte == Chars.ctrlC) {
       System.print()
       return true
     } else if (byte == Chars.ctrlD) {
       // If the line is empty, Ctrl_D exits.
-      if (_line.isEmpty) {
+      if (_editor.isEmpty) {
         System.print()
         return true
       }
 
       // Otherwise, it deletes the character after the cursor.
-      deleteRight()
+      _editor.deleteRight()
     } else if (byte == Chars.tab) {
       var completion = getCompletion()
       if (completion != null) {
-        _line = _line + completion
-        _cursor = _line.count
+        _editor.append(completion)
       }
     } else if (byte == Chars.ctrlU) {
-      // Clear the line.
-      _line = ""
-      _cursor = 0
+        _editor.clear()
     } else if (byte == Chars.ctrlN) {
       nextHistory()
     } else if (byte == Chars.ctrlP) {
@@ -68,18 +145,13 @@ class Repl {
     } else if (byte == Chars.carriageReturn) {
       executeInput()
     } else if (byte == Chars.delete) {
-      deleteLeft()
+      _editor.deleteLeft()
     } else if (byte >= Chars.space && byte <= Chars.tilde) {
-      insertChar(byte)
+      _editor.insertCodePoint(codepoint)
+    } else if (byte > 127) {
+      _editor.insertCodePoint(codepoint)
     } else if (byte == Chars.ctrlW) { // Handle Ctrl+w
-      // Delete trailing spaces
-      while (_cursor != 0 && _line[_cursor - 1] == " ") {
-        deleteLeft()
-      }
-      // Delete until the next space
-      while (_cursor != 0 && _line[_cursor - 1] != " ") {
-        deleteLeft()
-      }
+      _editor.deleteLeftWord()
     } else {
       // TODO: Other shortcuts?
       System.print("Unhandled key-code [dec]: %(byte)")
@@ -88,29 +160,7 @@ class Repl {
     return false
   }
 
-  /// Inserts the character with [byte] value at the current cursor position.
-  insertChar(byte) {
-    var char = String.fromCodePoint(byte)
-    _line = _line[0..._cursor] + char + _line[_cursor..-1]
-    _cursor = _cursor + 1
-  }
 
-  /// Deletes the character before the cursor, if any.
-  deleteLeft() {
-    if (_cursor == 0) return
-
-    // Delete the character before the cursor.
-    _line = _line[0...(_cursor - 1)] + _line[_cursor..-1]
-    _cursor = _cursor - 1
-  }
-
-  /// Deletes the character after the cursor, if any.
-  deleteRight() {
-    if (_cursor == _line.count) return
-
-    // Delete the character after the cursor.
-    _line = _line[0..._cursor] + _line[(_cursor + 1)..-1]
-  }
 
   handleEscapeBracket(byte) {
     if (byte == EscapeBracket.up) {
@@ -118,13 +168,13 @@ class Repl {
     } else if (byte == EscapeBracket.down) {
       nextHistory()
     } else if (byte == EscapeBracket.delete) {
-      deleteRight()
+      _editor.deleteRight()
       // Consume extra 126 character generated by delete
       Stdin.readByte()
     } else if (byte == EscapeBracket.end) {
-      _cursor = _line.count
+      _editor.end()
     } else if (byte == EscapeBracket.home) {
-      _cursor = 0
+      _editor.home()
     }
   }
 
@@ -132,8 +182,7 @@ class Repl {
     if (_historyIndex == 0) return
 
     _historyIndex = _historyIndex - 1
-    _line = _history[_historyIndex]
-    _cursor = _line.count
+    editor.content = _history[_historyIndex]
   }
 
   nextHistory() {
@@ -141,11 +190,9 @@ class Repl {
 
     _historyIndex = _historyIndex + 1
     if (_historyIndex < _history.count) {
-      _line = _history[_historyIndex]
-      _cursor = _line.count
+      editor.content = _history[_historyIndex]
     } else {
-      _line = ""
-      _cursor = 0
+      editor.content = ""
     }
   }
 
@@ -153,6 +200,7 @@ class Repl {
     // Remove the completion hint.
     refreshLine(false)
 
+    _line = _editor.content
     // Add it to the history (if the line is interesting).
     if (_line != "" && (_history.isEmpty || _history[-1] != _line)) {
       _history.add(_line)
@@ -161,8 +209,7 @@ class Repl {
 
     // Reset the current line.
     var input = _line
-    _line = ""
-    _cursor = 0
+    _editor.clear()
 
     System.print()
 
@@ -240,16 +287,16 @@ class Repl {
   /// there is none. The completion is the remaining string to append to the
   /// line, not the entire completed line.
   getCompletion() {
-    if (_line.isEmpty) return null
+    if (_editor.isEmpty) return null
 
     // Only complete if the cursor is at the end.
-    if (_cursor != _line.count) return null
+    if (!_editor.isAtLineEnd) return null
 
     for (name in Meta.getModuleVariables("repl")) {
       // TODO: Also allow completion if the line ends with an identifier but
       // has other stuff before it.
-      if (name.startsWith(_line)) {
-        return name[_line.count..-1]
+      if (name.startsWith(_editor.content)) {
+        return name[_editor.count..-1]
       }
     }
   }
@@ -267,14 +314,14 @@ class SimpleRepl is Repl {
     // We have to erase it manually. Since we can't use ANSI escapes, and we
     // don't know how wide the terminal is, erase the longest line we've seen
     // so far.
-    if (line.count > _erase.count) _erase = " " * line.count
+    if (editor.count > _erase.count) _erase = " " * editor.count
     System.write("\r  %(_erase)")
 
     // Show the prompt at the beginning of the line.
     System.write("\r> ")
 
     // Write the line.
-    System.write(line)
+    System.write(editor.content)
     Stdout.flush()
   }
 
@@ -295,29 +342,30 @@ class AnsiRepl is Repl {
     super()
   }
 
-  handleChar(byte) {
+  handleChar(codepoint) {
+    var byte = codepoint.bytes[0]
     if (byte == Chars.ctrlA) {
       cursor = 0
     } else if (byte == Chars.ctrlB) {
-      cursorLeft()
+      editor.cursorLeft()
     } else if (byte == Chars.ctrlE) {
-      cursor = line.count
+      editor.end()
     } else if (byte == Chars.ctrlF) {
-      cursorRight()
+      editor.cursorRight()
     } else if (byte == Chars.ctrlK) {
       // Delete everything after the cursor.
-      line = line[0...cursor]
+      editor.deleteAfterCursor()
     } else if (byte == Chars.ctrlL) {
       // Clear the screen.
       System.write("\x1b[2J")
       // Move cursor to top left.
       System.write("\x1b[H")
+    } else if (byte == Chars.ctrlT) {
+      editor.swapCharsBeforeCursor()
     } else {
-      // TODO: Ctrl-T to swap chars.
       // TODO: ESC H and F to move to beginning and end of line. (Both ESC
       // [ and ESC 0 sequences?)
-      // TODO: Ctrl-W delete previous word.
-      return super.handleChar(byte)
+      return super.handleChar(codepoint)
     }
 
     return false
@@ -325,23 +373,12 @@ class AnsiRepl is Repl {
 
   handleEscapeBracket(byte) {
     if (byte == EscapeBracket.left) {
-      cursorLeft()
+      editor.cursorLeft()
     } else if (byte == EscapeBracket.right) {
-      cursorRight()
+      editor.cursorRight()
     }
 
     super.handleEscapeBracket(byte)
-  }
-
-  /// Move the cursor left one character.
-  cursorLeft() {
-    if (cursor > 0) cursor = cursor - 1
-  }
-
-  /// Move the cursor right one character.
-  cursorRight() {
-    // TODO: Take into account multi-byte characters?
-    if (cursor < line.count) cursor = cursor + 1
   }
 
   refreshLine(showCompletion) {
@@ -354,7 +391,7 @@ class AnsiRepl is Repl {
     System.write(Color.none)
 
     // Syntax highlight the line.
-    for (token in lex(line, true)) {
+    for (token in lex(editor.content, true)) {
       if (token.type == Token.eof) break
 
       System.write(TOKEN_COLORS[token.type])
@@ -370,7 +407,7 @@ class AnsiRepl is Repl {
     }
 
     // Position the cursor.
-    System.write("\r\x1b[%(2 + cursor)C")
+    System.write("\r\x1b[%(2 + editor.cursor)C")
     Stdout.flush()
   }
 
@@ -419,6 +456,7 @@ class Chars {
   static carriageReturn { 0x0d }
   static ctrlN { 0x0e }
   static ctrlP { 0x10 }
+  static ctrlT { 0x14 }
   static ctrlU { 0x15 }
   static ctrlW { 0x17 }
   static escape { 0x1b }
