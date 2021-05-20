@@ -237,7 +237,7 @@ static const char* ioModuleSource =
 "  static readLine() {\n"
 "    return read_ {\n"
 "      // TODO: Handle Windows line separators.\n"
-"      var lineSeparator = __buffered.indexOf(\"\n\")\n"
+"      var lineSeparator = __buffered.indexOf(\"\\n\")\n"
 "      if (lineSeparator == -1) return null\n"
 "\n"
 "      // Split the line at the separator.\n"
