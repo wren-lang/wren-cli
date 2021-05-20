@@ -224,8 +224,9 @@ class Stdin {
   static readByte() {
     return read_ {
       // Peel off the first byte.
+      // TODO: this doing a huge amount of effort, but likely fast enough
       var byte = __buffered.bytes[0]
-      __buffered = __buffered[1..-1]
+      __buffered = __buffered.bytes.skip(1).map { |x| String.fromByte(x) }.join() 
       return byte
     }
   }
