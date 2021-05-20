@@ -3,6 +3,7 @@
 - Auto-build and test binary releases for Windows, Mac, Linux platforms on tagged versions
 - Integrate `Mirror` functionality for stack trace introspection (via wren-essentials)
 - [ ] Homebrew
+- (fix) Stdin.readByte now propery removes single bytes from buffer
 
 ## 0.1.0 
 
