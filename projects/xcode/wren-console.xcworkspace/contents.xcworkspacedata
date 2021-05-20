@@ -2,6 +2,6 @@
 <Workspace
 	version = "1.0">
 	<FileRef
-		location = "group:wren_cli.xcodeproj">
+		location = "group:wrenc.xcodeproj">
 	</FileRef>
 </Workspace>

@@ -6,6 +6,7 @@ import "meta" for Meta
 // TODO: Wren needs to expose System.version
 // https://github.com/wren-lang/wren/issues/1016
 class Wren {
+  static CLI_VERSION { "0.1" }
   static VERSION { "0.4" }
 }
 
@@ -81,8 +82,8 @@ class CLI {
     runCode(code,moduleName)
   }
   static repl() {
-    System.print("""\\\\/\\"-""")
-    System.print(" \\\\_/    wren v%(Wren.VERSION)") 
+    System.print(""" -"\//""")
+    System.print("  \\_/    \nwrenc v%(Wren.CLI_VERSION) (wren v%(Wren.VERSION)) (based on wren-cli@9c6b6933722)") 
     // " fix broken VS Code highlighting (not understaning escapes)
 
     Repl.start()

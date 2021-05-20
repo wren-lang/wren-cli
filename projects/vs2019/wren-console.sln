@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wrenc", "wrenc.vcxproj", "{84A3A810-F0B7-D0C1-B939-7421250DCDF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|64bit = Debug|64bit
+		Release|64bit = Release|64bit
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|32bit = Debug|32bit
+		Debug|64bit-no-nan-tagging = Debug|64bit-no-nan-tagging
+		Release|32bit = Release|32bit
+		Release|64bit-no-nan-tagging = Release|64bit-no-nan-tagging
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Debug|32bit.ActiveCfg = Debug 32bit|Win32
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Debug|32bit.Build.0 = Debug 32bit|Win32
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Debug|64bit.ActiveCfg = Debug 64bit|x64
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Debug|64bit.Build.0 = Debug 64bit|x64
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Debug|64bit-no-nan-tagging.ActiveCfg = Debug 64bit-no-nan-tagging|Win32
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Debug|64bit-no-nan-tagging.Build.0 = Debug 64bit-no-nan-tagging|Win32
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Release|32bit.ActiveCfg = Release 32bit|Win32
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Release|32bit.Build.0 = Release 32bit|Win32
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Release|64bit.ActiveCfg = Release 64bit|x64
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Release|64bit.Build.0 = Release 64bit|x64
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Release|64bit-no-nan-tagging.ActiveCfg = Release 64bit-no-nan-tagging|Win32
+		{84A3A810-F0B7-D0C1-B939-7421250DCDF2}.Release|64bit-no-nan-tagging.Build.0 = Release 64bit-no-nan-tagging|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
