@@ -60,6 +60,20 @@ project "wrenc"
     "../../src/module",
   }
 
+-- wren-essentials dependency
+
+files {
+  "../../deps/wren-essentials/modules/**.c",
+  "../../deps/wren-essentials/modules/**.c",
+  "../../deps/wren-essentials/src/**.c",
+  "../../deps/wren-essentials/src/**.h"
+}
+
+includedirs {
+  "../../deps/wren-essentials/src/",
+}
+
+
 -- wren dependency
 
   files {

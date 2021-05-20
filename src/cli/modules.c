@@ -10,6 +10,7 @@
 #include "scheduler.wren.inc"
 #include "timer.wren.inc"
 #include "_wren.inc"
+#include "essentials.h"
 
 extern void setRootDirectory(WrenVM* vm);
 extern void directoryList(WrenVM* vm);
@@ -174,6 +175,7 @@ static ModuleRegistry coreCLImodules[] =
 
 static LibraryRegistry libraries[MAX_LIBRARIES] = {
   { "core", (ModuleRegistry (*)[MAX_MODULES_PER_LIBRARY])&coreCLImodules},
+  { "essential", (ModuleRegistry (*)[MAX_MODULES_PER_LIBRARY])&essentialRegistry},
   { NULL, NULL }
 };
 

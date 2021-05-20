@@ -260,7 +260,7 @@ static const char* cliModuleSource =
 "    System.print(\"  -                read script from stdin\")\n"
 "    System.print(\"  -h, --help       print wrenc command line options\")\n"
 "    System.print(\"  -v, --version    print wrenc and Wren version\")\n"
-"    System.print(\"  -e '[code]'      Evaluate code\")\n"
+"    System.print(\"  -e '[code]'      evaluate code\")\n"
 "    System.print()\n"
 "    System.print(\"Documentation can be found at https://github.com/joshgoebel/wren-console\")\n"
 "    \n"

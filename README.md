@@ -32,9 +32,11 @@ We welcome contributions.  Feel free to [open an issue][issues] to start a discu
 
 ### Pure Wren? Why?
 
-- **Because I've fallen in love with Wren.** It's higher level and therefore easier to read and write for many than C.
-- *Because it's fun.* Is there any better reason?
-- Because I (and many others) don't know C nearly well enough to be efficient/proficient with CLI contributions.
+- It's much higher level and therefore easier to read, write, and iterate than C.
+- [It's more than fast enough.](https://wren.io/performance.html)
+- **I've fallen a bit in love with Wren.** 
+- *It's fun.* Is there any better reason?
+- Many (including myself) don't know C nearly well enough to be proficient with major CLI contributions.
 
 ### Exercism?
 
@@ -74,6 +76,19 @@ Start up an interactive REPL session:
 ```sh
 $ wrenc
 ```
+
+---
+
+## Extended Library Support
+
+### `essentials` module
+
+Wren Console includes the [Wren Essentials](https://github.com/joshgoebel/wren-essentials) library built right into the binary.
+
+- `Time.now()` - number of milliseconds since Epoch
+- `Time.highResolution()` - high resolution time counter (for benchmarking, etc.)
+- `Strings.upcase(string)` - convert an ASCII string to uppercase
+- `Strings.lowercase(string)` - convert an ASCII string to lowercase
 
 ---
 

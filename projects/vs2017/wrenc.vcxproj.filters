@@ -34,6 +34,15 @@
     <Filter Include="deps\wren\src\vm">
       <UniqueIdentifier>{859ADCF8-7193-FB4A-9AC5-E0CF861DDB56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="deps\wren-essentials">
+      <UniqueIdentifier>{C42F2613-B0BE-AFDC-59DD-C3D7454BC082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\wren-essentials\src">
+      <UniqueIdentifier>{DB2F9C96-C754-EB16-F09F-D0A6DC23EA34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\wren-essentials\src\modules">
+      <UniqueIdentifier>{C3FFB122-AF50-9D64-D8B4-8B26C46430CE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
@@ -131,6 +140,15 @@
     </ClInclude>
     <ClInclude Include="..\..\deps\libuv\src\win\winsock.h">
       <Filter>deps\libuv\src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren-essentials\src\essentials.h">
+      <Filter>deps\wren-essentials\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren-essentials\src\modules\mirror.h">
+      <Filter>deps\wren-essentials\src\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren-essentials\src\modules\time.h">
+      <Filter>deps\wren-essentials\src\modules</Filter>
     </ClInclude>
     <ClInclude Include="..\..\deps\wren\include\wren.h">
       <Filter>deps\wren\include</Filter>
@@ -307,6 +325,15 @@
     </ClCompile>
     <ClCompile Include="..\..\deps\libuv\src\win\winsock.c">
       <Filter>deps\libuv\src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren-essentials\src\essentials.c">
+      <Filter>deps\wren-essentials\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren-essentials\src\modules\mirror.c">
+      <Filter>deps\wren-essentials\src\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren-essentials\src\modules\time.c">
+      <Filter>deps\wren-essentials\src\modules</Filter>
     </ClCompile>
     <ClCompile Include="..\..\deps\wren\src\optional\wren_opt_meta.c">
       <Filter>deps\wren\src\optional</Filter>

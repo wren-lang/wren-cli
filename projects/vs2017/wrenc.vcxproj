@@ -164,7 +164,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren-essentials\src;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -186,7 +186,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren-essentials\src;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -208,7 +208,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;WREN_NAN_TAGGING=0;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren-essentials\src;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -230,7 +230,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren-essentials\src;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -249,7 +249,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren-essentials\src;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -268,7 +268,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;WREN_NAN_TAGGING=0;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src\cli;..\..\src\module;..\..\deps\wren-essentials\src;..\..\deps\wren\include;..\..\deps\wren\src\vm;..\..\deps\wren\src\optional;..\..\deps\libuv\include;..\..\deps\libuv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -312,6 +312,9 @@
     <ClInclude Include="..\..\deps\libuv\src\win\stream-inl.h" />
     <ClInclude Include="..\..\deps\libuv\src\win\winapi.h" />
     <ClInclude Include="..\..\deps\libuv\src\win\winsock.h" />
+    <ClInclude Include="..\..\deps\wren-essentials\src\essentials.h" />
+    <ClInclude Include="..\..\deps\wren-essentials\src\modules\mirror.h" />
+    <ClInclude Include="..\..\deps\wren-essentials\src\modules\time.h" />
     <ClInclude Include="..\..\deps\wren\include\wren.h" />
     <ClInclude Include="..\..\deps\wren\src\optional\wren_opt_meta.h" />
     <ClInclude Include="..\..\deps\wren\src\optional\wren_opt_random.h" />
@@ -372,6 +375,9 @@
     <ClCompile Include="..\..\deps\libuv\src\win\util.c" />
     <ClCompile Include="..\..\deps\libuv\src\win\winapi.c" />
     <ClCompile Include="..\..\deps\libuv\src\win\winsock.c" />
+    <ClCompile Include="..\..\deps\wren-essentials\src\essentials.c" />
+    <ClCompile Include="..\..\deps\wren-essentials\src\modules\mirror.c" />
+    <ClCompile Include="..\..\deps\wren-essentials\src\modules\time.c" />
     <ClCompile Include="..\..\deps\wren\src\optional\wren_opt_meta.c" />
     <ClCompile Include="..\..\deps\wren\src\optional\wren_opt_random.c" />
     <ClCompile Include="..\..\deps\wren\src\vm\wren_compiler.c" />

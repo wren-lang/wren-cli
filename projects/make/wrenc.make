@@ -19,7 +19,7 @@ endif
 # #############################################
 
 RESCOMP = windres
-INCLUDES += -I../../src/cli -I../../src/module -I../../deps/wren/include -I../../deps/wren/src/vm -I../../deps/wren/src/optional -I../../deps/libuv/include -I../../deps/libuv/src
+INCLUDES += -I../../src/cli -I../../src/module -I../../deps/wren-essentials/src -I../../deps/wren/include -I../../deps/wren/src/vm -I../../deps/wren/src/optional -I../../deps/libuv/include -I../../deps/libuv/src
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -103,6 +103,7 @@ GENERATED += $(OBJDIR)/async.o
 GENERATED += $(OBJDIR)/cli.o
 GENERATED += $(OBJDIR)/core.o
 GENERATED += $(OBJDIR)/dl.o
+GENERATED += $(OBJDIR)/essentials.o
 GENERATED += $(OBJDIR)/fs-poll.o
 GENERATED += $(OBJDIR)/fs.o
 GENERATED += $(OBJDIR)/getaddrinfo.o
@@ -116,6 +117,7 @@ GENERATED += $(OBJDIR)/linux-syscalls.o
 GENERATED += $(OBJDIR)/loop-watcher.o
 GENERATED += $(OBJDIR)/loop.o
 GENERATED += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/mirror.o
 GENERATED += $(OBJDIR)/modules.o
 GENERATED += $(OBJDIR)/os.o
 GENERATED += $(OBJDIR)/path.o
@@ -138,6 +140,7 @@ GENERATED += $(OBJDIR)/sysinfo-loadavg.o
 GENERATED += $(OBJDIR)/tcp.o
 GENERATED += $(OBJDIR)/thread.o
 GENERATED += $(OBJDIR)/threadpool.o
+GENERATED += $(OBJDIR)/time.o
 GENERATED += $(OBJDIR)/timer.o
 GENERATED += $(OBJDIR)/timer1.o
 GENERATED += $(OBJDIR)/tty.o
@@ -159,6 +162,7 @@ OBJECTS += $(OBJDIR)/async.o
 OBJECTS += $(OBJDIR)/cli.o
 OBJECTS += $(OBJDIR)/core.o
 OBJECTS += $(OBJDIR)/dl.o
+OBJECTS += $(OBJDIR)/essentials.o
 OBJECTS += $(OBJDIR)/fs-poll.o
 OBJECTS += $(OBJDIR)/fs.o
 OBJECTS += $(OBJDIR)/getaddrinfo.o
@@ -172,6 +176,7 @@ OBJECTS += $(OBJDIR)/linux-syscalls.o
 OBJECTS += $(OBJDIR)/loop-watcher.o
 OBJECTS += $(OBJDIR)/loop.o
 OBJECTS += $(OBJDIR)/main.o
+OBJECTS += $(OBJDIR)/mirror.o
 OBJECTS += $(OBJDIR)/modules.o
 OBJECTS += $(OBJDIR)/os.o
 OBJECTS += $(OBJDIR)/path.o
@@ -194,6 +199,7 @@ OBJECTS += $(OBJDIR)/sysinfo-loadavg.o
 OBJECTS += $(OBJDIR)/tcp.o
 OBJECTS += $(OBJDIR)/thread.o
 OBJECTS += $(OBJDIR)/threadpool.o
+OBJECTS += $(OBJDIR)/time.o
 OBJECTS += $(OBJDIR)/timer.o
 OBJECTS += $(OBJDIR)/timer1.o
 OBJECTS += $(OBJDIR)/tty.o
@@ -380,6 +386,15 @@ $(OBJDIR)/uv-data-getter-setters.o: ../../deps/libuv/src/uv-data-getter-setters.
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/version.o: ../../deps/libuv/src/version.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/essentials.o: ../../deps/wren-essentials/src/essentials.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/mirror.o: ../../deps/wren-essentials/src/modules/mirror.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/time.o: ../../deps/wren-essentials/src/modules/time.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/wren_opt_meta.o: ../../deps/wren/src/optional/wren_opt_meta.c
