@@ -4,6 +4,7 @@
 #include "vm.h"
 #include "_wren.inc"
 #include "modules.h"
+#include <string.h>
 
 WrenVM *resolver;
 
@@ -90,7 +91,7 @@ char* wrenLoadModule(const char* module) {
   wrenSetSlotString(vm,2, rootDirectory);
   wrenCall(resolver,loadModuleFn);
   const char *tmp = wrenGetSlotString(vm,0);
-  char *result = malloc(strlen(tmp+1));
+  char *result = malloc(strlen(tmp)+1);
   strcpy(result,tmp);
   return result;
 }
@@ -104,7 +105,7 @@ char* wrenResolveModule(const char* importer, const char* module) {
   wrenSetSlotString(vm,3, rootDirectory);
   wrenCall(resolver,resolveModuleFn);
   const char *tmp = wrenGetSlotString(vm,0);
-  char *result = malloc(strlen(tmp+1));
+  char *result = malloc(strlen(tmp)+1);
   strcpy(result,tmp);
   return result;
 }

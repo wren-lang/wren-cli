@@ -25,7 +25,7 @@ is_debug = args.suffix.startswith('_d')
 config_dir = ("debug" if is_debug else "release") + config
 
 WREN_DIR = dirname(dirname(realpath(__file__)))
-WREN_APP = join(WREN_DIR, 'bin', 'wren_cli' + args.suffix)
+WREN_APP = join(WREN_DIR, 'bin', 'wrenc' + args.suffix)
 
 # print("Wren Test Directory - " + WREN_DIR)
 # print("Wren Test App - " + WREN_APP)
@@ -395,7 +395,7 @@ def run_example(path):
 
 walk(join(WREN_DIR, 'test'), run_test)
 walk(join(WREN_DIR, 'example'), run_example)
-err = os.system("./bin/wren_cli test/unit/path_test.wren")
+err = os.system("./bin/wrenc test/unit/path_test.wren")
 if (err!=0): 
   failed += 1
 else:

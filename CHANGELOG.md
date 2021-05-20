@@ -1,8 +1,8 @@
 ## 0.1.x  (in progress)
 
-- [ ] Auto-build binary releases for Windows, Mac, Linux platforms
+- Auto-build and test binary releases for Windows, Mac, Linux platforms on tagged versions
+- Integrate `Mirror` functionality for stack trace introspection (via wren-essentials)
 - [ ] Homebrew
-- [ ] Integrate `Mirror` functionality for stack trace introspection
 
 ## 0.1.0 
 

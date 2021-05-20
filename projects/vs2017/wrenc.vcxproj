@@ -312,6 +312,7 @@
     <ClInclude Include="..\..\deps\libuv\src\win\stream-inl.h" />
     <ClInclude Include="..\..\deps\libuv\src\win\winapi.h" />
     <ClInclude Include="..\..\deps\libuv\src\win\winsock.h" />
+    <ClInclude Include="..\..\deps\wren-essentials\src\binary_libs.h" />
     <ClInclude Include="..\..\deps\wren-essentials\src\essentials.h" />
     <ClInclude Include="..\..\deps\wren-essentials\src\modules\mirror.h" />
     <ClInclude Include="..\..\deps\wren-essentials\src\modules\time.h" />
@@ -328,6 +329,7 @@
     <ClInclude Include="..\..\deps\wren\src\vm\wren_utils.h" />
     <ClInclude Include="..\..\deps\wren\src\vm\wren_value.h" />
     <ClInclude Include="..\..\deps\wren\src\vm\wren_vm.h" />
+    <ClInclude Include="..\..\src\cli\binary_libs.h" />
     <ClInclude Include="..\..\src\cli\cli.h" />
     <ClInclude Include="..\..\src\cli\modules.h" />
     <ClInclude Include="..\..\src\cli\path.h" />

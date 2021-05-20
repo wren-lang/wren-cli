@@ -94,7 +94,7 @@ Wren Console includes the [Wren Essentials](https://github.com/joshgoebel/wren-e
 
 ## To build Wren Console
 
-### Pre-requisites
+**Pre-requisites**
 
 - Git clone the `wren-essentials` project ([link](https://github.com/joshgoebel/wren-essentials)) into `deps` (TODO: vendor?)
 

@@ -1,0 +1,165 @@
+---
+name: "Release"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  tagged-release:
+    name: "New Release (Linux)"
+    runs-on: "ubuntu-latest"
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      release_version: ${{ env.RELEASE_VERSION }}
+      prerelease: ${{ env.PRERELEASE }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set env & pre-setup
+        run: |
+          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+          mkdir wren_modules
+          echo "PRERELEASE=false" >> $GITHUB_ENV
+        # determine if we are a pre-release or not
+      - if: contains(github.ref, 'beta') || contains(github.ref, 'test')
+        run: |
+          echo "PRERELEASE=true" >> $GITHUB_ENV
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-essentials
+          path: deps/wren-essentials
+      - name: "Build & test"
+        run: |
+          make -j8 -C projects/make/
+          cd wren_modules
+          git clone --depth 1 https://github.com/RobLoach/wren-assert.git
+          git clone --depth 1 https://github.com/joshgoebel/wren-testie.git
+          cd ..
+          python3 ./util/test.py
+      - name: "Build distributable"
+        run: |
+          mkdir -p dist/bin
+          cp LICENSE dist
+          cp README.md dist
+          cp bin/wrenc dist/bin
+      - name: Compress action step
+        uses: master-atul/tar-action@v1.0.2
+        id: compress
+        with:
+          command: c
+          cwd: ./dist
+          files: |
+            ./bin/wrenc
+            ./README.md
+            ./LICENSE
+          outPath: wren-console-${{ env.RELEASE_VERSION }}-linux.tar.gz
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        id: create_release
+        with:
+          automatic_release_tag: "${{ env.RELEASE_VERSION }}"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: "${{ env.PRERELEASE }}"
+          files: |
+            wren-console-${{ env.RELEASE_VERSION }}-linux.tar.gz
+
+  windows-assets:
+    needs: tagged-release
+    runs-on: windows-2019
+    if: ${{ false }}  # disable for now
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set env
+        shell: bash
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: "Build & test"
+        run: |
+          cd deps
+          git clone --depth 1 https://github.com/joshgoebel/wren-essentials.git
+          cd ..
+          cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
+          dir $Env:GITHUB_WORKSPACE
+          .\MSBuild.exe $Env:GITHUB_WORKSPACE\projects\vs2019\wrenc.vcxproj /p:Configuration="Release 64bit" /p:Platform="x64"
+          cd $Env:GITHUB_WORKSPACE
+          dir $Env:GITHUB_WORKSPACE
+          mkdir wren_modules
+          cd wren_modules
+          git clone --depth 1 https://github.com/RobLoach/wren-assert.git
+          git clone --depth 1 https://github.com/joshgoebel/wren-testie.git
+          cd ..
+          # ./bin/wrenc test/unit/path_test.wren
+          # python3 ./util/test.py
+          mkdir -p dist/bin
+          cp LICENSE dist/LICENSE.txt
+          cp README.md dist
+          cp bin/wrenc.exe dist/bin
+          7z a -mm=deflate -mx=9 wren-console.zip dist
+          7z rn wren-console.zip dist wren-console-${{ env.RELEASE_VERSION }}-windows
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.tagged-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./wren-console.zip
+          asset_name: wren-console-${{ env.RELEASE_VERSION }}-windows.zip
+          asset_content_type: application/zip
+
+  mac-assets:
+    name: "Mac build assets"
+    needs: tagged-release
+    runs-on: macos-10.15
+    if: ${{ true }}  
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Copy environment from our release runner
+        run: |
+          echo "RELEASE_VERSION=${{ needs.tagged-release.outputs.release_version }}" >> $GITHUB_ENV
+          echo "PRERELEASE=${{ needs.tagged-release.outputs.prerelease }}" >> $GITHUB_ENV
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-essentials
+          path: deps/wren-essentials
+      - name: "Build & test"
+        run: |
+          make -j8 -C projects/make.mac/
+          mkdir wren_modules
+          cd wren_modules
+          git clone --depth 1 https://github.com/RobLoach/wren-assert.git
+          git clone --depth 1 https://github.com/joshgoebel/wren-testie.git
+          cd ..
+          python3 ./util/test.py
+      - name: "Build distributable"
+        run: |
+          mkdir -p dist/bin
+          cp LICENSE dist/LICENSE.txt
+          cp README.md dist
+          cp bin/wrenc dist/bin
+      - name: Create tarball package
+        uses: master-atul/tar-action@v1.0.2
+        id: compress
+        with:
+          command: c
+          cwd: ./dist
+          files: |
+            ./bin/wrenc
+            ./README.md
+            ./LICENSE.txt
+          outPath: wren-console-${{ env.RELEASE_VERSION }}-mac.tar.gz
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.tagged-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./wren-console-${{ env.RELEASE_VERSION }}-mac.tar.gz
+          asset_name: wren-console-${{ env.RELEASE_VERSION }}-mac.tar.gz
+          asset_content_type: application/gzip

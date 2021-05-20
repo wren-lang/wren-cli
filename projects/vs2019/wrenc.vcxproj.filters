@@ -141,6 +141,9 @@
     <ClInclude Include="..\..\deps\libuv\src\win\winsock.h">
       <Filter>deps\libuv\src\win</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\deps\wren-essentials\src\binary_libs.h">
+      <Filter>deps\wren-essentials\src</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\deps\wren-essentials\src\essentials.h">
       <Filter>deps\wren-essentials\src</Filter>
     </ClInclude>
@@ -188,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="..\..\deps\wren\src\vm\wren_vm.h">
       <Filter>deps\wren\src\vm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cli\binary_libs.h">
+      <Filter>src\cli</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\cli\cli.h">
       <Filter>src\cli</Filter>

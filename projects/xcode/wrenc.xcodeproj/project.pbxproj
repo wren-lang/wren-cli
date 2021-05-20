@@ -118,9 +118,11 @@
 		6CB9D7B05100DFE2D4EE0DF0 /* spinlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = spinlock.h; path = ../../deps/libuv/src/unix/spinlock.h; sourceTree = "<group>"; };
 		6D17D7650F017357062885A5 /* wren_compiler.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = wren_compiler.c; path = ../../deps/wren/src/vm/wren_compiler.c; sourceTree = "<group>"; };
 		6FE208AD0558C7DF73F51EED /* linux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = linux.h; path = ../../deps/libuv/include/uv/linux.h; sourceTree = "<group>"; };
+		73E7C56EA5E110201FC04BAE /* binary_libs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = binary_libs.h; path = ../../src/cli/binary_libs.h; sourceTree = "<group>"; };
 		750F78B33B9D7025A99F96F3 /* wren_opcodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = wren_opcodes.h; path = ../../deps/wren/src/vm/wren_opcodes.h; sourceTree = "<group>"; };
 		79CF94653D3B56177BDEFAA5 /* wren.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = wren.h; path = ../../deps/wren/include/wren.h; sourceTree = "<group>"; };
 		7D73C6BCAF6D116E294C4CFC /* async.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = async.c; path = ../../deps/libuv/src/unix/async.c; sourceTree = "<group>"; };
+		7E4C5BF5F2A6A0E7708A2A35 /* binary_libs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = binary_libs.h; path = "../../deps/wren-essentials/src/binary_libs.h"; sourceTree = "<group>"; };
 		7E99156821E49E9A3CB56BA8 /* wrenc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = wrenc; path = wrenc; sourceTree = BUILT_PRODUCTS_DIR; };
 		834C49AFC79AEF2109C227EF /* uv-common.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "uv-common.c"; path = "../../deps/libuv/src/uv-common.c"; sourceTree = "<group>"; };
 		898D2692AB58D3C4E80DFCD2 /* fs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = fs.c; path = ../../deps/libuv/src/unix/fs.c; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		4493C7A6742596984F32D5E6 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				7E4C5BF5F2A6A0E7708A2A35 /* binary_libs.h */,
 				07AE2E25CA6E8E9727A36C65 /* essentials.c */,
 				69D91CCF2C997D4189CE5B0F /* essentials.h */,
 				2321F6DFB5AFC0D11E88651F /* modules */,
@@ -284,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				CB8208CCF3BCC17EDB584F0C /* _wren.inc */,
+				73E7C56EA5E110201FC04BAE /* binary_libs.h */,
 				179C7F98BA8AA64A49B085D8 /* cli.c */,
 				55546F42F84295F487687582 /* cli.h */,
 				EBC4191202D6B444F2F2AF52 /* main.c */,
