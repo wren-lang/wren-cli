@@ -8,12 +8,14 @@ class Repl {
   construct new() {
     _cursor = 0
     _line = ""
-
     _history = []
     _historyIndex = 0
   }
 
   static start() {
+    // convenience
+    Meta.eval("import \"runtime\" for Runtime")
+
     // Fire up the REPL. We use ANSI when talking to a POSIX TTY.
     if (Platform.isPosix && Stdin.isTerminal) {
       AnsiRepl.new().run()

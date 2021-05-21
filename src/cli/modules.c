@@ -8,6 +8,7 @@
 #include "os.wren.inc"
 #include "repl.wren.inc"
 #include "scheduler.wren.inc"
+#include "runtime.wren.inc"
 #include "timer.wren.inc"
 #include "_wren.inc"
 #include "essentials.h"
@@ -81,6 +82,8 @@ extern void timerStartTimer(WrenVM* vm);
 // The array of built-in modules.
 static ModuleRegistry coreCLImodules[] =
 {
+  MODULE(runtime)
+  END_MODULE
   MODULE(cli)
     CLASS(CLI)
       STATIC_METHOD("setRootDirectory_(_)", setRootDirectory)

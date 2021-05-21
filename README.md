@@ -81,6 +81,15 @@ $ wrenc
 
 ## Extended Library Support
 
+### `runtime module
+
+Retrieve details about the runtime environment.
+
+- `Runtime.NAME` - The runtime name
+- `Runtime.VERSION` - The runtime version number
+- `Runtime.WREN_VERSION` - The Wren version the runtime is built against
+- `Runtime.details` - retrieve additional details about the runtime environment
+
 ### `mirror` module
 
 Experimental. See https://github.com/wren-lang/wren/pull/1006.
