@@ -7,6 +7,7 @@ class Meta {
     Fiber.abort("Could not find a module named '%(module)'.")
   }
 
+  static eval(source) { eval(source, null) }
   static eval(source, module) {
     if (!(source is String)) Fiber.abort("Source code must be a string.")
 

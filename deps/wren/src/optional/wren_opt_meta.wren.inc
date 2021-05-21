@@ -11,6 +11,7 @@ static const char* metaModuleSource =
 "    Fiber.abort(\"Could not find a module named '%(module)'.\")\n"
 "  }\n"
 "\n"
+"  static eval(source) { eval(source, null) }\n"
 "  static eval(source, module) {\n"
 "    if (!(source is String)) Fiber.abort(\"Source code must be a string.\")\n"
 "\n"

@@ -16,6 +16,10 @@ void metaCompile(WrenVM* vm)
   const char* module;
   if (wrenGetSlotType(vm, 2) != WREN_TYPE_NULL) {
     module = wrenGetSlotString(vm, 2);
+    if (wrenHasModule(vm,module)) {
+      wrenSetSlotString(vm, 0, "Security: Cannot compile into an existing named module.");
+      wrenAbortFiber(vm, 0);
+    }
   } else {
     // TODO: Allow passing in module?
     // Look up the module surrounding the callsite. This is brittle. The -2 walks
