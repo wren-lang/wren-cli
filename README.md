@@ -81,6 +81,14 @@ $ wrenc
 
 ## Extended Library Support
 
+### `mirror` module
+
+Experimental. See https://github.com/wren-lang/wren/pull/1006.
+
+- `Mirror.reflect(object)` - Reflect on an object
+- `Mirror.reflect(class)` - Reflect on a class
+- `Mirror.reflect(fiber)` - Reflect on a fiber, it's stacktrace, etc.
+
 ### `essentials` module
 
 Wren Console includes the [Wren Essentials](https://github.com/joshgoebel/wren-essentials) library built right into the binary.
