@@ -415,6 +415,9 @@
     <None Include="..\..\src\module\repl.wren.inc">
       <Filter>src\module</Filter>
     </None>
+    <None Include="..\..\src\module\runtime.wren.inc">
+      <Filter>src\module</Filter>
+    </None>
     <None Include="..\..\src\module\scheduler.wren.inc">
       <Filter>src\module</Filter>
     </None>

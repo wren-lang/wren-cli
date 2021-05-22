@@ -176,6 +176,7 @@
 		E0AC076EA417C920E2BB6DAE /* tcp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = tcp.c; path = ../../deps/libuv/src/unix/tcp.c; sourceTree = "<group>"; };
 		E187FB9CDB49B80E1548B9DC /* os.wren.inc */ = {isa = PBXFileReference; lastKnownFileType = text; name = os.wren.inc; path = ../../src/module/os.wren.inc; sourceTree = "<group>"; };
 		E469429FAAF73A1118F960DF /* time.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = time.h; path = "../../deps/wren-essentials/src/modules/time.h"; sourceTree = "<group>"; };
+		E826CB603F8C3E52F19A59A0 /* runtime.wren.inc */ = {isa = PBXFileReference; lastKnownFileType = text; name = runtime.wren.inc; path = ../../src/module/runtime.wren.inc; sourceTree = "<group>"; };
 		EBC4191202D6B444F2F2AF52 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../src/cli/main.c; sourceTree = "<group>"; };
 		ECA5597CD7917F6E1F7747BC /* repl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = repl.c; path = ../../src/module/repl.c; sourceTree = "<group>"; };
 		EF3F899384B648C5F3529FD3 /* posix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = posix.h; path = ../../deps/libuv/include/uv/posix.h; sourceTree = "<group>"; };
@@ -274,6 +275,7 @@
 				ECA5597CD7917F6E1F7747BC /* repl.c */,
 				D8AD53A6C39979980B7F41E6 /* repl.h */,
 				E02C363E247ADBB066A2147E /* repl.wren.inc */,
+				E826CB603F8C3E52F19A59A0 /* runtime.wren.inc */,
 				AA867014A4482C86DE472E54 /* scheduler.c */,
 				AAB8F95EA47AB5D0DE79B79E /* scheduler.h */,
 				6068A0F602523CE8F9794F36 /* scheduler.wren.inc */,

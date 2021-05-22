@@ -407,6 +407,7 @@
     <None Include="..\..\src\module\io.wren.inc" />
     <None Include="..\..\src\module\os.wren.inc" />
     <None Include="..\..\src\module\repl.wren.inc" />
+    <None Include="..\..\src\module\runtime.wren.inc" />
     <None Include="..\..\src\module\scheduler.wren.inc" />
     <None Include="..\..\src\module\timer.wren.inc" />
   </ItemGroup>
