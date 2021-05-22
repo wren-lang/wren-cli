@@ -13,7 +13,7 @@ WrenInterpretResult runRepl();
 // run the wren CLI
 WrenInterpretResult runCLI();
 
-char* rootDirectory;
+extern char* rootDirectory;
 
 // Gets the currently running VM.
 WrenVM* getVM();
