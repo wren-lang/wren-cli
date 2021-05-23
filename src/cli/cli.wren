@@ -10,6 +10,27 @@ class Wren {
   static VERSION { "0.4" }
 }
 
+// TODO: how to avoid duplication?
+// we only use this for absolute path
+class PathType {
+  static SIMPLE { 1 }
+  static ABSOLUTE { 2 }
+  static RELATIVE { 3 }
+
+  static unixAbsolute(path) { path.startsWith("/") }
+  static windowsAbsolute(path) {
+    // TODO: is this not escaped properly by the stock Python code generator
+    return path.count >= 3 && path[1..2] == ":\\"
+  }
+  static resolve(path) {
+    if (path.startsWith(".")) return PathType.RELATIVE
+    if (unixAbsolute(path)) return PathType.ABSOLUTE
+    if (windowsAbsolute(path)) return PathType.ABSOLUTE
+
+    return PathType.SIMPLE
+  }
+}
+
 class CLI {
   static start() {
     // TODO: pull out argument processing into it's own class
@@ -76,12 +97,17 @@ class CLI {
     return
   }
   static runFile(file) {
+    var moduleName
+
     if (file == "-") return runInput()
-
     if (!File.exists(file)) return missingScript(file)
-
-    // TODO: absolute paths, need Path class likely
-    var moduleName = "./" + file
+    
+    if (PathType.resolve(file) == PathType.ABSOLUTE) {
+      moduleName = file
+    } else {
+      moduleName = "./" + file
+    }
+    
     var code = File.read(file)
     setRootDirectory_(dirForModule(moduleName))
     // System.print(moduleName)
@@ -97,3 +123,4 @@ class CLI {
   foreign static setRootDirectory_(dir) 
 }
 CLI.start()
+
