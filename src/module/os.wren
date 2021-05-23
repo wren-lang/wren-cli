@@ -15,4 +15,5 @@ class Process {
   foreign static pid
   foreign static ppid
   foreign static version
+  foreign static exit(code)
 }

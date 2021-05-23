@@ -32,6 +32,7 @@ extern void processCwd(WrenVM* vm);
 extern void processPid(WrenVM* vm);
 extern void processPpid(WrenVM* vm);
 extern void processVersion(WrenVM* vm);
+extern void processExit(WrenVM* vm);
 extern void statPath(WrenVM* vm);
 extern void statBlockCount(WrenVM* vm);
 extern void statBlockSize(WrenVM* vm);
@@ -180,6 +181,7 @@ static ModuleRegistry modules[] =
       STATIC_METHOD("pid", processPid)
       STATIC_METHOD("ppid", processPpid)
       STATIC_METHOD("version", processVersion)
+      STATIC_METHOD("exit(_)", processExit)
     END_CLASS
   END_MODULE
   MODULE(repl)
