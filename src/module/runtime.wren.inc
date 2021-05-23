@@ -14,7 +14,7 @@ static const char* runtimeModuleSource =
 "class Runtime {\n"
 "  static NAME { \"wren-console\" }\n"
 "  static WREN_VERSION { \"0.4.0\" }\n"
-"  static VERSION { \"0.1.0\" }\n"
+"  static VERSION { \"0.1.99\" }\n"
 "  static details {\n"
 "    return {\n"
 "      \"name\": Runtime.NAME,\n"

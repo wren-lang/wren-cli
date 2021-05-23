@@ -13,10 +13,12 @@ static const char* osModuleSource =
 "class Process {\n"
 "  // TODO: This will need to be smarter when wren supports CLI options.\n"
 "  static arguments { allArguments.count >= 2 ? allArguments[2..-1] : [] }\n"
+"  static exit() { exit(0) }\n"
 "\n"
 "  foreign static allArguments\n"
 "  foreign static cwd\n"
 "  foreign static pid\n"
 "  foreign static ppid\n"
 "  foreign static version\n"
+"  foreign static exit(code)\n"
 "}\n";

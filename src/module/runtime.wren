@@ -10,7 +10,7 @@ class Capability {
 class Runtime {
   static NAME { "wren-console" }
   static WREN_VERSION { "0.4.0" }
-  static VERSION { "0.1.0" }
+  static VERSION { "0.1.99" }
   static details {
     return {
       "name": Runtime.NAME,

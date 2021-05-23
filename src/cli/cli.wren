@@ -3,13 +3,7 @@ import "os" for Platform, Process
 import "io" for Stdin, File, Stdout, Stat
 import "mirror" for Mirror
 import "meta" for Meta
-
-// TODO: Wren needs to expose System.version
-// https://github.com/wren-lang/wren/issues/1016
-class Wren {
-  static CLI_VERSION { "0.1" }
-  static VERSION { "0.4" }
-}
+import "runtime" for Runtime
 
 // TODO: how to avoid duplication?
 // we only use this for absolute path
@@ -71,7 +65,7 @@ class CLI {
     }
     Stdout.flush()
   }
-  static versionInfo { "wrenc v%(Wren.CLI_VERSION) (wren v%(Wren.VERSION))" }
+  static versionInfo { "wrenc v%(Runtime.VERSION) (wren v%(Runtime.WREN_VERSION))" }
   static showVersion() {
     System.print(versionInfo) 
   }
@@ -103,9 +97,7 @@ class CLI {
         Process.exit(70)
       }
     } else {
-      // TODO: Process.exit() 
-      // https://github.com/wren-lang/wren-cli/pull/74
-      Fiber.abort("COMPILE ERROR, should exit 65")
+      Process.exit(65)
     }
   }
   static runInput() {

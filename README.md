@@ -81,7 +81,14 @@ $ wrenc
 
 ## Extended Library Support
 
-### `runtime module
+Our hope is to extend the libraries available without breaking forwards compatibility - meaning that a script running successfully on Wren CLI should run as-is on Wren Console - but once you start using the newer library features your script may no longer run be backwards compatible with Wren CLI.
+
+### `os` module
+
+- `Process.exit()` - Exit immediately with 0 status code
+- `Process.exit(code)` - Exit immediately with the specified exit status code. (https://github.com/wren-lang/wren-cli/pull/74)
+
+### `runtime` module
 
 Retrieve details about the runtime environment.
 

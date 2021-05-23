@@ -1,9 +1,12 @@
-## 0.1.x  (in progress)
+## 0.2.0  (in progress)
 
-- Auto-build and test binary releases for Windows, Mac, Linux platforms on tagged versions
-- Integrate `Mirror` functionality for stack trace introspection (via wren-essentials)
-- [ ] Homebrew
+- (chore) Auto-build and test binary releases for Windows, Mac, Linux platforms on tagged versions
+- (enh) Integrate `Mirror` functionality for stack trace introspection (via wren-essentials)
 - (fix) Stdin.readByte now propery removes single bytes from buffer
+- (enh) support scripts at absolute paths
+- (enh) controlled crashes should not include CLI script in stack trace
+- (enh) Add `Runtime` API for getting information about the runtime
+- (enh) Add `Process.exit()` and `Process.exit(code)`
 
 ## 0.1.0 
 
