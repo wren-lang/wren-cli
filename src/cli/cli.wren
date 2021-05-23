@@ -1,6 +1,7 @@
 import "repl" for Repl, AnsiRepl, SimpleRepl
 import "os" for Platform, Process
 import "io" for Stdin, File, Stdout, Stat
+import "mirror" for Mirror
 import "meta" for Meta
 
 // TODO: Wren needs to expose System.version
@@ -28,6 +29,18 @@ class PathType {
     if (windowsAbsolute(path)) return PathType.ABSOLUTE
 
     return PathType.SIMPLE
+  }
+}
+
+class StackTrace {
+  construct new(fiber) {
+    _trace = Mirror.reflect(fiber).stackTrace
+  }
+  print() {
+    var out = _trace.frames.map { |f|
+        return "at %( f.methodMirror.signature ) (%( f.methodMirror.moduleMirror.name ) line %( f.line ))"
+    }.join("\n")
+    System.print(out)
   }
 }
 
@@ -83,7 +96,12 @@ class CLI {
   static runCode(code,moduleName) {
     var fn = Meta.compile(code,moduleName)
     if (fn != null) {
-      fn.call()
+      var fb = Fiber.new (fn)
+      fb.try()
+      if (fb.error) {
+        StackTrace.new(fb).print()
+        Process.exit(70)
+      }
     } else {
       // TODO: Process.exit() 
       // https://github.com/wren-lang/wren-cli/pull/74
