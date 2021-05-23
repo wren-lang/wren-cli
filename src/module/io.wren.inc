@@ -314,6 +314,11 @@ static const char* ioModuleSource =
 "  foreign static readStop_()\n"
 "}\n"
 "\n"
+"class Stderr {\n"
+"  static print(str) { write(\"%(str)\\n\") }\n"
+"  foreign static write(str)\n"
+"}\n"
+"\n"
 "class Stdout {\n"
 "  foreign static flush()\n"
 "}\n";

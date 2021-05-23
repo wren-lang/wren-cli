@@ -310,6 +310,11 @@ class Stdin {
   foreign static readStop_()
 }
 
+class Stderr {
+  static print(str) { write("%(str)\n") }
+  foreign static write(str)
+}
+
 class Stdout {
   foreign static flush()
 }

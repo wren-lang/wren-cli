@@ -15,7 +15,7 @@
 // If you add a new class to the largest module below, make sure to bump this.
 // Note that it also includes an extra slot for the sentinel value indicating
 // the end of the list.
-#define MAX_CLASSES_PER_MODULE 6
+#define MAX_CLASSES_PER_MODULE 10
 
 #define MAX_MODULES_PER_LIBRARY 20
 #define MAX_LIBRARIES 20

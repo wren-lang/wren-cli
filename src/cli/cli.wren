@@ -1,6 +1,6 @@
 import "repl" for Repl, AnsiRepl, SimpleRepl
 import "os" for Platform, Process
-import "io" for Stdin, File, Stdout, Stat
+import "io" for Stdin, Stderr, File, Stdout, Stat
 import "mirror" for Mirror
 import "meta" for Meta
 import "runtime" for Runtime
@@ -28,13 +28,15 @@ class PathType {
 
 class StackTrace {
   construct new(fiber) {
+    _fiber = fiber
     _trace = Mirror.reflect(fiber).stackTrace
   }
   print() {
+    Stderr.print(_fiber.error)
     var out = _trace.frames.map { |f|
         return "at %( f.methodMirror.signature ) (%( f.methodMirror.moduleMirror.name ) line %( f.line ))"
     }.join("\n")
-    System.print(out)
+    Stderr.print(out)
   }
 }
 
@@ -85,7 +87,7 @@ class CLI {
     return file.split("/")[0..-2].join("/")
   }
   static missingScript(file) {
-    System.print("wrenc: No such file -- %(file)")
+    Stderr.print("wrenc: No such file -- %(file)")
   }
   static runCode(code,moduleName) {
     var fn = Meta.compile(code,moduleName)

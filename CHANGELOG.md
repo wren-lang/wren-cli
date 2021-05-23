@@ -7,6 +7,7 @@
 - (enh) controlled crashes should not include CLI script in stack trace
 - (enh) Add `Runtime` API for getting information about the runtime
 - (enh) Add `Process.exit()` and `Process.exit(code)`
+- (enh) Add `Stderr.write(_)` and `Stderr.print(_)`
 
 ## 0.1.0 
 

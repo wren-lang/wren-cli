@@ -57,6 +57,7 @@ extern void stdinIsTerminal(WrenVM* vm);
 extern void stdinReadStart(WrenVM* vm);
 extern void stdinReadStop(WrenVM* vm);
 extern void stdoutFlush(WrenVM* vm);
+extern void stderrWrite(WrenVM* vm);
 extern void schedulerCaptureMethods(WrenVM* vm);
 extern void timerStartTimer(WrenVM* vm);
 
@@ -134,6 +135,9 @@ static ModuleRegistry coreCLImodules[] =
     END_CLASS
     CLASS(Stdout)
       STATIC_METHOD("flush()", stdoutFlush)
+    END_CLASS
+    CLASS(Stderr)
+      STATIC_METHOD("write(_)", stderrWrite)
     END_CLASS
   END_MODULE
   MODULE(os)

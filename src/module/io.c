@@ -552,6 +552,11 @@ void stdinIsTerminal(WrenVM* vm)
   wrenSetSlotBool(vm, 0, uv_guess_handle(stdinDescriptor) == UV_TTY);
 }
 
+void stderrWrite(WrenVM* vm) {
+  const char* s = wrenGetSlotString(vm,1);
+  fprintf(stderr, "%s",s);
+}
+
 void stdoutFlush(WrenVM* vm)
 {
   fflush(stdout);

@@ -83,6 +83,11 @@ $ wrenc
 
 Our hope is to extend the libraries available without breaking forwards compatibility - meaning that a script running successfully on Wren CLI should run as-is on Wren Console - but once you start using the newer library features your script may no longer run be backwards compatible with Wren CLI.
 
+### `io` module
+
+`Stderr.write(s)` - Write a string to srderr
+`Stderr.print(s)` - Write a string to stderr followed by a newline
+
 ### `os` module
 
 - `Process.exit()` - Exit immediately with 0 status code
