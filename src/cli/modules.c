@@ -152,7 +152,7 @@ static ModuleRegistry coreCLImodules[] =
       STATIC_METHOD("pid", processPid)
       STATIC_METHOD("ppid", processPpid)
       STATIC_METHOD("version", processVersion)
-      STATIC_METHOD("exit(_)", processExit)
+      STATIC_METHOD("exit_(_)", processExit)
     END_CLASS
   END_MODULE
   MODULE(repl)
