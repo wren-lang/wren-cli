@@ -85,7 +85,7 @@ static void write(WrenVM* vm, const char* text)
 
 char* wrenLoadModule(const char* module) {
   WrenVM *vm = resolver;
-  wrenEnsureSlots(vm,2);
+  wrenEnsureSlots(vm,3);
   wrenSetSlotHandle(vm,0, resolverClass);
   wrenSetSlotString(vm,1, module);
   wrenSetSlotString(vm,2, rootDirectory);
