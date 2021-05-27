@@ -1,4 +1,5 @@
 import "os" for Platform, Process
+import "io" for Stdout
 
 var TRY = Fn.new { |fn|
   var fiber = Fiber.new {
@@ -35,9 +36,16 @@ if (Platform.isWindows) {
   // TODO: can this be done with dir on windows?
 } else {
   // tests exists in our project folder
-  System.print(Process.exec("ls", ["test"])) // expect: 0
+  Stdout.flush()
+  System.print(Process.exec("ls", ["test/README.md"])) 
+  // expect: test/README.md
+  // expect: 0
+
   // but does not in our `src` folder
-  System.print(Process.exec("ls", ["test"], "./src/")) // expect: 1
+  // TODO: python needs a way to expect exactly stderr output
+  // other than errors
+  // System.print(Process.exec("ls", ["test"], "./src/")) 
+  // noexpect: 1
 }
 
 // env
