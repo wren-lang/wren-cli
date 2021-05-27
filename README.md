@@ -1,6 +1,6 @@
 # Wren Console - `wrenc`
 
-[![](https://badgen.net/badge/latest/0.1.0/)](https://github.com/joshgoebel/wren-console/releases)
+[![](https://badgen.net/badge/latest/0.2.0/)](https://github.com/joshgoebel/wren-console/releases)
 [![](https://badgen.net/badge/license/MIT/cyan)](https://github.com/joshgoebel/wren-console/blob/main/LICENSE)
 [![](https://badgen.net/badge/wren/0.4.0/?color=purple)](https://github.com/wren-lang/wren)
 [![](https://badgen.net/badge/icon/discord?icon=discord&label&color=pink)][discord]
