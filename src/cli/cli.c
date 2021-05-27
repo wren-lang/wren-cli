@@ -2,7 +2,7 @@
 #include "cli.h"
 
 void setRootDirectory(WrenVM* vm) {
-  char* dir = wrenGetSlotString(vm,1);
+  const char* dir = wrenGetSlotString(vm,1);
   // const char* boo = malloc(20);
   // boo = "test";
   // fprintf(stderr, "setting root dir: %s %d\n", dir, strlen(dir));
