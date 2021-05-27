@@ -174,6 +174,7 @@ static void processOnExit(uv_process_t* req, int64_t exit_status, int term_signa
     }
   }
 
+  free(data->options.stdio);
   free((void*)data);
 
   schedulerResume(fiber, true);
@@ -196,6 +197,19 @@ void processExec(WrenVM* vm)
     const char* cwd = wrenGetSlotString(vm, 3);
     data->options.cwd = cwd;
   }
+
+  // input/output: for now we'll hookup STDOUT/STDERR as inherit/passthru so
+  // we'll see output just like you would in a shell script, by default 
+  data->options.stdio_count = 3;
+  // TODO: make more flexible
+  uv_stdio_container_t *child_stdio = malloc(sizeof(uv_stdio_container_t) * 3);
+  memset(child_stdio, 0, sizeof(uv_stdio_container_t) * 3);
+  child_stdio[0].flags = UV_IGNORE;
+  child_stdio[1].flags = UV_INHERIT_FD;
+  child_stdio[2].flags = UV_INHERIT_FD;
+  child_stdio[1].data.fd = 1;
+  child_stdio[2].data.fd = 2;
+  data->options.stdio = child_stdio;
 
   data->options.file = cmd;
   data->options.exit_cb = processOnExit;
