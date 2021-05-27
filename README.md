@@ -90,6 +90,7 @@ Our hope is to extend the libraries available without breaking forwards compatib
 
 ### `os` module
 
+- `Process.exec(command, [arguments, [workingDirectory, [environment]]])` - Run an external command and display it's output
 - `Process.exit()` - Exit immediately with 0 status code
 - `Process.exit(code)` - Exit immediately with the specified exit status code. (https://github.com/wren-lang/wren-cli/pull/74)
 

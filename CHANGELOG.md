@@ -1,4 +1,4 @@
-## 0.2.0  (in progress)
+## 0.2.0
 
 - (chore) Auto-build and test binary releases for Windows, Mac, Linux platforms on tagged versions
 - (enh) Integrate `Mirror` functionality for stack trace introspection (via wren-essentials)
@@ -8,6 +8,8 @@
 - (enh) Add `Runtime` API for getting information about the runtime
 - (enh) Add `Process.exit()` and `Process.exit(code)`
 - (enh) Add `Stderr.write(_)` and `Stderr.print(_)`
+- (fix) `Process.exit()` should actually work properly now
+- (enh) Add `Process.exec(command, [arguments, [workingDirectory, [environment]]])`
 
 ## 0.1.0 
 
