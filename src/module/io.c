@@ -156,7 +156,9 @@ void directoryCreate(WrenVM* vm)
 {
   const char* path = wrenGetSlotString(vm, 1);
   uv_fs_t* request = createRequest(wrenGetSlotHandle(vm, 2));
-  uv_fs_mkdir(getLoop(), request, path, 0, fileDirectoryCallback);
+  // TODO: Allow controlling access.
+  // TODO: correct default permissions here? should it include group/world?
+  uv_fs_mkdir(getLoop(), request, path, S_IRWXU, fileDirectoryCallback);
 }
 
 void directoryDelete(WrenVM* vm)

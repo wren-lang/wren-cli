@@ -1,17 +1,25 @@
 class Resolver {
+  // this is called at the end of this script when the CLI starts up
+  // and the Resolver VM is fired up
+  static boot() {
+    __modules = {}
+  }
   static DEBUG { false }
   static debug(s) { 
     if (this.DEBUG) System.print(s) 
   }
   // load a dynamic library
   static loadLibrary(name, file, root) {
-    var moduleDirectory = findModulesDirectory(root)
-    if (moduleDirectory == null) {
+    var libPath
+    var moduleDirectories = findModulesDirectories(root)
+    if (moduleDirectories.isEmpty) {
       Fiber.abort("dynamic libraries require a wren_modules folder")
     }
-    var libPath = Path.new(moduleDirectory).join(file).toString
-    if (!File.existsSync(libPath)) {
-      Fiber.abort("library not found -- %(libPath)")
+    for (moduleDirectory in moduleDirectories ) {
+      libPath = Path.new(moduleDirectory).join(file).toString
+      if (!File.existsSync(libPath)) {
+        Fiber.abort("library not found -- %(libPath)")
+      }
     }
     // System.print(libPath)
     File.loadDynamicLibrary(name, libPath)
@@ -29,6 +37,7 @@ class Resolver {
       var pieces = module.split(":")
       module = pieces[1]
       var libraryName = pieces[0]
+      // TODO: linux, windows, etc.
       var libraryFile = "lib%(pieces[0]).dylib"
       loadLibrary(libraryName, libraryFile, rootDir)
       return module
@@ -44,15 +53,24 @@ class Resolver {
   // walks the tree starting with current root and attemps to find 
   // `wren_modules` which will be used to resolve modules in addition
   // to built-in modules
-  static findModulesDirectory(root) {
+  static findModulesDirectories(root) {
+    if (__modules[root]) return __modules[root]
+    var moduleCollections = []
+
     var path = Path.new(root + "/")
     while(true) {
       var modules = path.join("wren_modules/").toString 
-      debug(modules)
-      if (File.existsSync(modules)) return modules
+      debug(" ? checking for existance: %(modules)")
+      if (File.existsSync(modules)) {
+        debug("- found modules in %(modules)")
+        // return modules
+        moduleCollections.add(modules)
+      }
       if (path.isRoot) break
       path = path.up()
     }
+    __modules[root] = moduleCollections
+    return moduleCollections
   }
 
   // searches for a module inside `wren_modules`
@@ -88,8 +106,7 @@ class Resolver {
 
     var root = File.realPathSync(rootDir)
     debug("root: %(root)")
-    var wren_modules = findModulesDirectory(root)
-    if (wren_modules != null) {
+    for (wren_modules in findModulesDirectories(root)) {
       var loc = findModule(wren_modules, module)
       if (loc!=null) {
         debug("found %(module) in %(wren_modules)")
@@ -126,5 +143,6 @@ class File {
   foreign static realPathSync(s)
 }
 
+Resolver.boot()
 
 

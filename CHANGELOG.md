@@ -1,3 +1,11 @@
+## 0.2.x (in progress)
+
+- (enh) `wren_modules` are searched until a matching library is found
+  - this means you can now use both `$HOME/wren_modules` (global modules) 
+  - as well a local `./wren_modules` for individual projects
+  - the "closest" match wins, allowing local to win out over global
+  - this is technically a breaking change from `wren-cli` which stops at the first `wren_modules` it finds
+
 ## 0.2.0
 
 - (chore) Auto-build and test binary releases for Windows, Mac, Linux platforms on tagged versions
