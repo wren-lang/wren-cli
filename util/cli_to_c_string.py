@@ -43,17 +43,18 @@ def process_file(path, modules):
     wren_source_lines = f.readlines() + ["\n\n"]
 
   first = wren_source_lines[0]
-  m = re.search(r'#module=(.*)',first)
+  m = re.search(r'//module=(.*)',first)
   if (m):
-    module = m.group(1)
+    moduleNames = m.group(1).split(",")
   else:
-    module = os.path.splitext(infile)[0]
-  module = module.replace("opt_", "")
-  module = module.replace("wren_", "")
+    moduleNames = [os.path.splitext(infile)[0]]
 
-  modules[module] = modules.get(module,[])
-  modules[module].extend(wren_source_lines)
-  # return wren_to_c_string(infile, wren_source_lines, module)
+  for module in moduleNames:
+    module = module.replace("opt_", "")
+    module = module.replace("wren_", "")
+    modules[module] = modules.get(module,[])
+    modules[module].extend(wren_source_lines)
+    # return wren_to_c_string(infile, wren_source_lines, module)
 
 
 module_files = {}
