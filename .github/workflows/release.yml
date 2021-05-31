@@ -16,7 +16,7 @@ jobs:
       prerelease: ${{ env.PRERELEASE }}
 
     steps:
-      - name: Checkout repository
+      - name: Checkout wren-console
         uses: actions/checkout@v2
       - name: Set env & pre-setup
         run: |
@@ -27,11 +27,16 @@ jobs:
       - if: contains(github.ref, 'beta') || contains(github.ref, 'test')
         run: |
           echo "PRERELEASE=true" >> $GITHUB_ENV
-      - name: Checkout repository
+      - name: Checkout wren-essentials
         uses: actions/checkout@v2
         with:
           repository: joshgoebel/wren-essentials
           path: deps/wren-essentials
+      - name: Checkout wren-package
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-package
+          path: wren_modules/wren-package
       - name: "Build & test"
         run: |
           make -j8 -C projects/make/
@@ -69,13 +74,18 @@ jobs:
     if: ${{ false }}  # disable for now
 
     steps:
-      - name: Checkout repository
+      - name: Checkout wren-console
         uses: actions/checkout@v2
-      - name: Checkout repository
+      - name: wren-essentials
         uses: actions/checkout@v2
         with:
           repository: joshgoebel/wren-essentials
           path: deps/wren-essentials
+      - name: Checkout wren-package
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-package
+          path: wren_modules/wren-package
       - name: Set env
         shell: bash
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -111,17 +121,22 @@ jobs:
     if: ${{ true }}  
 
     steps:
-      - name: Checkout repository
+      - name: Checkout wren-console
         uses: actions/checkout@v2
       - name: Copy environment from our release runner
         run: |
           echo "RELEASE_VERSION=${{ needs.tagged-release.outputs.release_version }}" >> $GITHUB_ENV
           echo "PRERELEASE=${{ needs.tagged-release.outputs.prerelease }}" >> $GITHUB_ENV
-      - name: Checkout repository
+      - name: Checkout wren-essentials
         uses: actions/checkout@v2
         with:
           repository: joshgoebel/wren-essentials
           path: deps/wren-essentials
+      - name: Checkout wren-package
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-package
+          path: wren_modules/wren-package
       - name: "Build & test"
         run: |
           make -j8 -C projects/make.mac/
