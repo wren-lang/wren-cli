@@ -215,7 +215,7 @@ void processExec(WrenVM* vm)
   data->options.exit_cb = processOnExit;
   data->fiber = wrenGetSlotHandle(vm, 5);
 
-  wrenEnsureSlots(vm, 6);
+  wrenEnsureSlots(vm, 7);
 
   if (wrenGetSlotType(vm, 4) == WREN_TYPE_NULL) {
     // no environment specified
@@ -268,6 +268,7 @@ void processExec(WrenVM* vm)
     // should be stderr??? but no idea how to make tests work/pass with that
     fprintf(stdout, "Could not launch %s, reason: %s\n", cmd, uv_strerror(r));
     wrenSetSlotString(vm, 0, "Could not spawn process.");
+    wrenReleaseHandle(vm, data->fiber);
     wrenAbortFiber(vm, 0);
   }
 }
