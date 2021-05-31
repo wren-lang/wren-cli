@@ -71,7 +71,7 @@ jobs:
   windows-assets:
     needs: tagged-release
     runs-on: windows-2019
-    if: ${{ false }}  # disable for now
+    if: ${{ true }}  # disable for now
 
     steps:
       - name: Checkout wren-console
