@@ -550,6 +550,7 @@ void stdinIsRawSet(WrenVM* vm)
 
 void stdinIsTerminal(WrenVM* vm)
 {
+  wrenEnsureSlots(vm,1);
   initStdin();
   wrenSetSlotBool(vm, 0, uv_guess_handle(stdinDescriptor) == UV_TTY);
 }
@@ -561,6 +562,7 @@ void stderrWrite(WrenVM* vm) {
 
 void stdoutFlush(WrenVM* vm)
 {
+  wrenEnsureSlots(vm,1);
   fflush(stdout);
   wrenSetSlotNull(vm, 0);
 }
