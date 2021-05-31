@@ -35,10 +35,7 @@ jobs:
       - name: "Build & test"
         run: |
           make -j8 -C projects/make/
-          cd wren_modules
-          git clone --depth 1 https://github.com/RobLoach/wren-assert.git
-          git clone --depth 1 https://github.com/joshgoebel/wren-testie.git
-          cd ..
+          ./bin/wrenc package.wren install
           python3 ./util/test.py
       - name: "Build distributable"
         run: |
@@ -74,26 +71,23 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-essentials
+          path: deps/wren-essentials
       - name: Set env
         shell: bash
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: "Build & test"
         run: |
-          cd deps
-          git clone --depth 1 https://github.com/joshgoebel/wren-essentials.git
-          cd ..
           cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
           dir $Env:GITHUB_WORKSPACE
           .\MSBuild.exe $Env:GITHUB_WORKSPACE\projects\vs2019\wrenc.vcxproj /p:Configuration="Release 64bit" /p:Platform="x64"
           cd $Env:GITHUB_WORKSPACE
           dir $Env:GITHUB_WORKSPACE
-          mkdir wren_modules
-          cd wren_modules
-          git clone --depth 1 https://github.com/RobLoach/wren-assert.git
-          git clone --depth 1 https://github.com/joshgoebel/wren-testie.git
-          cd ..
-          # ./bin/wrenc test/unit/path_test.wren
-          # python3 ./util/test.py
+          .\bin\wrenc.exe package.wren install
+          python3 ./util/test.py
           mkdir -p dist/bin
           cp LICENSE dist/LICENSE.txt
           cp README.md dist
@@ -131,11 +125,7 @@ jobs:
       - name: "Build & test"
         run: |
           make -j8 -C projects/make.mac/
-          mkdir wren_modules
-          cd wren_modules
-          git clone --depth 1 https://github.com/RobLoach/wren-assert.git
-          git clone --depth 1 https://github.com/joshgoebel/wren-testie.git
-          cd ..
+          ./bin/wrenc package.wren install
           python3 ./util/test.py
       - name: "Build distributable"
         run: |
