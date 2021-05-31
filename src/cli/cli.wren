@@ -5,27 +5,6 @@ import "mirror" for Mirror
 import "meta" for Meta
 import "runtime" for Runtime
 
-// TODO: how to avoid duplication?
-// we only use this for absolute path
-class PathType {
-  static SIMPLE { 1 }
-  static ABSOLUTE { 2 }
-  static RELATIVE { 3 }
-
-  static unixAbsolute(path) { path.startsWith("/") }
-  static windowsAbsolute(path) {
-    // TODO: is this not escaped properly by the stock Python code generator
-    return path.count >= 3 && path[1..2] == ":\\"
-  }
-  static resolve(path) {
-    if (path.startsWith(".")) return PathType.RELATIVE
-    if (unixAbsolute(path)) return PathType.ABSOLUTE
-    if (windowsAbsolute(path)) return PathType.ABSOLUTE
-
-    return PathType.SIMPLE
-  }
-}
-
 class StackTrace {
   construct new(fiber) {
     _fiber = fiber
@@ -84,7 +63,7 @@ class CLI {
     
   }
   static dirForModule(file) {
-    return file.split("/")[0..-2].join("/")
+    return Path.new(file).dirname.toString
   }
   static missingScript(file) {
     Stderr.print("wrenc: No such file -- %(file)")
@@ -134,5 +113,5 @@ class CLI {
   }
   foreign static setRootDirectory_(dir) 
 }
-CLI.start()
+// CLI.start()
 

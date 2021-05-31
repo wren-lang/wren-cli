@@ -1,0 +1,93 @@
+name: Build & CI
+
+on: [push]
+
+jobs:
+  build_and_test_windows:
+    runs-on: windows-2019
+    steps:
+      - name: Checkout wren-console
+        uses: actions/checkout@v2
+      - name: Checkout wren-essentials
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-essentials
+          path: deps/wren-essentials
+      - name: Checkout wren-package
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-package
+          path: wren_modules/wren-package
+      - name: build
+        run: |
+          cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
+          dir $Env:GITHUB_WORKSPACE
+          .\MSBuild.exe $Env:GITHUB_WORKSPACE\projects\vs2019\wrenc.vcxproj /p:Configuration="Debug 64bit" /p:Platform="x64"
+          cd $Env:GITHUB_WORKSPACE
+          dir $Env:GITHUB_WORKSPACE
+          .\bin\wrenc_d.exe package.wren install
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: wrenc-windows
+          path: |
+            bin/wrenc_d.exe
+      - name: test
+        run: |
+          cd $Env:GITHUB_WORKSPACE
+          python3 .\util\test.py --suffix=_d
+
+
+  build_and_test_mac:
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout wren-console
+        uses: actions/checkout@v2
+      - name: Checkout wren-essentials
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-essentials
+          path: deps/wren-essentials
+      - name: Checkout wren-package
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-package
+          path: wren_modules/wren-package
+      - name: build & test
+        run: |
+          make -j8 -C projects/make.mac/
+          ./bin/wrenc package.wren install
+          python3 ./util/test.py
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: wrenc-mac
+          path: |
+            bin/wrenc
+
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout wren-console
+        uses: actions/checkout@v2
+      - name: Checkout wren-essentials
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-essentials
+          path: deps/wren-essentials
+      - name: Checkout wren-package
+        uses: actions/checkout@v2
+        with:
+          repository: joshgoebel/wren-package
+          path: wren_modules/wren-package
+      - name: build & test
+        run: |
+          make -j8 -C projects/make/
+          ./bin/wrenc package.wren install
+          python3 ./util/test.py
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: wrenc-linux
+          path: |
+            bin/wrenc

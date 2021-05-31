@@ -1,4 +1,4 @@
-#module=resolver
+//module=resolver,cli
 class Path {
   construct new(path) { 
     _path = path 

@@ -55,6 +55,19 @@ WrenHandle* resolveModuleFn;
 WrenHandle* loadModuleFn;
 WrenHandle* resolverClass;
 
+void freeResolver() {
+  WrenVM* vm = resolver;
+  if (resolverClass != NULL) {
+    wrenReleaseHandle(vm, resolverClass);
+    wrenReleaseHandle(vm, loadModuleFn);
+    wrenReleaseHandle(vm, resolveModuleFn);
+    resolverClass = NULL;
+    loadModuleFn = NULL;
+    resolveModuleFn = NULL;
+  }
+  wrenFreeVM(resolver);
+}
+
 void saveResolverHandles(WrenVM* vm) {
   wrenEnsureSlots(vm,1);
   wrenGetVariable(resolver, "<resolver>", "Resolver", 0);

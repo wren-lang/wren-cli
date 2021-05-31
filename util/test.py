@@ -10,6 +10,7 @@ import re
 from subprocess import Popen, PIPE
 import sys
 import os
+import platform
 from threading import Timer
 
 # Runs the tests.
@@ -39,6 +40,7 @@ ERROR_PATTERN = re.compile(r'\[.* line (\d+)\] Error')
 STACK_TRACE_PATTERN = re.compile(r'at .*\((?:\./)?test/.*line (\d+)\)')
 STDIN_PATTERN = re.compile(r'// stdin: (.*)')
 SKIP_PATTERN = re.compile(r'// skip: (.*)')
+PLATFORM_PATTERN = re.compile(r'// platform: (.*)')
 NONTEST_PATTERN = re.compile(r'// nontest')
 
 passed = 0
@@ -123,6 +125,16 @@ class Test:
           num_skipped += 1
           skipped[match.group(1)] += 1
           return False
+
+        match = PLATFORM_PATTERN.search(line)
+        if match:
+          sys = platform.system()
+          desires = match.group(1)
+          if ((desires=="Windows" and not sys=="Windows") or
+            (desires=="Unix" and not (sys=="Darwin" or sys=="Linux"))):
+            num_skipped += 1
+            skipped[match.group(1)] += 1
+            return False
 
         # Not a test file at all, so ignore it.
         match = NONTEST_PATTERN.search(line)
@@ -393,14 +405,22 @@ def run_example(path):
 
   run_script(WREN_APP, path, "example")
 
+def run_unit(path):
+  global passed
+  global failed
+
+  if (splitext(path)[1] != '.wren'):
+    return
+
+  err = os.system(f"{WREN_APP} {path}")
+  if (err!=0): 
+    failed += 1
+  else:
+    passed += 1
 
 walk(join(WREN_DIR, 'test'), run_test)
 walk(join(WREN_DIR, 'example'), run_example)
-err = os.system("./bin/wrenc test/unit/path_test.wren")
-if (err!=0): 
-  failed += 1
-else:
-  passed += 1
+walk(join(WREN_DIR, 'test/unit'), run_unit)
 
 print_line()
 if failed == 0:

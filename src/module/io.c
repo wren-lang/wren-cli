@@ -41,7 +41,9 @@ static void shutdownStdin()
   {
     uv_tty_reset_mode();
     uv_close((uv_handle_t*)stdinStream, NULL);
-    free(stdinStream);
+    // This is premature (needs to be done in the after close callback), so
+    // we'll let uvShutdown handle this instead. 
+    // free(stdinStream);
     stdinStream = NULL;
   }
   
@@ -550,6 +552,7 @@ void stdinIsRawSet(WrenVM* vm)
 
 void stdinIsTerminal(WrenVM* vm)
 {
+  wrenEnsureSlots(vm,1);
   initStdin();
   wrenSetSlotBool(vm, 0, uv_guess_handle(stdinDescriptor) == UV_TTY);
 }
@@ -561,6 +564,7 @@ void stderrWrite(WrenVM* vm) {
 
 void stdoutFlush(WrenVM* vm)
 {
+  wrenEnsureSlots(vm,1);
   fflush(stdout);
   wrenSetSlotNull(vm, 0);
 }

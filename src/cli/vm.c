@@ -225,7 +225,8 @@ WrenInterpretResult runCLI()
   rootDirectory = (char*)".";
   initVM();
 
-  WrenInterpretResult result = wrenInterpret(vm, "<cli>", "import \"cli\"\n");
+  WrenInterpretResult result = wrenInterpret(vm, "<cli>", "import \"cli\" for CLI\n");
+  if (result == WREN_RESULT_SUCCESS) { result = wrenInterpret(vm, "<cli>", "CLI.start()"); }
   
   if (result == WREN_RESULT_SUCCESS)
   {
@@ -233,6 +234,7 @@ WrenInterpretResult runCLI()
   }
 
   freeVM();
+  freeResolver();
   
   return result;
 }
