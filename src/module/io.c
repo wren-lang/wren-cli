@@ -41,7 +41,9 @@ static void shutdownStdin()
   {
     uv_tty_reset_mode();
     uv_close((uv_handle_t*)stdinStream, NULL);
-    free(stdinStream);
+    // This is premature (needs to be done in the after close callback), so
+    // we'll let uvShutdown handle this instead. 
+    // free(stdinStream);
     stdinStream = NULL;
   }
   
