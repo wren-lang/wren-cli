@@ -405,14 +405,22 @@ def run_example(path):
 
   run_script(WREN_APP, path, "example")
 
+def run_unit(path):
+  global passed
+  global failed
+
+  if (splitext(path)[1] != '.wren'):
+    return
+
+  err = os.system(f"{WREN_APP} {path}")
+  if (err!=0): 
+    failed += 1
+  else:
+    passed += 1
 
 walk(join(WREN_DIR, 'test'), run_test)
 walk(join(WREN_DIR, 'example'), run_example)
-err = os.system("./bin/wrenc test/unit/path_test.wren")
-if (err!=0): 
-  failed += 1
-else:
-  passed += 1
+walk(join(WREN_DIR, 'test/unit'), run_unit)
 
 print_line()
 if failed == 0:
