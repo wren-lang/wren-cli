@@ -22,10 +22,10 @@ jobs:
         run: |
           cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
           dir $Env:GITHUB_WORKSPACE
-          .\MSBuild.exe $Env:GITHUB_WORKSPACE\projects\vs2019\wrenc.vcxproj /p:Configuration="Release 64bit" /p:Platform="x64"
+          .\MSBuild.exe $Env:GITHUB_WORKSPACE\projects\vs2019\wrenc.vcxproj /p:Configuration="Debug 64bit" /p:Platform="x64"
           cd $Env:GITHUB_WORKSPACE
           dir $Env:GITHUB_WORKSPACE
-          .\bin\wrenc.exe package.wren install
+          .\bin\wrenc_d.exe package.wren install
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -35,7 +35,7 @@ jobs:
       - name: test
         run: |
           cd $Env:GITHUB_WORKSPACE
-          python3 .\util\test.py
+          python3 .\util\test.py --suffix=_d
 
 
   build_and_test_mac:
