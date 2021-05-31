@@ -4,6 +4,7 @@ import "os" for Process
 class Package is WrenPackage {
   construct new() {}
   name { "wren-console" }
+  version { "0.2.90" }
   dependencies {
     return [
       Dependency.new("wren-testie", "0.1.1", "https://github.com/joshgoebel/wren-testie.git"),

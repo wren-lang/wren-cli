@@ -1,10 +1,17 @@
-## 0.2.x (in progress)
+## 0.2.90 
 
 - (enh) `wren_modules` are searched until a matching library is found
   - this means you can now use both `$HOME/wren_modules` (global modules) 
   - as well a local `./wren_modules` for individual projects
   - the "closest" match wins, allowing local to win out over global
   - this is technically a breaking change from `wren-cli` which stops at the first `wren_modules` it finds
+- (fix) absolute script paths work on Windows now
+- (fix) mode test
+- (fix) cwd test on windows
+- (fix) pid test on Windows
+- (fix) memory allocation/slot allocation issues
+- (fix) freeing stdinStream memory too early
+- (enh) Add CI and build artifacts with Linux, Windows, and Mac
 
 ## 0.2.0
 
