@@ -233,6 +233,7 @@ WrenInterpretResult runCLI()
   }
 
   freeVM();
+  freeResolver();
   
   return result;
 }
