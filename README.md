@@ -1,11 +1,10 @@
 # Wren Console - `wrenc`
 
-[![](https://badgen.net/badge/latest/0.2.0/)](https://github.com/joshgoebel/wren-console/releases)
-[![](https://badgen.net/badge/license/MIT/cyan)](https://github.com/joshgoebel/wren-console/blob/main/LICENSE)
-[![](https://badgen.net/badge/wren/0.4.0/?color=purple)](https://github.com/wren-lang/wren)
-[![](https://badgen.net/badge/icon/discord?icon=discord&label&color=pink)][discord]
-![](https://badgen.net/badge/build/TODO?color=orange)
-
+[![latest release](https://badgen.net/github/release/joshgoebel/wren-console/)](https://github.com/joshgoebel/wren-console/releases)
+[![MIT license](https://badgen.net/badge/license/MIT/cyan)](https://github.com/joshgoebel/wren-console/blob/main/LICENSE)
+[![wren version 0.4](https://badgen.net/badge/wren/0.4.0/?color=purple)](https://github.com/wren-lang/wren)
+![build status](https://badgen.net/github/checks/joshgoebel/wren-console/main?label=build)
+[![join discord](https://badgen.net/badge/icon/discord?icon=discord&label&color=pink)][discord]
 
 
 The Wren Console project is a small and simple REPL and CLI tool for running Wren scripts. It is backed by [libuv](http://libuv.org/) to implement IO functionality. It is  based on the official [Wren CLI](https://github.com/wren-lang/wren-cli) project and very much a work in progress. 
