@@ -102,7 +102,11 @@ char* wrenLoadModule(const char* module) {
   wrenSetSlotHandle(vm,0, resolverClass);
   wrenSetSlotString(vm,1, module);
   wrenSetSlotString(vm,2, rootDirectory);
-  wrenCall(resolver,loadModuleFn);
+  int error = wrenCall(resolver,loadModuleFn);
+  if (error == WREN_RESULT_RUNTIME_ERROR) {
+    fprintf(stderr,"Unexpected error in Resolver.loadModule(). Cannot continue.\n");
+    exit(70);
+  }
   const char *tmp = wrenGetSlotString(vm,0);
   char *result = malloc(strlen(tmp)+1);
   strcpy(result,tmp);
@@ -116,7 +120,11 @@ char* wrenResolveModule(const char* importer, const char* module) {
   wrenSetSlotString(vm,1, importer);
   wrenSetSlotString(vm,2, module);
   wrenSetSlotString(vm,3, rootDirectory);
-  wrenCall(resolver,resolveModuleFn);
+  int error = wrenCall(resolver,resolveModuleFn);
+  if (error == WREN_RESULT_RUNTIME_ERROR) {
+    fprintf(stderr,"Unexpected error in Resolver.resolveModule(). Cannot continue.\n");
+    exit(70);
+  }
   const char *tmp = wrenGetSlotString(vm,0);
   char *result = malloc(strlen(tmp)+1);
   strcpy(result,tmp);
