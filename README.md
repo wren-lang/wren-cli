@@ -32,7 +32,7 @@ We welcome contributions.  Feel free to [open an issue][issues] to start a discu
 
 ### Pure Wren? Why?
 
-- It's much higher level and therefore easier to read, write, and iterate than C.
+- It's higher level and therefore easier to read, write, and iterate than C.
 - [It's more than fast enough.](https://wren.io/performance.html)
 - **I've fallen a bit in love with Wren.** 
 - *It's fun.* Is there any better reason?
@@ -85,8 +85,8 @@ Our hope is to extend the libraries available without breaking forwards compatib
 
 ### `io` module
 
-`Stderr.write(s)` - Write a string to srderr
-`Stderr.print(s)` - Write a string to stderr followed by a newline
+- `Stderr.write(s)` - Write a string to srderr
+- `Stderr.print(s)` - Write a string to stderr followed by a newline
 
 ### `os` module
 
@@ -122,7 +122,18 @@ Wren Console includes the [Wren Essentials](https://github.com/joshgoebel/wren-e
 
 ---
 
-## To build Wren Console
+## Installing
+
+If you're using [Homebrew](https://brew.sh) we have a tap for you. Otherwise you can check out our [binary releases](https://github.com/joshgoebel/wren-console/releases) or simply build from source.
+
+**With Homebrew:**
+
+```sh
+brew tap exercism/wren
+brew install wren-console
+```
+
+### Building from source
 
 **Pre-requisites**
 
