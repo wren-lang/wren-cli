@@ -135,8 +135,6 @@ void initResolverVM()
   config.writeFn = write;
   config.errorFn = reportError;
 
-  // Since we're running in a standalone process, be generous with memory.
-  config.initialHeapSize = 1024 * 1024 * 100;
   resolver = wrenNewVM(&config);
 
   // Initialize the event loop.
