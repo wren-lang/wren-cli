@@ -1,3 +1,9 @@
+## 0.2.91
+
+- (enh) much nicer errors if the resolver VM throw a runtime error
+- (enh) easily compile additional modules into the executable
+- (enh) add `wren-package` as a built-in module
+
 ## 0.2.90 
 
 - (enh) `wren_modules` are searched until a matching library is found
