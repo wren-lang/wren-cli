@@ -32,11 +32,6 @@ jobs:
         with:
           repository: joshgoebel/wren-essentials
           path: deps/wren-essentials
-      - name: Checkout wren-package
-        uses: actions/checkout@v2
-        with:
-          repository: joshgoebel/wren-package
-          path: wren_modules/wren-package
       - name: "Build & test"
         run: |
           make -j8 -C projects/make/
@@ -81,11 +76,6 @@ jobs:
         with:
           repository: joshgoebel/wren-essentials
           path: deps/wren-essentials
-      - name: Checkout wren-package
-        uses: actions/checkout@v2
-        with:
-          repository: joshgoebel/wren-package
-          path: wren_modules/wren-package
       - name: Set env
         shell: bash
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -132,11 +122,6 @@ jobs:
         with:
           repository: joshgoebel/wren-essentials
           path: deps/wren-essentials
-      - name: Checkout wren-package
-        uses: actions/checkout@v2
-        with:
-          repository: joshgoebel/wren-package
-          path: wren_modules/wren-package
       - name: "Build & test"
         run: |
           make -j8 -C projects/make.mac/
