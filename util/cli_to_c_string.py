@@ -51,7 +51,7 @@ def process_file(path, modules):
 
   for module in moduleNames:
     module = module.replace("opt_", "")
-    module = module.replace("wren_", "")
+    # module = module.replace("wren_", "")
     modules[module] = modules.get(module,[])
     modules[module].extend(wren_source_lines)
     # return wren_to_c_string(infile, wren_source_lines, module)

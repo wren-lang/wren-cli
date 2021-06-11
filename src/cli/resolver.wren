@@ -113,6 +113,7 @@ class Resolver {
         return loc
       }
     }
+    debug("must be built-in? returning :%(module)")
     // must be built-in
     return ":%(module)"
   }

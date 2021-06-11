@@ -1,4 +1,4 @@
-import "wren-package/package" for WrenPackage, Dependency
+import "wren-package" for WrenPackage, Dependency
 import "os" for Process
 
 class Package is WrenPackage {

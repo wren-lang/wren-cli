@@ -71,6 +71,7 @@ extern void timerStartTimer(WrenVM* vm);
 #define SENTINEL_CLASS { NULL, { SENTINEL_METHOD } }
 #define SENTINEL_MODULE {NULL, NULL, { SENTINEL_CLASS } }
 
+#define NAMED_MODULE(name, identifier ) { #name, &identifier##ModuleSource, {
 #define MODULE(name) { #name, &name##ModuleSource, {
 #define END_MODULE SENTINEL_CLASS } },
 
@@ -176,6 +177,8 @@ static ModuleRegistry coreCLImodules[] =
 static ModuleRegistry additionalRegistry[] =
 {
   MODULE(booger)
+  END_MODULE
+  NAMED_MODULE(wren-package, wren_package)
   END_MODULE
 };
 

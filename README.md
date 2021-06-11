@@ -82,6 +82,14 @@ $ wrenc
 
 Our hope is to extend the libraries available without breaking forwards compatibility - meaning that a script running successfully on Wren CLI should run as-is on Wren Console - but once you start using the newer library features your script may no longer run be backwards compatible with Wren CLI.
 
+### `wren-package` module
+
+Dirt simple package management/dependencies for Wren Console projects.
+
+- `WrenPackage` class
+- `Dependency` class  
+- See [wren-package][wren-package] for usage details
+
 ### `io` module
 
 - `Stderr.write(s)` - Write a string to srderr
@@ -178,3 +186,4 @@ i.e if on linux, `premake vs2019 --os=windows` is valid.
 ---
 
 
+[wren-package]: https://github.com/joshgoebel/wren-package
