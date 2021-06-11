@@ -1,9 +1,9 @@
 # Wren Console - `wrenc`
 
-[![latest release](https://badgen.net/github/release/joshgoebel/wren-console/)](https://github.com/joshgoebel/wren-console/releases)
+[![latest release](https://badgen.net/github/release/joshgoebel/wren-console/stable)](https://github.com/joshgoebel/wren-console/releases)
 [![MIT license](https://badgen.net/badge/license/MIT/cyan)](https://github.com/joshgoebel/wren-console/blob/main/LICENSE)
 [![wren version 0.4](https://badgen.net/badge/wren/0.4.0/?color=purple)](https://github.com/wren-lang/wren)
-![build status](https://badgen.net/github/checks/joshgoebel/wren-console/main?label=build)
+![build status](https://badgen.net/github/checks/joshgoebel/wren-console?label=build)
 [![join discord](https://badgen.net/badge/icon/discord?icon=discord&label&color=pink)][discord]
 
 
