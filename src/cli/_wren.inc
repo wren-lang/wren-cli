@@ -444,3 +444,9 @@ static const char* cliModuleSource =
 "  }\n"
 "}";
 
+// Generated automatically from src/cli/*.wren. Do not edit.
+static const char* boogerModuleSource =
+"class Booger {\n"
+"  \n"
+"}";
+

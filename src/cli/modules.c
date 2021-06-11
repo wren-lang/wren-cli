@@ -173,6 +173,12 @@ static ModuleRegistry coreCLImodules[] =
   SENTINEL_MODULE
 };
 
+static ModuleRegistry additionalRegistry[] =
+{
+  MODULE(booger)
+  END_MODULE
+};
+
 #undef SENTINEL_METHOD
 #undef SENTINEL_CLASS
 #undef SENTINEL_MODULE
@@ -186,6 +192,7 @@ static ModuleRegistry coreCLImodules[] =
 
 static LibraryRegistry libraries[MAX_LIBRARIES] = {
   { "core", (ModuleRegistry (*)[MAX_MODULES_PER_LIBRARY])&coreCLImodules},
+  { "addl_modules", (ModuleRegistry (*)[MAX_MODULES_PER_LIBRARY])&additionalRegistry},
   { "essential", (ModuleRegistry (*)[MAX_MODULES_PER_LIBRARY])&essentialRegistry},
   { NULL, NULL }
 };

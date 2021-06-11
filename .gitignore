@@ -17,6 +17,9 @@ obj/
 # sample test script
 /samples
 
+# additiona modules a user wants to compile in
+/addl_modules
+
 # installed Wren modules
 /wren_modules
 

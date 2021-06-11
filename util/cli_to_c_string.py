@@ -60,7 +60,7 @@ def process_file(path, modules):
 module_files = {}
 
 def main():
-  files = glob.glob("src/cli/*.wren")
+  files = glob.glob("src/cli/*.wren") + glob.glob("addl_modules/*.wren")
   with open("src/cli/_wren.inc", "w") as f:
     modules = {}
     for file in files:
