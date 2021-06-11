@@ -180,6 +180,8 @@ static ModuleRegistry additionalRegistry[] =
   END_MODULE
   NAMED_MODULE(wren-package, wren_package)
   END_MODULE
+
+  SENTINEL_MODULE
 };
 
 #undef SENTINEL_METHOD
