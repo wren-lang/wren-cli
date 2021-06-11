@@ -19,11 +19,6 @@ jobs:
         with:
           repository: joshgoebel/wren-essentials
           path: deps/wren-essentials
-      - name: Checkout wren-package
-        uses: actions/checkout@v2
-        with:
-          repository: joshgoebel/wren-package
-          path: wren_modules/wren-package
       - name: build
         run: |
           cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
@@ -54,11 +49,6 @@ jobs:
         with:
           repository: joshgoebel/wren-essentials
           path: deps/wren-essentials
-      - name: Checkout wren-package
-        uses: actions/checkout@v2
-        with:
-          repository: joshgoebel/wren-package
-          path: wren_modules/wren-package
       - name: build & test
         run: |
           make -j8 -C projects/make.mac/
@@ -81,11 +71,6 @@ jobs:
         with:
           repository: joshgoebel/wren-essentials
           path: deps/wren-essentials
-      - name: Checkout wren-package
-        uses: actions/checkout@v2
-        with:
-          repository: joshgoebel/wren-package
-          path: wren_modules/wren-package
       - name: build & test
         run: |
           make -j8 -C projects/make/
