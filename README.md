@@ -100,6 +100,7 @@ Dirt simple package management/dependencies for Wren Console projects.
 - `Process.exec(command, [arguments, [workingDirectory, [environment]]])` - Run an external command and display it's output
 - `Process.exit()` - Exit immediately with 0 status code
 - `Process.exit(code)` - Exit immediately with the specified exit status code. (https://github.com/wren-lang/wren-cli/pull/74)
+- `Process.chdir(dir)` - Change the working directory of the process
 
 ### `runtime` module
 

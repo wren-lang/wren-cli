@@ -30,6 +30,9 @@ obj/
 # The baseline file is machine-specific, so doesn't get checked in.
 /test/benchmark/baseline.txt
 
+# the nested repo
+/deps/wren-essentials/
+
 # VSCode project files.
 .vscode
 
@@ -60,3 +63,7 @@ deps/libuv/build/XCBuildData/
 
 # macOS
 .DS_Store
+
+# vim
+.*.sw?
+.sw?

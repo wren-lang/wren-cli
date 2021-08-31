@@ -47,9 +47,20 @@ class Process {
     return Scheduler.await_ { exec_(cmd, args, cwd, env, Fiber.current) }
   }
 
+  static chdir(dir) {
+    ensureString_(dir, "directory")
+    chdir_(dir)
+  }
+
+  // TODO: Copied from `io`. Figure out good way to share this.
+  static ensureString_(s, name) {
+    if (!(s is String)) Fiber.abort("%(name) must be a string.")
+  }
+
   foreign static exec_(cmd, args, cwd, env, fiber)
   foreign static allArguments
   foreign static cwd
+  foreign static chdir_(dir)
   foreign static pid
   foreign static ppid
   foreign static version
