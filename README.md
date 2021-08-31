@@ -47,6 +47,12 @@ Thousands of helpful mentors, hundreds of thousands of fellow students to learn 
 
 ## Usage Examples
 
+Start up an interactive REPL session:
+
+```sh
+$ wrenc
+```
+
 Run a script from the console:
 
 ```sh
@@ -56,10 +62,27 @@ $ wrenc ./path_to_script.wren
 Evaluate code directly:
 
 ```sh
-$ wrenc -e 'System.print("Hello world")'
+$ wrenc -e 'System.print("Hello World!")'
 ```
 
-Embed inside shell scripting with heredocs:
+Executable Wren scripts:
+
+Use the typical "shebang" for executable wren scripts:
+```sh
+#!/usr/bin/env wrenc
+import "io" for Stdin
+System.print("Enter your name:")
+var name = Stdin.readLine().trim()
+System.print("Hello %(name.isEmpty ? "World" : name)!")
+```
+(Note: for Linux folk, this is documented in the
+[`execve(2)` man page](https://manpage.me/index.cgi?apropos=0&q=execve&sektion=2&manpath=Debian+8.1.0&arch=default&format=html).)
+
+Embed Wren code in a shell script:
+
+This makes smart use of file descriptors and the Linux /dev file system to
+read the code from a here-document while also keeping standard input
+available for wren:
 
 ```sh
 #!/bin/sh
@@ -67,13 +90,6 @@ wrenc /dev/fd/5 < input.txt 5<< 'EOF'
 import "io" for Stdin
 System.print(Stdin.readLine())
 EOF
-
-```
-
-Start up an interactive REPL session:
-
-```sh
-$ wrenc
 ```
 
 ---
