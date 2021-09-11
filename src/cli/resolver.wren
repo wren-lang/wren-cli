@@ -10,19 +10,22 @@ class Resolver {
   }
   // load a dynamic library
   static loadLibrary(name, file, root) {
+    debug("loadLibrary(`%(name)`, `%(file)`, `%(root)`)")
     var libPath
     var moduleDirectories = findModulesDirectories(root)
     if (moduleDirectories.isEmpty) {
       Fiber.abort("dynamic libraries require a wren_modules folder")
     }
     for (moduleDirectory in moduleDirectories ) {
+      debug(" - searching %(moduleDirectory)")
       libPath = Path.new(moduleDirectory).join(file).toString
-      if (!File.existsSync(libPath)) {
-        Fiber.abort("library not found -- %(libPath)")
+      if (File.existsSync(libPath)) {
+        debug(" - loading dynamic library `%(file)`")
+        File.loadDynamicLibrary(name, libPath)
+        return
       }
     }
-    // System.print(libPath)
-    File.loadDynamicLibrary(name, libPath)
+    Fiber.abort(" # dynamic library `%(name)` - `%(file)` not found")
   }
   static isLibrary(module) { module.contains(":") }
   // Applies the CLI's import resolution policy. The rules are:
@@ -33,6 +36,7 @@ class Resolver {
   //
   //   For example, importing "./a/./b/../c" from "./d/e/f" gives you "./d/e/a/c".
   static resolveModule(importer, module, rootDir) {
+    debug("resolveModule(`%(importer)`, `%(module)`, `%(rootDir)`)")
     if (isLibrary(module)) {
       var pieces = module.split(":")
       module = pieces[1]
@@ -54,6 +58,8 @@ class Resolver {
   // `wren_modules` which will be used to resolve modules in addition
   // to built-in modules
   static findModulesDirectories(root) {
+    // switch to using absolute pathss
+    root = File.realPathSync(root)
     if (__modules[root]) return __modules[root]
     var moduleCollections = []
 
