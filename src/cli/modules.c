@@ -62,6 +62,8 @@ extern void stdoutFlush(WrenVM* vm);
 extern void stderrWrite(WrenVM* vm);
 extern void schedulerCaptureMethods(WrenVM* vm);
 extern void timerStartTimer(WrenVM* vm);
+extern void statAllocate(WrenVM* vm);
+extern void statFinalize(void* data);
 
 
 
@@ -117,6 +119,8 @@ static ModuleRegistry coreCLImodules[] =
       METHOD("writeBytes_(_,_,_)", fileWriteBytes)
     END_CLASS
     CLASS(Stat)
+      // ALLOCATE(statAllocate)
+      // FINALIZE(statFinalize)
       STATIC_METHOD("path_(_,_)", statPath)
       METHOD("blockCount", statBlockCount)
       METHOD("blockSize", statBlockSize)

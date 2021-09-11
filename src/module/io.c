@@ -170,6 +170,13 @@ void directoryDelete(WrenVM* vm)
   uv_fs_rmdir(getLoop(), request, path, fileDirectoryCallback);
 }
 
+void statAllocate(WrenVM* vm) {
+
+}
+void statFinalize(void* data) {
+
+}
+
 void fileAllocate(WrenVM* vm)
 {
   // Store the file descriptor in the foreign data, so that we can get to it
