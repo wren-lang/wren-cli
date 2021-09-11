@@ -119,8 +119,8 @@ static ModuleRegistry coreCLImodules[] =
       METHOD("writeBytes_(_,_,_)", fileWriteBytes)
     END_CLASS
     CLASS(Stat)
-      // ALLOCATE(statAllocate)
-      // FINALIZE(statFinalize)
+      ALLOCATE(statAllocate)
+      FINALIZE(statFinalize)
       STATIC_METHOD("path_(_,_)", statPath)
       METHOD("blockCount", statBlockCount)
       METHOD("blockSize", statBlockSize)
