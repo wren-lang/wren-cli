@@ -84,7 +84,9 @@ extern void timerStartTimer(WrenVM* vm);
 #define ALLOCATE(fn) { true, "<allocate>", (WrenForeignMethodFn)fn },
 #define FINALIZE(fn) { true, "<finalize>", (WrenForeignMethodFn)fn },
 
+
 // The array of built-in modules.
+/* START AUTOGEN: core.cli.modules */
 static ModuleRegistry coreCLImodules[] =
 {
   MODULE(runtime)
@@ -175,6 +177,7 @@ static ModuleRegistry coreCLImodules[] =
 
   SENTINEL_MODULE
 };
+/* END AUTOGEN: core.cli.modules */
 
 static ModuleRegistry additionalRegistry[] =
 {
