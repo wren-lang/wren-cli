@@ -15,6 +15,8 @@ class Stream {
     return _tokens[_cursor-1]
   }
   skip(s) {
+    if (isEnd) return
+
     if (peek().text == s) advance()
   }
   skipWS() {
@@ -142,6 +144,7 @@ class WrenSource {
     var src = ""
     src = src + "MODULE(%(moduleName))\n"
     _klasses.each { |k| 
+      if (k.methods.isEmpty) return
       src = src + "  CLASS(%(k.name))\n"
       if (k.isForeign) {
         src = src + "    ALLOCATE(%(k.allocateName))\n    FINALIZE(%(k.finalizeName))\n"

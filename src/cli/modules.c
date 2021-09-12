@@ -90,8 +90,6 @@ extern void timerStartTimer(WrenVM* vm);
 
 static ModuleRegistry coreCLImodules[] = {
 MODULE(cli)
-  CLASS(StackTrace)
-  END_CLASS
   CLASS(CLI)
     STATIC_METHOD("setRootDirectory_(_)", cliSetRootDirectory)
   END_CLASS
@@ -116,8 +114,6 @@ MODULE(io)
     METHOD("size_(_)", fileSize)
     METHOD("stat_(_)", fileStat)
     METHOD("writeBytes_(_,_,_)", fileWriteBytes)
-  END_CLASS
-  CLASS(FileFlags)
   END_CLASS
   CLASS(Stat)
     ALLOCATE(statAllocate)
@@ -170,29 +166,9 @@ MODULE(os)
 END_MODULE
 
 MODULE(repl)
-  CLASS(Repl)
-  END_CLASS
-  CLASS(SimpleRepl)
-  END_CLASS
-  CLASS(AnsiRepl)
-  END_CLASS
-  CLASS(Color)
-  END_CLASS
-  CLASS(Chars)
-  END_CLASS
-  CLASS(EscapeBracket)
-  END_CLASS
-  CLASS(Token)
-  END_CLASS
-  CLASS(Lexer)
-  END_CLASS
 END_MODULE
 
 MODULE(runtime)
-  CLASS(Capability)
-  END_CLASS
-  CLASS(Runtime)
-  END_CLASS
 END_MODULE
 
 MODULE(scheduler)
