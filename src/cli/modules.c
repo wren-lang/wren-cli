@@ -13,6 +13,29 @@
 #include "_wren.inc"
 #include "essentials.h"
 
+
+// To locate foreign classes and modules, we build a big directory for them in
+// static data. The nested collection initializer syntax gets pretty noisy, so
+// define a couple of macros to make it easier.
+#define SENTINEL_METHOD { false, NULL, NULL }
+#define SENTINEL_CLASS { NULL, { SENTINEL_METHOD } }
+#define SENTINEL_MODULE {NULL, NULL, { SENTINEL_CLASS } }
+
+#define NAMED_MODULE(name, identifier ) { #name, &identifier##ModuleSource, {
+#define MODULE(name) { #name, &name##ModuleSource, {
+#define END_MODULE SENTINEL_CLASS } },
+
+#define CLASS(name) { #name, {
+#define END_CLASS SENTINEL_METHOD } },
+
+#define METHOD(signature, fn) { false, signature, fn },
+#define STATIC_METHOD(signature, fn) { true, signature, fn },
+#define ALLOCATE(fn) { true, "<allocate>", (WrenForeignMethodFn)fn },
+#define FINALIZE(fn) { true, "<finalize>", (WrenForeignMethodFn)fn },
+
+
+// The array of built-in modules.
+/* START AUTOGEN: core.cli.modules */
 extern void setRootDirectory(WrenVM* vm);
 extern void directoryList(WrenVM* vm);
 extern void directoryCreate(WrenVM* vm);
@@ -65,30 +88,6 @@ extern void timerStartTimer(WrenVM* vm);
 extern void statAllocate(WrenVM* vm);
 extern void statFinalize(void* data);
 
-
-
-// To locate foreign classes and modules, we build a big directory for them in
-// static data. The nested collection initializer syntax gets pretty noisy, so
-// define a couple of macros to make it easier.
-#define SENTINEL_METHOD { false, NULL, NULL }
-#define SENTINEL_CLASS { NULL, { SENTINEL_METHOD } }
-#define SENTINEL_MODULE {NULL, NULL, { SENTINEL_CLASS } }
-
-#define NAMED_MODULE(name, identifier ) { #name, &identifier##ModuleSource, {
-#define MODULE(name) { #name, &name##ModuleSource, {
-#define END_MODULE SENTINEL_CLASS } },
-
-#define CLASS(name) { #name, {
-#define END_CLASS SENTINEL_METHOD } },
-
-#define METHOD(signature, fn) { false, signature, fn },
-#define STATIC_METHOD(signature, fn) { true, signature, fn },
-#define ALLOCATE(fn) { true, "<allocate>", (WrenForeignMethodFn)fn },
-#define FINALIZE(fn) { true, "<finalize>", (WrenForeignMethodFn)fn },
-
-
-// The array of built-in modules.
-/* START AUTOGEN: core.cli.modules */
 static ModuleRegistry coreCLImodules[] =
 {
   MODULE(runtime)

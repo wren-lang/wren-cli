@@ -130,6 +130,11 @@ class WrenSource {
       k.methods.each { |m|
         src = src + "extern void %(m.cName)(WrenVM* vm);\n"
       }
+      if (k.isForeign) {
+        src = src + "extern void %(k.allocateName)(WrenVM* vm);\n" +
+          "extern void %(k.finalizeName)(void* data);\n"    
+      }
+
     }
     return src
   }
@@ -208,6 +213,16 @@ class Replacer {
     _content = File.read(_file)
     _heading = heading
   }
+  replace(s) {
+    var prefix = "/* START %(_heading) */"
+    var suffix = "/* END %(_heading) */"
+    var si = _content.indexOf(prefix)
+    var ei = _content.indexOf(suffix)
+    var before = _content[0..si]
+    var after = _content[ei+suffix.count..-1]
+    var rewritten = "%(before)%(prefix)\n%(s)%(suffix)%(after)"
+    System.print(rewritten)
+  }
 }
 
 var SRCS = [
@@ -222,12 +237,12 @@ var SRCS = [
 
 var src = SRCS.map { |x| WrenSource.new(x).parse() }
 var headers = src.map { |x| x.CfuncHeaders().trim() }.where {|x| !x.isEmpty}.join("\n")
-var code = src.map { |x| x.toC() }.join("\n")
+var c_code = src.map { |x| x.toC() }.join("\n")
 
-System.print(headers +  "\n\n" +
+var code = headers +  "\n\n" +
   "static ModuleRegistry coreCLImodules[] = {\n" +
-  code +
+  c_code +
   "}\n" 
-)
 
-// Replacer.new("src/cli/modules.c","AUTOGEN: core.cli.modules").replace(headers + code)
+
+Replacer.new("src/cli/modules.c","AUTOGEN: core.cli.modules").replace(code)
