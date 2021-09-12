@@ -156,7 +156,6 @@ class WrenSource {
       src = src + "  END_CLASS\n"
     }
     src = src + "END_MODULE\n"
-    src = src + "SENTINEL_MODULE\n"
     return src
     // System.print(src)
   }
@@ -218,21 +217,24 @@ class Replacer {
     var suffix = "/* END %(_heading) */"
     var si = _content.indexOf(prefix)
     var ei = _content.indexOf(suffix)
-    var before = _content[0..si]
+    var before = _content[0..si-1]
     var after = _content[ei+suffix.count..-1]
     var rewritten = "%(before)%(prefix)\n%(s)%(suffix)%(after)"
-    System.print(rewritten)
+    // System.print(rewritten)
+    File.create(_file) { |file|
+      file.writeBytes(rewritten)
+    }
   }
 }
 
 var SRCS = [
-  // "src/cli/cli.wren",
+  "src/cli/cli.wren",
   "src/module/io.wren",
-  // "src/module/os.wren",
-  // "src/module/repl.wren",
-  // "src/module/runtime.wren",
-  // "src/module/scheduler.wren",
-  // "src/module/timer.wren",
+  "src/module/os.wren",
+  "src/module/repl.wren",
+  "src/module/runtime.wren",
+  "src/module/scheduler.wren",
+  "src/module/timer.wren",
 ]
 
 var src = SRCS.map { |x| WrenSource.new(x).parse() }
@@ -242,7 +244,8 @@ var c_code = src.map { |x| x.toC() }.join("\n")
 var code = headers +  "\n\n" +
   "static ModuleRegistry coreCLImodules[] = {\n" +
   c_code +
-  "}\n" 
+  "SENTINEL_MODULE\n" +
+  "};\n" 
 
 
 Replacer.new("src/cli/modules.c","AUTOGEN: core.cli.modules").replace(code)

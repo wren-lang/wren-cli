@@ -1,7 +1,7 @@
 #include "vm.h"
 #include "cli.h"
 
-void setRootDirectory(WrenVM* vm) {
+void cliSetRootDirectory(WrenVM* vm) {
   const char* dir = wrenGetSlotString(vm,1);
   // const char* boo = malloc(20);
   // boo = "test";

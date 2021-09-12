@@ -36,33 +36,22 @@
 
 // The array of built-in modules.
 /* START AUTOGEN: core.cli.modules */
-extern void setRootDirectory(WrenVM* vm);
-extern void directoryList(WrenVM* vm);
+extern void cliSetRootDirectory(WrenVM* vm);
 extern void directoryCreate(WrenVM* vm);
 extern void directoryDelete(WrenVM* vm);
-extern void fileAllocate(WrenVM* vm);
-extern void fileFinalize(void* data);
+extern void directoryList(WrenVM* vm);
+extern void fileDescriptor(WrenVM* vm);
 extern void fileDelete(WrenVM* vm);
 extern void fileOpen(WrenVM* vm);
+extern void fileRealPath(WrenVM* vm);
 extern void fileSizePath(WrenVM* vm);
 extern void fileClose(WrenVM* vm);
-extern void fileDescriptor(WrenVM* vm);
 extern void fileReadBytes(WrenVM* vm);
-extern void fileRealPath(WrenVM* vm);
 extern void fileSize(WrenVM* vm);
 extern void fileStat(WrenVM* vm);
 extern void fileWriteBytes(WrenVM* vm);
-extern void platformHomePath(WrenVM* vm);
-extern void platformIsPosix(WrenVM* vm);
-extern void platformName(WrenVM* vm);
-extern void processAllArguments(WrenVM* vm);
-extern void processChdir(WrenVM* vm);
-extern void processCwd(WrenVM* vm);
-extern void processPid(WrenVM* vm);
-extern void processPpid(WrenVM* vm);
-extern void processVersion(WrenVM* vm);
-extern void processExit(WrenVM* vm);
-extern void processExec(WrenVM* vm);
+extern void fileAllocate(WrenVM* vm);
+extern void fileFinalize(void* data);
 extern void statPath(WrenVM* vm);
 extern void statBlockCount(WrenVM* vm);
 extern void statBlockSize(WrenVM* vm);
@@ -74,111 +63,150 @@ extern void statMode(WrenVM* vm);
 extern void statSize(WrenVM* vm);
 extern void statSpecialDevice(WrenVM* vm);
 extern void statUser(WrenVM* vm);
-extern void statIsDirectory(WrenVM* vm);
 extern void statIsFile(WrenVM* vm);
+extern void statIsDirectory(WrenVM* vm);
+extern void statAllocate(WrenVM* vm);
+extern void statFinalize(void* data);
 extern void stdinIsRaw(WrenVM* vm);
 extern void stdinIsRawSet(WrenVM* vm);
 extern void stdinIsTerminal(WrenVM* vm);
 extern void stdinReadStart(WrenVM* vm);
 extern void stdinReadStop(WrenVM* vm);
-extern void stdoutFlush(WrenVM* vm);
 extern void stderrWrite(WrenVM* vm);
+extern void stdoutFlush(WrenVM* vm);
+extern void platformHomePath(WrenVM* vm);
+extern void platformIsPosix(WrenVM* vm);
+extern void platformName(WrenVM* vm);
+extern void processExec(WrenVM* vm);
+extern void processAllArguments(WrenVM* vm);
+extern void processCwd(WrenVM* vm);
+extern void processChdir(WrenVM* vm);
+extern void processPid(WrenVM* vm);
+extern void processPpid(WrenVM* vm);
+extern void processVersion(WrenVM* vm);
+extern void processExit(WrenVM* vm);
 extern void schedulerCaptureMethods(WrenVM* vm);
 extern void timerStartTimer(WrenVM* vm);
-extern void statAllocate(WrenVM* vm);
-extern void statFinalize(void* data);
 
-static ModuleRegistry coreCLImodules[] =
-{
-  MODULE(runtime)
-  END_MODULE
-  MODULE(cli)
-    CLASS(CLI)
-      STATIC_METHOD("setRootDirectory_(_)", setRootDirectory)
-    END_CLASS
-  END_MODULE
-  MODULE(io)
-    CLASS(Directory)
-      STATIC_METHOD("create_(_,_)", directoryCreate)
-      STATIC_METHOD("delete_(_,_)", directoryDelete)
-      STATIC_METHOD("list_(_,_)", directoryList)
-    END_CLASS
-    CLASS(File)
-      ALLOCATE(fileAllocate)
-      FINALIZE(fileFinalize)
-      STATIC_METHOD("delete_(_,_)", fileDelete)
-      STATIC_METHOD("open_(_,_,_)", fileOpen)
-      STATIC_METHOD("realPath_(_,_)", fileRealPath)
-      STATIC_METHOD("sizePath_(_,_)", fileSizePath)
-      METHOD("close_(_)", fileClose)
-      METHOD("descriptor", fileDescriptor)
-      METHOD("readBytes_(_,_,_)", fileReadBytes)
-      METHOD("size_(_)", fileSize)
-      METHOD("stat_(_)", fileStat)
-      METHOD("writeBytes_(_,_,_)", fileWriteBytes)
-    END_CLASS
-    CLASS(Stat)
-      ALLOCATE(statAllocate)
-      FINALIZE(statFinalize)
-      STATIC_METHOD("path_(_,_)", statPath)
-      METHOD("blockCount", statBlockCount)
-      METHOD("blockSize", statBlockSize)
-      METHOD("device", statDevice)
-      METHOD("group", statGroup)
-      METHOD("inode", statInode)
-      METHOD("linkCount", statLinkCount)
-      METHOD("mode", statMode)
-      METHOD("size", statSize)
-      METHOD("specialDevice", statSpecialDevice)
-      METHOD("user", statUser)
-      METHOD("isDirectory", statIsDirectory)
-      METHOD("isFile", statIsFile)
-    END_CLASS
-    CLASS(Stdin)
-      STATIC_METHOD("isRaw", stdinIsRaw)
-      STATIC_METHOD("isRaw=(_)", stdinIsRawSet)
-      STATIC_METHOD("isTerminal", stdinIsTerminal)
-      STATIC_METHOD("readStart_()", stdinReadStart)
-      STATIC_METHOD("readStop_()", stdinReadStop)
-    END_CLASS
-    CLASS(Stdout)
-      STATIC_METHOD("flush()", stdoutFlush)
-    END_CLASS
-    CLASS(Stderr)
-      STATIC_METHOD("write(_)", stderrWrite)
-    END_CLASS
-  END_MODULE
-  MODULE(os)
-    CLASS(Platform)
-      STATIC_METHOD("homePath", platformHomePath)
-      STATIC_METHOD("isPosix", platformIsPosix)
-      STATIC_METHOD("name", platformName)
-    END_CLASS
-    CLASS(Process)
-      STATIC_METHOD("allArguments", processAllArguments)
-      STATIC_METHOD("chdir_(_)", processChdir)
-      STATIC_METHOD("cwd", processCwd)
-      STATIC_METHOD("pid", processPid)
-      STATIC_METHOD("ppid", processPpid)
-      STATIC_METHOD("version", processVersion)
-      STATIC_METHOD("exit_(_)", processExit)
-      STATIC_METHOD("exec_(_,_,_,_,_)", processExec)
-    END_CLASS
-  END_MODULE
-  MODULE(repl)
-  END_MODULE
-  MODULE(scheduler)
-    CLASS(Scheduler)
-      STATIC_METHOD("captureMethods_()", schedulerCaptureMethods)
-    END_CLASS
-  END_MODULE
-  MODULE(timer)
-    CLASS(Timer)
-      STATIC_METHOD("startTimer_(_,_)", timerStartTimer)
-    END_CLASS
-  END_MODULE
+static ModuleRegistry coreCLImodules[] = {
+MODULE(cli)
+  CLASS(StackTrace)
+  END_CLASS
+  CLASS(CLI)
+    STATIC_METHOD("setRootDirectory_(_)", cliSetRootDirectory)
+  END_CLASS
+END_MODULE
 
-  SENTINEL_MODULE
+MODULE(io)
+  CLASS(Directory)
+    STATIC_METHOD("create_(_,_)", directoryCreate)
+    STATIC_METHOD("delete_(_,_)", directoryDelete)
+    STATIC_METHOD("list_(_,_)", directoryList)
+  END_CLASS
+  CLASS(File)
+    ALLOCATE(fileAllocate)
+    FINALIZE(fileFinalize)
+    METHOD("descriptor", fileDescriptor)
+    STATIC_METHOD("delete_(_,_)", fileDelete)
+    STATIC_METHOD("open_(_,_,_)", fileOpen)
+    STATIC_METHOD("realPath_(_,_)", fileRealPath)
+    STATIC_METHOD("sizePath_(_,_)", fileSizePath)
+    METHOD("close_(_)", fileClose)
+    METHOD("readBytes_(_,_,_)", fileReadBytes)
+    METHOD("size_(_)", fileSize)
+    METHOD("stat_(_)", fileStat)
+    METHOD("writeBytes_(_,_,_)", fileWriteBytes)
+  END_CLASS
+  CLASS(FileFlags)
+  END_CLASS
+  CLASS(Stat)
+    ALLOCATE(statAllocate)
+    FINALIZE(statFinalize)
+    STATIC_METHOD("path_(_,_)", statPath)
+    METHOD("blockCount", statBlockCount)
+    METHOD("blockSize", statBlockSize)
+    METHOD("device", statDevice)
+    METHOD("group", statGroup)
+    METHOD("inode", statInode)
+    METHOD("linkCount", statLinkCount)
+    METHOD("mode", statMode)
+    METHOD("size", statSize)
+    METHOD("specialDevice", statSpecialDevice)
+    METHOD("user", statUser)
+    METHOD("isFile", statIsFile)
+    METHOD("isDirectory", statIsDirectory)
+  END_CLASS
+  CLASS(Stdin)
+    STATIC_METHOD("isRaw", stdinIsRaw)
+    STATIC_METHOD("isRaw=(_)", stdinIsRawSet)
+    STATIC_METHOD("isTerminal", stdinIsTerminal)
+    STATIC_METHOD("readStart_()", stdinReadStart)
+    STATIC_METHOD("readStop_()", stdinReadStop)
+  END_CLASS
+  CLASS(Stderr)
+    STATIC_METHOD("write(_)", stderrWrite)
+  END_CLASS
+  CLASS(Stdout)
+    STATIC_METHOD("flush()", stdoutFlush)
+  END_CLASS
+END_MODULE
+
+MODULE(os)
+  CLASS(Platform)
+    STATIC_METHOD("homePath", platformHomePath)
+    STATIC_METHOD("isPosix", platformIsPosix)
+    STATIC_METHOD("name", platformName)
+  END_CLASS
+  CLASS(Process)
+    STATIC_METHOD("exec_(_,_,_,_,_)", processExec)
+    STATIC_METHOD("allArguments", processAllArguments)
+    STATIC_METHOD("cwd", processCwd)
+    STATIC_METHOD("chdir_(_)", processChdir)
+    STATIC_METHOD("pid", processPid)
+    STATIC_METHOD("ppid", processPpid)
+    STATIC_METHOD("version", processVersion)
+    STATIC_METHOD("exit_(_)", processExit)
+  END_CLASS
+END_MODULE
+
+MODULE(repl)
+  CLASS(Repl)
+  END_CLASS
+  CLASS(SimpleRepl)
+  END_CLASS
+  CLASS(AnsiRepl)
+  END_CLASS
+  CLASS(Color)
+  END_CLASS
+  CLASS(Chars)
+  END_CLASS
+  CLASS(EscapeBracket)
+  END_CLASS
+  CLASS(Token)
+  END_CLASS
+  CLASS(Lexer)
+  END_CLASS
+END_MODULE
+
+MODULE(runtime)
+  CLASS(Capability)
+  END_CLASS
+  CLASS(Runtime)
+  END_CLASS
+END_MODULE
+
+MODULE(scheduler)
+  CLASS(Scheduler)
+    STATIC_METHOD("captureMethods_()", schedulerCaptureMethods)
+  END_CLASS
+END_MODULE
+
+MODULE(timer)
+  CLASS(Timer)
+    STATIC_METHOD("startTimer_(_,_)", timerStartTimer)
+  END_CLASS
+END_MODULE
+SENTINEL_MODULE
 };
 /* END AUTOGEN: core.cli.modules */
 
