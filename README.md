@@ -141,8 +141,18 @@ Wren Console includes the [Wren Essentials](https://github.com/joshgoebel/wren-e
 
 - `Time.now()` - number of milliseconds since Epoch
 - `Time.highResolution()` - high resolution time counter (for benchmarking, etc.)
-- `Strings.upcase(string)` - convert an ASCII string to uppercase
-- `Strings.lowercase(string)` - convert an ASCII string to lowercase
+- `Strings.upcase(s)` - convert an ASCII string to uppercase
+- `Strings.downcase(s)` - convert an ASCII string to lowercase
+- `Strings.titlecase(s)` - convert an ASCII string to "Title Case"
+- `Strings.capitalize(s)` - capitalize first letter of an ASCII string
+- `Strings.globMatch(s, pattern)` - glob match capabilities ported from TCL
+
+#### `json` module
+
+- `JSON.encode(data, [options])` - encode data into JSON string
+- `JSON.decode(json, [options])` - decode JSON string into data
+- `JSON.stringify(data)` - alias of `encode`
+- `JSON.parse(json)` - alias of `decode`
 
 ---
 
