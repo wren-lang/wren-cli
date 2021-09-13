@@ -71,6 +71,7 @@ files {
 
 includedirs {
   "../../deps/wren-essentials/src/",
+  "../../deps/wren-essentials/src/vendor"
 }
 
 

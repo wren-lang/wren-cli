@@ -27,7 +27,7 @@ endif
 ifeq ($(origin AR), default)
   AR = ar
 endif
-INCLUDES += -I../../src/cli -I../../src/module -I../../deps/wren-essentials/src -I../../deps/wren/include -I../../deps/wren/src/vm -I../../deps/wren/src/optional -I../../deps/libuv/include -I../../deps/libuv/src
+INCLUDES += -I../../src/cli -I../../src/module -I../../deps/wren-essentials/src -I../../deps/wren-essentials/src/vendor -I../../deps/wren/include -I../../deps/wren/src/vm -I../../deps/wren/src/optional -I../../deps/libuv/include -I../../deps/libuv/src
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -123,6 +123,7 @@ GENERATED += $(OBJDIR)/getnameinfo.o
 GENERATED += $(OBJDIR)/idna.o
 GENERATED += $(OBJDIR)/inet.o
 GENERATED += $(OBJDIR)/io.o
+GENERATED += $(OBJDIR)/json.o
 GENERATED += $(OBJDIR)/kqueue.o
 GENERATED += $(OBJDIR)/loop-watcher.o
 GENERATED += $(OBJDIR)/loop.o
@@ -131,6 +132,7 @@ GENERATED += $(OBJDIR)/mirror.o
 GENERATED += $(OBJDIR)/modules.o
 GENERATED += $(OBJDIR)/os.o
 GENERATED += $(OBJDIR)/path.o
+GENERATED += $(OBJDIR)/pdjson.o
 GENERATED += $(OBJDIR)/pipe.o
 GENERATED += $(OBJDIR)/poll.o
 GENERATED += $(OBJDIR)/process.o
@@ -143,7 +145,9 @@ GENERATED += $(OBJDIR)/resolver.o
 GENERATED += $(OBJDIR)/scheduler.o
 GENERATED += $(OBJDIR)/signal.o
 GENERATED += $(OBJDIR)/stream.o
+GENERATED += $(OBJDIR)/strings.o
 GENERATED += $(OBJDIR)/strscpy.o
+GENERATED += $(OBJDIR)/tclGlobMatch.o
 GENERATED += $(OBJDIR)/tcp.o
 GENERATED += $(OBJDIR)/thread.o
 GENERATED += $(OBJDIR)/threadpool.o
@@ -181,6 +185,7 @@ OBJECTS += $(OBJDIR)/getnameinfo.o
 OBJECTS += $(OBJDIR)/idna.o
 OBJECTS += $(OBJDIR)/inet.o
 OBJECTS += $(OBJDIR)/io.o
+OBJECTS += $(OBJDIR)/json.o
 OBJECTS += $(OBJDIR)/kqueue.o
 OBJECTS += $(OBJDIR)/loop-watcher.o
 OBJECTS += $(OBJDIR)/loop.o
@@ -189,6 +194,7 @@ OBJECTS += $(OBJDIR)/mirror.o
 OBJECTS += $(OBJDIR)/modules.o
 OBJECTS += $(OBJDIR)/os.o
 OBJECTS += $(OBJDIR)/path.o
+OBJECTS += $(OBJDIR)/pdjson.o
 OBJECTS += $(OBJDIR)/pipe.o
 OBJECTS += $(OBJDIR)/poll.o
 OBJECTS += $(OBJDIR)/process.o
@@ -201,7 +207,9 @@ OBJECTS += $(OBJDIR)/resolver.o
 OBJECTS += $(OBJDIR)/scheduler.o
 OBJECTS += $(OBJDIR)/signal.o
 OBJECTS += $(OBJDIR)/stream.o
+OBJECTS += $(OBJDIR)/strings.o
 OBJECTS += $(OBJDIR)/strscpy.o
+OBJECTS += $(OBJDIR)/tclGlobMatch.o
 OBJECTS += $(OBJDIR)/tcp.o
 OBJECTS += $(OBJDIR)/thread.o
 OBJECTS += $(OBJDIR)/threadpool.o
@@ -394,10 +402,22 @@ $(OBJDIR)/version.o: ../../deps/libuv/src/version.c
 $(OBJDIR)/essentials.o: ../../deps/wren-essentials/src/essentials.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/json.o: ../../deps/wren-essentials/src/modules/json.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/mirror.o: ../../deps/wren-essentials/src/modules/mirror.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/strings.o: ../../deps/wren-essentials/src/modules/strings.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/time.o: ../../deps/wren-essentials/src/modules/time.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/pdjson.o: ../../deps/wren-essentials/src/vendor/pdjson.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/tclGlobMatch.o: ../../deps/wren-essentials/src/vendor/tclGlobMatch.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/wren_opt_meta.o: ../../deps/wren/src/optional/wren_opt_meta.c

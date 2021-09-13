@@ -8,14 +8,14 @@
 // If you add a new method to the longest class below, make sure to bump this.
 // Note that it also includes an extra slot for the sentinel value indicating
 // the end of the list.
-#define MAX_METHODS_PER_CLASS 14
+#define MAX_METHODS_PER_CLASS 20
 
 // The maximum number of foreign classes a single built-in module defines.
 //
 // If you add a new class to the largest module below, make sure to bump this.
 // Note that it also includes an extra slot for the sentinel value indicating
 // the end of the list.
-#define MAX_CLASSES_PER_MODULE 10
+#define MAX_CLASSES_PER_MODULE 20
 
 #define MAX_MODULES_PER_LIBRARY 20
 #define MAX_LIBRARIES 20
