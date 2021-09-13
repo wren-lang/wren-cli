@@ -43,6 +43,9 @@
     <Filter Include="deps\wren-essentials\src\modules">
       <UniqueIdentifier>{C3FFB122-AF50-9D64-D8B4-8B26C46430CE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="deps\wren-essentials\src\vendor">
+      <UniqueIdentifier>{D80116FE-44E5-243E-4DE8-527AB94AEB8E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
@@ -147,11 +150,26 @@
     <ClInclude Include="..\..\deps\wren-essentials\src\essentials.h">
       <Filter>deps\wren-essentials\src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\deps\wren-essentials\src\modules\json.h">
+      <Filter>deps\wren-essentials\src\modules</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\deps\wren-essentials\src\modules\mirror.h">
+      <Filter>deps\wren-essentials\src\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren-essentials\src\modules\strings.h">
       <Filter>deps\wren-essentials\src\modules</Filter>
     </ClInclude>
     <ClInclude Include="..\..\deps\wren-essentials\src\modules\time.h">
       <Filter>deps\wren-essentials\src\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren-essentials\src\vendor\pdjson.h">
+      <Filter>deps\wren-essentials\src\vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren-essentials\src\vendor\tclGlobMatch.h">
+      <Filter>deps\wren-essentials\src\vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\wren-essentials\src\vendor\utf8.h">
+      <Filter>deps\wren-essentials\src\vendor</Filter>
     </ClInclude>
     <ClInclude Include="..\..\deps\wren\include\wren.h">
       <Filter>deps\wren\include</Filter>
@@ -196,6 +214,9 @@
       <Filter>src\cli</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\cli\cli.h">
+      <Filter>src\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cli\cli_common.h">
       <Filter>src\cli</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\cli\modules.h">
@@ -335,11 +356,23 @@
     <ClCompile Include="..\..\deps\wren-essentials\src\essentials.c">
       <Filter>deps\wren-essentials\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\deps\wren-essentials\src\modules\json.c">
+      <Filter>deps\wren-essentials\src\modules</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\deps\wren-essentials\src\modules\mirror.c">
+      <Filter>deps\wren-essentials\src\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren-essentials\src\modules\strings.c">
       <Filter>deps\wren-essentials\src\modules</Filter>
     </ClCompile>
     <ClCompile Include="..\..\deps\wren-essentials\src\modules\time.c">
       <Filter>deps\wren-essentials\src\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren-essentials\src\vendor\pdjson.c">
+      <Filter>deps\wren-essentials\src\vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\wren-essentials\src\vendor\tclGlobMatch.c">
+      <Filter>deps\wren-essentials\src\vendor</Filter>
     </ClCompile>
     <ClCompile Include="..\..\deps\wren\src\optional\wren_opt_meta.c">
       <Filter>deps\wren\src\optional</Filter>
