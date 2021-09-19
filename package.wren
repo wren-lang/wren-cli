@@ -7,7 +7,7 @@ class Package is WrenPackage {
   version { "0.2.90" }
   dependencies {
     return [
-      Dependency.new("wren-testie", "0.1.1", "https://github.com/joshgoebel/wren-testie.git"),
+      Dependency.new("wren-testie", "0.3.0", "https://github.com/joshgoebel/wren-testie.git"),
       Dependency.new("wren-assert", "HEAD", "https://github.com/RobLoach/wren-assert.git")
     ]
   }
