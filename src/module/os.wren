@@ -7,6 +7,7 @@ class Platform {
   foreign static name
 
   static isWindows { name == "Windows" }
+  static directorySeparator { isWindows ? "\\" : "/" }
 }
 
 class Process {

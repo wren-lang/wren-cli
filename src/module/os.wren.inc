@@ -11,6 +11,7 @@ static const char* osModuleSource =
 "  foreign static name\n"
 "\n"
 "  static isWindows { name == \"Windows\" }\n"
+"  static directorySeparator { isWindows ? \"\\\\\" : \"/\" }\n"
 "}\n"
 "\n"
 "class Process {\n"

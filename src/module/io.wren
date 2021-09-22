@@ -1,5 +1,6 @@
 import "scheduler" for Scheduler
 import "ensure" for Ensure
+import "os" for Platform
 
 class Directory {
   static create(path) {
@@ -101,6 +102,46 @@ foreign class File {
   static realPath(path) {
     Ensure.string(path, "path")
     return Scheduler.await_ { realPath_(path, Fiber.current) }
+  }
+
+  static dirname(path) {
+    var separator = Platform.directorySeparator
+    if (!path.contains(separator)) return "."
+
+    path = path.trimEnd(separator)
+    if (path == "") return separator
+    if (!path.contains(separator)) return "."
+
+    var i = lastIndexOf_(path, separator)
+    var dirname = path[0..i].trimEnd(separator)
+    return dirname == "" ? separator : dirname
+  }
+
+  static lastIndexOf_(string, char) {
+    var i = string.count - 1
+    while (i >= 0 && string[i] != char) i = i - 1
+    return i
+  }
+
+  static basename(path) {
+    var separator = Platform.directorySeparator
+    if (!path.contains(separator)) return path
+
+    path = path.trimEnd(separator)
+    if (path == "") return separator
+
+    var i = lastIndexOf_(path, separator)  // might be -1
+    return path[i+1..-1]
+  }
+
+  static basename(path, suffixes) {
+    var basename = basename(path)
+    for (suffix in suffixes) {
+      if (basename.endsWith(suffix)) {
+        return basename[0..(-1 - suffix.count)]
+      }
+    }
+    return basename
   }
 
   static size(path) {

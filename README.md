@@ -110,6 +110,9 @@ Dirt simple package management/dependencies for Wren Console projects.
 
 - `Stderr.write(s)` - Write a string to srderr
 - `Stderr.print(s)` - Write a string to stderr followed by a newline
+- `File.dirname(path)` - Strip last component from file name
+- `File.basename(path)` - Strip directory from filenames
+- `File.basename(path, suffixes)` - Strip directory and suffix from filenames
 
 ### `os` module
 
