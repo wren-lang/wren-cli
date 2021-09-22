@@ -1,4 +1,5 @@
 import "scheduler" for Scheduler
+import "ensure" for Ensure
 
 class Platform {
   foreign static homePath
@@ -48,13 +49,8 @@ class Process {
   }
 
   static chdir(dir) {
-    ensureString_(dir, "directory")
+    Ensure.string(dir, "directory")
     chdir_(dir)
-  }
-
-  // TODO: Copied from `io`. Figure out good way to share this.
-  static ensureString_(s, name) {
-    if (!(s is String)) Fiber.abort("%(name) must be a string.")
   }
 
   foreign static exec_(cmd, args, cwd, env, fiber)

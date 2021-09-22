@@ -118,6 +118,30 @@ Dirt simple package management/dependencies for Wren Console projects.
 - `Process.exit(code)` - Exit immediately with the specified exit status code. (https://github.com/wren-lang/wren-cli/pull/74)
 - `Process.chdir(dir)` - Change the working directory of the process
 
+### `ensure` module
+
+Argument validation...
+
+- `Ensure.map(v,name)` - value must be `Map`, or abort with `ArgumentError`
+- `Ensure.list(v,name)` - value must be `List`, or abort with `ArgumentError`
+- `Ensure.num(v,name)` - value must be `Num`, or abort with `ArgumentError`
+- `Ensure.string(v,name)` - value must be `String`, or abort with `ArgumentError`
+- `Ensure.bool(v,name)` - value must be `bool`, or abort with `ArgumentError`
+- `Ensure.int(v,name)` - value must be integer, or abort with `ArgumentError`
+- `Ensure.positiveNum(v,name)` - value must be positive number, or abort with `ArgumentError`
+- `Ensure.positiveInt(v,name)` - value must be positive integer, or abort with `ArgumentError`
+- `Ensure.fn(v, arity, name)` - value must be function with arity, or abort with `ArgumentError`
+- `Ensure.type(v, type, name)` - value must be of given type, or abort with `ArgumentError`
+
+Example:
+
+```js
+static sleep(milliseconds) {
+  Ensure.positiveNum(milliseconds, "milliseconds")
+  // ...
+}  
+```
+
 ### `runtime` module
 
 Retrieve details about the runtime environment.

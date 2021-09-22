@@ -3,6 +3,7 @@
 
 static const char* osModuleSource =
 "import \"scheduler\" for Scheduler\n"
+"import \"ensure\" for Ensure\n"
 "\n"
 "class Platform {\n"
 "  foreign static homePath\n"
@@ -52,13 +53,8 @@ static const char* osModuleSource =
 "  }\n"
 "\n"
 "  static chdir(dir) {\n"
-"    ensureString_(dir, \"directory\")\n"
+"    Ensure.string(dir, \"directory\")\n"
 "    chdir_(dir)\n"
-"  }\n"
-"\n"
-"  // TODO: Copied from `io`. Figure out good way to share this.\n"
-"  static ensureString_(s, name) {\n"
-"    if (!(s is String)) Fiber.abort(\"%(name) must be a string.\")\n"
 "  }\n"
 "\n"
 "  foreign static exec_(cmd, args, cwd, env, fiber)\n"

@@ -7,6 +7,7 @@
 #include "io.wren.inc"
 #include "os.wren.inc"
 #include "repl.wren.inc"
+#include "ensure.wren.inc"
 #include "scheduler.wren.inc"
 #include "runtime.wren.inc"
 #include "timer.wren.inc"
@@ -159,6 +160,8 @@ static ModuleRegistry coreCLImodules[] =
       STATIC_METHOD("exit_(_)", processExit)
       STATIC_METHOD("exec_(_,_,_,_,_)", processExec)
     END_CLASS
+  END_MODULE
+  MODULE(ensure)
   END_MODULE
   MODULE(repl)
   END_MODULE
