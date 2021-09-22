@@ -49,6 +49,7 @@ class Resolver {
     // System.print("importer: %(importer)  module: %(module)")
     if (PathType.resolve(module) == PathType.SIMPLE) return module
 
+    debug("dirname: %(Path.new(importer).dirname)")
     var path = Path.new(importer).dirname.join(module)
     debug("resolved: %(path.toString)")
     return path.toString
@@ -93,8 +94,11 @@ class Resolver {
       segment = "%(module)/%(module).wren"
     }
     var moduleDirectory = Path.new(root).join(segment).toString
-    debug(moduleDirectory)
-    if (File.existsSync(moduleDirectory)) return moduleDirectory
+    debug("trying: %(moduleDirectory)")
+    if (File.existsSync(moduleDirectory)) {
+      debug("found module: %(moduleDirectory)")
+      return moduleDirectory
+    }
   }
 
   // Attempts to find the source for [module] relative to the current root
@@ -104,7 +108,9 @@ class Resolver {
   // is the pattern C uses to attempt a built-in module load, ie:
   // returning `:os` will instruct C to use the internal `os` module.
   static loadModule(module, rootDir) {
+    debug("loadModule(%(module), %(rootDir)")
     var type = PathType.resolve(module)
+    debug(type)
     if (type == PathType.ABSOLUTE || type == PathType.RELATIVE) {
       var path = "%(module).wren"
       return path

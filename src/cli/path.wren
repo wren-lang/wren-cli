@@ -57,7 +57,10 @@ class Path {
       var last = finalPaths.count>0 ? finalPaths[-1] : null
       if (path == "..") {
         if (last == "/") continue
-        if (last == ".." || last == null) {
+
+        if (last == ".")  {
+          finalPaths[-1] = ".."
+        } else if (last == ".." || last == null) {
           finalPaths.add("%(path)")  
         } else {
           if (finalPaths.count > 0) finalPaths.removeAt(finalPaths.count - 1)

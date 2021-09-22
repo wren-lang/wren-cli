@@ -105,6 +105,9 @@ Testie.new("Path") { |it, skip|
     Assert.equal(Path.new("a/b/c").join("../d").toString, "a/b/d")
     Assert.equal(Path.new("a/b/c").join("../../d").toString, "a/d")
     Assert.equal(Path.new("a/b/c").join("../../../d").toString, "d")
+    Assert.equal(Path.new(".").join("../testie").toString, "../testie")
+    Assert.equal(Path.new(".").join("..").toString, "..")
+    Assert.equal(Path.new(".").join("../../..").toString, "../../..")
   }
   it.should("dirname") {
     Assert.equal(Path.new("/a/b/c").dirname.toString, "/a/b")
