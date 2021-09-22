@@ -1,25 +1,26 @@
 import "io" for File
 import "os" for Platform
 
-var tests = []
-tests.add({"given": "", "expect": "."}) // expect: true
-tests.add({"given": ".", "expect": "."}) // expect: true
-tests.add({"given": "..", "expect": "."}) // expect: true
-tests.add({"given": "file.txt", "expect": "."}) // expect: true
-tests.add({"given": "/", "expect": "/"}) // expect: true
-tests.add({"given": "/foo", "expect": "/"}) // expect: true
-tests.add({"given": "/foo/", "expect": "/"}) // expect: true
-tests.add({"given": "/foo/bar", "expect": "/foo"}) // expect: true
-tests.add({"given": "/foo/bar/", "expect": "/foo"}) // expect: true
-tests.add({"given": "/foo/bar/baz", "expect": "/foo/bar"}) // expect: true
-tests.add({"given": "dir1/dir2/file", "expect": "dir1/dir2"}) // expect: true
-tests.add({"given": "dir1/file", "expect": "dir1"}) // expect: true
-tests.add({"given": "dir1/", "expect": "."}) // expect: true
-tests.add({"given": "dir1///", "expect": "."}) // expect: true
-tests.add({"given": "/////////", "expect": "/"}) // expect: true
-tests.add({"given": "///foo", "expect": "/"}) // expect: true
-tests.add({"given": "///foo//", "expect": "/"}) // expect: true
-tests.add({"given": "///foo//bar", "expect": "///foo"}) // expect: true
+var tests = [
+  {"given": "", "expect": ".",}, // expect: true
+  {"given": ".", "expect": ".",}, // expect: true
+  {"given": "..", "expect": ".",}, // expect: true
+  {"given": "file.txt", "expect": ".",}, // expect: true
+  {"given": "/", "expect": "/",}, // expect: true
+  {"given": "/foo", "expect": "/",}, // expect: true
+  {"given": "/foo/", "expect": "/",}, // expect: true
+  {"given": "/foo/bar", "expect": "/foo",}, // expect: true
+  {"given": "/foo/bar/", "expect": "/foo",}, // expect: true
+  {"given": "/foo/bar/baz", "expect": "/foo/bar",}, // expect: true
+  {"given": "dir1/dir2/file", "expect": "dir1/dir2",}, // expect: true
+  {"given": "dir1/file", "expect": "dir1",}, // expect: true
+  {"given": "dir1/", "expect": ".",}, // expect: true
+  {"given": "dir1///", "expect": ".",}, // expect: true
+  {"given": "/////////", "expect": "/",}, // expect: true
+  {"given": "///foo", "expect": "/",}, // expect: true
+  {"given": "///foo//", "expect": "/",}, // expect: true
+  {"given": "///foo//bar", "expect": "///foo",} // expect: true
+]
 
 if (Platform.isWindows) {
   tests = tests.map {|t|
