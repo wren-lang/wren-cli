@@ -3,6 +3,7 @@ class Capability {
     _name = name
     _version = 0
   }
+  name { _name }
   ==(x) { x == _name }
   toString { _name }
 }
@@ -30,16 +31,21 @@ class Runtime {
       Fiber.abort("wren-console version %(desiredMinimalVersion) or higher required.")
     }
   }
+  static capabilities {
+    return [
+      Capability.new("essentials"),
+      Capability.new("json"),
+      Capability.new("ensure"),
+      Capability.new("mirror")
+    ]
+  }
+  static hasCapability(c) { capabilities.any { |item| item.name == c } }
   static details {
     return {
       "name": Runtime.NAME,
       "wrenVersion": Runtime.WREN_VERSION,
       "version": Runtime.VERSION,
-      "capabilities": [
-        Capability.new("essentials"),
-        Capability.new("json"),
-        Capability.new("mirror")
-      ]
+      "capabilities": capabilities
     }
   }
 }

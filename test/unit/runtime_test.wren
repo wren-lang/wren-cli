@@ -26,4 +26,10 @@ Testie.test("Runtime") { |it, skip|
     Expect.value(details.where { |x| x.name == "essentials"}).toBeDefined()
     Expect.value(details.where { |x| x.name == "json"}).toBeDefined()
   }
+  it.should("allow querying capabilities") {
+    Expect.value(Runtime.hasCapability("json")).toBe(true)
+    Expect.value(Runtime.hasCapability("ensure")).toBe(true)
+    // got milk?
+    Expect.value(Runtime.hasCapability("milk")).toBe(false)
+  }
 }

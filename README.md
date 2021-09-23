@@ -153,6 +153,8 @@ Retrieve details about the runtime environment.
 - `Runtime.VERSION` - The runtime version number
 - `Runtime.WREN_VERSION` - The Wren version the runtime is built against
 - `Runtime.details` - retrieve additional details about the runtime environment
+- `Runtime.capabilities` - list of supported capabilities
+- `Runtime.hasCapability(name)` - query if specific capability is supported by runtime
 
 ### `mirror` module
 
