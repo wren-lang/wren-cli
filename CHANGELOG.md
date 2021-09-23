@@ -1,7 +1,7 @@
 
 ## 0.3.0 (wip)
 
-Thanks to @clsource and @glennj for contributions!
+Thanks to [Camilo][] and [Glenn Jackman][] for their contributions!
 
 - (enh) add `Process.chdir` 
 - (fix) use absolute paths for module directory resolution
@@ -15,6 +15,9 @@ Thanks to @clsource and @glennj for contributions!
   - add `json` module for JSON encode/decode
   - additional `Strings` utility functions
   - `upcase`/`downcase` now support Unicode strings
+
+[Camilo]: https://github.com/clsource
+[Glenn Jackman]: https://github.com/glennj
 
 ## 0.2.91
 
