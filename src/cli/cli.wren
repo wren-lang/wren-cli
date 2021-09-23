@@ -46,7 +46,11 @@ class CLI {
     }
     Stdout.flush()
   }
-  static versionInfo { "wrenc v%(Runtime.VERSION) (wren v%(Runtime.WREN_VERSION))" }
+  static versionInfo { 
+    return "wrenc v%(Runtime.VERSION)" +
+    " / wren v%(Runtime.WREN_VERSION.trimEnd(".0"))" +
+    " / based on wren-cli@9c6b6933722"
+  }
   static showVersion() {
     System.print(versionInfo) 
   }
@@ -106,7 +110,7 @@ class CLI {
   }
   static repl() {
     System.print(""" -"\//""")
-    System.print("  \\_/    \n%(versionInfo) (based on wren-cli@9c6b6933722)") 
+    System.print("  \\_/    \n%(versionInfo)") 
     // " fix broken VS Code highlighting (not understaning escapes)
 
     Repl.start()

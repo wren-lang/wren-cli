@@ -1,3 +1,21 @@
+
+## 0.3.0 (wip)
+
+Thanks to @clsource and @glennj for contributions!
+
+- (enh) add `Process.chdir` 
+- (fix) use absolute paths for module directory resolution
+- (enh) add `Runtime.assertVersion`
+- (env) add `Ensure` module for argument validation (#13)
+  - `Ensure.string(_,_)`, `Ensure.num(_,_)`, etc.
+- (fix) Path normalize `./../` works corretly now (#14)
+- (enh) `File.dirname` and `File.basename` (#16)
+- (enh) add `Runtime.hasCapability` - better capability detection via 
+- (enh) Improvements from newer `wren-essentials`
+  - add `json` module for JSON encode/decode
+  - additional `Strings` utility functions
+  - `upcase`/`downcase` now support Unicode strings
+
 ## 0.2.91
 
 - (enh) much nicer errors if the resolver VM throw a runtime error
