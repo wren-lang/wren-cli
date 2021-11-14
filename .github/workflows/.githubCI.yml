@@ -48,7 +48,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
     - name: build
       working-directory: ./projects/vs2019/
-      run: msbuild ./wren_cli.vcxproj /property:Configuration=Release /property:Platform=64bit
+      run: msbuild ./wren_cli.sln /property:Configuration=Release /property:Platform=64bit
     - uses: actions/upload-artifact@v2
       with:
         name: windows-bin
