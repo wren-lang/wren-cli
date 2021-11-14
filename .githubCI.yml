@@ -1,0 +1,39 @@
+name: WrenCI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - name: build
+      run: ./travis.sh
+      shell: bash
+      working-directory: ./
+    - uses: actions/upload-artifact@v2
+      with:
+        name: linux-bin
+        path: bin/wren_cli
+  mac:
+    runs-on: macos-latest
+    env:
+      WREN_TARGET_MAC: 1
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - name: build
+      run: ./travis.sh
+      shell: bash
+      working-directory: ./
+    - uses: actions/upload-artifact@v2
+      with:
+        name: mac-bin
+        path: bin/wren_cli
