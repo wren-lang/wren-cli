@@ -14,7 +14,7 @@ jobs:
       with:
         fetch-depth: 1
     - name: build
-      run: ./travis.sh
+      run: ./.travis.sh
       shell: bash
       working-directory: ./
     - uses: actions/upload-artifact@v2
@@ -30,7 +30,7 @@ jobs:
       with:
         fetch-depth: 1
     - name: build
-      run: ./travis.sh
+      run: ./.travis.sh
       shell: bash
       working-directory: ./
     - uses: actions/upload-artifact@v2
