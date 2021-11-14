@@ -20,7 +20,7 @@ jobs:
       working-directory: ./
     - uses: actions/upload-artifact@v2
       with:
-        name: wren-linux-bin
+        name: wren-cli-linux-bin
         path: bin/wren_cli
   mac:
     runs-on: macos-latest
@@ -36,7 +36,7 @@ jobs:
       working-directory: ./
     - uses: actions/upload-artifact@v2
       with:
-        name: wren-mac-bin
+        name: wren-cli-mac-bin
         path: bin/wren_cli
   windows:
     runs-on: windows-latest
@@ -51,5 +51,5 @@ jobs:
       run: msbuild ./wren-cli.sln /property:Configuration=Release /property:Platform=64bit
     - uses: actions/upload-artifact@v2
       with:
-        name: wren-windows-bin
+        name: wren-cli-windows-bin
         path: bin/wren_cli.exe
