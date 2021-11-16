@@ -15,7 +15,7 @@ static const char* runtimeModuleSource =
 "class Runtime {\n"
 "  static NAME { \"wren-console\" }\n"
 "  static WREN_VERSION { \"0.4.0\" }\n"
-"  static VERSION { \"0.2.91\" }\n"
+"  static VERSION { \"0.3.0\" }\n"
 "  // allows simple numeric comparison of semantic version strings\n"
 "  // by turning them into large integers\n"
 "  static versionToNumber_(v) {\n"

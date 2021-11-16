@@ -11,7 +11,7 @@ class Capability {
 class Runtime {
   static NAME { "wren-console" }
   static WREN_VERSION { "0.4.0" }
-  static VERSION { "0.2.91" }
+  static VERSION { "0.3.0" }
   // allows simple numeric comparison of semantic version strings
   // by turning them into large integers
   static versionToNumber_(v) {
