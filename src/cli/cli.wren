@@ -47,9 +47,8 @@ class CLI {
     Stdout.flush()
   }
   static versionInfo { 
-    return "wrenc v%(Runtime.VERSION)" +
-    " / wren v%(Runtime.WREN_VERSION.trimEnd(".0"))" +
-    " / based on wren-cli@9c6b6933722"
+    return "wrenc v%(Runtime.VERSION.trimEnd(".0")) " +
+    "(with wren v%(Runtime.WREN_VERSION.trimEnd(".0")))"
   }
   static showVersion() {
     System.print(versionInfo) 
