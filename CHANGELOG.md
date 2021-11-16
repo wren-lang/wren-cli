@@ -1,8 +1,9 @@
 
-## 0.3.0 (wip)
+## 0.3.0
 
-Thanks to [Camilo][] and [Glenn Jackman][] for their contributions!
+Thanks to [Camilo][], [Glenn Jackman][], and [Bruce Axtens][] for their contributions!
 
+- (enh) ctrl-H / backspace handling (#19)
 - (enh) add `Process.chdir` 
 - (fix) use absolute paths for module directory resolution
 - (enh) add `Runtime.assertVersion`
@@ -18,6 +19,7 @@ Thanks to [Camilo][] and [Glenn Jackman][] for their contributions!
 
 [Camilo]: https://github.com/clsource
 [Glenn Jackman]: https://github.com/glennj
+[Bruce Axtens]: https://github.com/axtens
 
 ## 0.2.91
 
