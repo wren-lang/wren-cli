@@ -7,17 +7,17 @@ Testie.test("Runtime") { |it, skip|
   it.should("have class level constants") {
     Expect.value(Runtime.NAME).toEqual("wren-console")
     Expect.value(Runtime.WREN_VERSION).toEqual("0.4.0")
-    Expect.value(Runtime.VERSION).toEqual("0.2.91")
+    Expect.value(Runtime.VERSION).toEqual("0.3.0")
   }
   it.should("have details") {
     var details = Runtime.details
     Expect.value(details["name"]).toEqual("wren-console")
     Expect.value(details["wrenVersion"]).toEqual("0.4.0")
-    Expect.value(details["version"]).toEqual("0.2.91")
+    Expect.value(details["version"]).toEqual("0.3.0")
   }
   it.should("assertVersion") {
     Runtime.assertVersion("0.1.0")
-    Runtime.assertVersion("0.2.91")
+    Runtime.assertVersion("0.3.0")
     Expect.that { Runtime.assertVersion("12.0.0") }
       .toAbortWith("wren-console version 12.0.0 or higher required.")
   }
