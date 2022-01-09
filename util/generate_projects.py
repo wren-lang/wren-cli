@@ -26,12 +26,13 @@ if premake is None:
 else:
   print("Using premake from 'WREN_PREMAKE' env ...")
 
-def run_premake(action, os):
-  run([premake, action, "--os=" + os], cwd=PREMAKE_DIR)
+def run_premake(action, os, *opt):
+  run([premake, action, "--os=" + os, *opt], cwd=PREMAKE_DIR)
 
 try:
 
-  run_premake("gmake2", "bsd")
+  run_premake("gmake2", "bsd", "--bsd=free")
+  run_premake("gmake2", "bsd", "--bsd=net")
   run_premake("gmake2", "linux")
   run_premake("vs2017", "windows")
   run_premake("vs2019", "windows")
