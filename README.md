@@ -65,7 +65,7 @@ i.e if on linux, `premake vs2019 --os=windows` is valid.
 If you want to generate a project for supported *BSD systems, please
 make sure to further specify either `--bsd=free` or `--bsd=net` option,
 for FreeBSD or NetBSD respectively. For example, to generate a project
-for NetBSD, you would use `<premake_binary> gmake2 --bsd=netbsd`.
+for NetBSD, you would use `<premake_binary> gmake2 --bsd=net`.
 
 ---
 
