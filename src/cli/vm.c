@@ -241,7 +241,7 @@ static WrenForeignClassMethods bindForeignClass(
   return methods;
 }
 
-static void write(WrenVM* vm, const char* text)
+static void doWrite(WrenVM* vm, const char* text)
 {
   printf("%s", text);
 }
@@ -274,7 +274,7 @@ static void initVM()
   config.bindForeignClassFn = bindForeignClass;
   config.resolveModuleFn = resolveModule;
   config.loadModuleFn = loadModule;
-  config.writeFn = write;
+  config.writeFn = doWrite;
   config.errorFn = reportError;
 
   // Since we're running in a standalone process, be generous with memory.
