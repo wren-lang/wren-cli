@@ -146,7 +146,16 @@ static const char* resolveModule(WrenVM* vm, const char* importer,
   if (pathType(module) == PATH_TYPE_SIMPLE) return module;
   
   // Get the directory containing the importing module.
-  Path* path = pathNew(importer);
+  Path* path;
+  if (strcmp(importer, "repl") == 0)
+  {
+    path = pathNew(rootDirectory);
+    pathAppendChar(path, '/');
+  }
+  else
+  {
+    path = pathNew(importer);
+  }
   pathDirName(path);
   
   // Add the relative import path.
@@ -359,8 +368,15 @@ WrenInterpretResult runFile(const char* path)
 
 WrenInterpretResult runRepl()
 {
-  // This cast is safe since we don't try to free the string later.
-  rootDirectory = (char*)".";
+  char buffer[PATH_MAX * 4];
+  size_t length = sizeof(buffer);
+  if (uv_cwd(buffer, &length) != 0)
+  {
+    fprintf(stderr, "Could not get current working directory.\n");
+    exit(70); // EX_SOFTWARE.
+  }
+  rootDirectory = buffer;
+
   initVM();
 
   printf("\\\\/\"-\n");
