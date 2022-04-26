@@ -19,4 +19,5 @@ static const char* osModuleSource =
 "  foreign static pid\n"
 "  foreign static ppid\n"
 "  foreign static version\n"
+"  foreign static exit(code)\n"
 "}\n";
