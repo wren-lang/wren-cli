@@ -28,6 +28,7 @@ extern void platformHomePath(WrenVM* vm);
 extern void platformIsPosix(WrenVM* vm);
 extern void platformName(WrenVM* vm);
 extern void processAllArguments(WrenVM* vm);
+extern void processChdir(WrenVM* vm);
 extern void processCwd(WrenVM* vm);
 extern void processPid(WrenVM* vm);
 extern void processPpid(WrenVM* vm);
@@ -176,6 +177,7 @@ static ModuleRegistry modules[] =
     END_CLASS
     CLASS(Process)
       STATIC_METHOD("allArguments", processAllArguments)
+      STATIC_METHOD("chdir_(_)", processChdir)
       STATIC_METHOD("cwd", processCwd)
       STATIC_METHOD("pid", processPid)
       STATIC_METHOD("ppid", processPpid)
