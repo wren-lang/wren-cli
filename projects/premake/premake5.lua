@@ -51,7 +51,7 @@ workspace "wren-cli"
       
   filter { "system:bsd", "options:bsd=net" }
     location ("../gmake.netbsd")
-
+    
   filter { "action:gmake2", "system:macosx" }
     location ("../make.mac")
 
@@ -67,12 +67,14 @@ project "wren_cli"
     "../../src/**.inc",
   }
 
+
   includedirs {
     "../../src/cli",
     "../../src/module",
   }
 
-  -- wren dependency
+-- wren dependency
+
   files {
     "../../deps/wren/include/**.h",
     "../../deps/wren/src/**.c",
@@ -85,7 +87,8 @@ project "wren_cli"
     "../../deps/wren/src/optional"
   }
 
-  -- libuv dependency
+-- libuv dependency
+
   includedirs {
     "../../deps/libuv/include",
     "../../deps/libuv/src"
