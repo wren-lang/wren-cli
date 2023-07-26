@@ -161,6 +161,7 @@ void pathRemoveExtension(Path* path)
     {
       path->length = i;
       path->chars[path->length] = '\0';
+      return;
     }
   }
 }
