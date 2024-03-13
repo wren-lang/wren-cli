@@ -2,6 +2,13 @@
 #include "uv.h"
 #include "wren.h"
 
+#if __unix__
+  #include <unistd.h>
+#endif
+#if defined(_POSIX_VERSION)
+  #include <sys/utsname.h>
+#endif
+
 #if __APPLE__
   #include "TargetConditionals.h"
 #endif
@@ -58,10 +65,12 @@ void platformName(WrenVM* vm)
     #endif
   #elif __linux__
     wrenSetSlotString(vm, 0, "Linux");
-  #elif __unix__
-    wrenSetSlotString(vm, 0, "Unix");
   #elif defined(_POSIX_VERSION)
-    wrenSetSlotString(vm, 0, "POSIX");
+    struct utsname uts;
+    if (uname(&uts) == 0)
+      wrenSetSlotString(vm, 0, uts.sysname);
+    else
+      wrenSetSlotString(vm, 0, "POSIX");
   #else
     wrenSetSlotString(vm, 0, "Unknown");
   #endif
