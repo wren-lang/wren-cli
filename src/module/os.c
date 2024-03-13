@@ -86,8 +86,6 @@ void platformIsPosix(WrenVM* vm)
     wrenSetSlotBool(vm, 0, true);
   #elif __linux__
     wrenSetSlotBool(vm, 0, true);
-  #elif __unix__
-    wrenSetSlotBool(vm, 0, true);
   #elif defined(_POSIX_VERSION)
     wrenSetSlotBool(vm, 0, true);
   #else
